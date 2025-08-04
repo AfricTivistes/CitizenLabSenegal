@@ -11,7 +11,7 @@ metadata:
   title:
     default: Africtivistes CitizenLab Sénégal
     template: '%s — AfricTivistes'
-  description: "AfricTivistes CitizenLab Sénégal 🇸🇳 est une fabrique citoyenne dont le but est d'appuyer, d'accompagner et d'outiller les acteurs de la société civile sénégalaise par la formation, le développement d'outils et l'accompagnem
+  description: "AfricTivistes CitizenLab Sénégal 🇸🇳 est une fabrique citoyenne dont le but est d'appuyer, d'accompagner et d'outiller les acteurs de la société civile sénégalaise par la formation, le développement d'outils et l'accompagnement à l'innovation et à la co-création."
   robots:
     index: true
     follow: true
@@ -97,7 +97,7 @@ ui:
         bgPage: rgb(3 6 32)
         primary: rgb(29 78 216)
         secondary: rgb(30 58 138)
-        accent: rgb(135 77 2267)
+        accent: rgb(135 77 226)
         info: rgb(58 191 248)
         success: rgb(54 211 153)
         warning: rgb(251 189 35)
