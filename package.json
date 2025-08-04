@@ -1,8 +1,7 @@
 {
-  "name": "citizenlab-madagascar",
-  "type": "module",
-  "description": "CitizenLab Madagascar - Plateforme de participation citoyenne",
-  "version": "0.0.1",
+  "name": "citizenlab-senegal",
+  "version": "1.0.0",
+  "description": "CitizenLab Sénégal - Plateforme de participation citoyenne",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

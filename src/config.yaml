@@ -1,6 +1,6 @@
 site:
-  name: AfricTivistes CitizenLab Madagascar
-  site: 'https://citizenlabmadagascar.netlify.app'
+  name: AfricTivistes CitizenLab Sénégal
+  site: 'https://citizenlabsenegal.netlify.app'
   base: '/'
   trailingSlash: false
 
@@ -9,14 +9,14 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: Africtivistes CitizenLab Madagascar
+    default: Africtivistes CitizenLab Sénégal
     template: '%s — AfricTivistes'
-  description: "AfricTivistes CitizenLab Madagascar 🇲🇬 est une fabrique citoyenne dont le but est d’appuyer, d’accompagner et d’outiller les acteurs de la société civile malgache par la formation, le développement d’outils et l’accompagnement à l’innovation et à la co-création."
+  description: "AfricTivistes CitizenLab Sénégal 🇸🇳 est une fabrique citoyenne dont le but est d'appuyer, d'accompagner et d'outiller les acteurs de la société civile sénégalaise par la formation, le développement d'outils et l'accompagnem
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: Africtivistes CitizenLab Madagascar
+    site_name: Africtivistes CitizenLab Sénégal
     images:
       - url: '~/assets/images/default.png'
         width: 1200
