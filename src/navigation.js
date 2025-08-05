@@ -18,10 +18,22 @@ export const headerData = {
     {
       text: 'Actualités',
       href: getBlogPermalink(),
-    },
-    {
-      text: 'Campagnes',
-      href: getPermalink('campagnes', 'category'),
+      links: [
+
+        {
+          text: 'Campagnes',
+          href: getPermalink('campagnes', 'category'),
+        },
+        {
+          text: 'Podcasts',
+          href: getPermalink('podcast', 'category'),
+        },
+        {
+          text: 'Vidéos',
+          href: getPermalink('videos', 'category'),
+        },
+
+      ],
     },
     {
       text: 'Blog',
@@ -35,6 +47,7 @@ export const headerData = {
       text: 'Contact',
       href: getPermalink('/contact'),
     },
+    
   ],
 };
 
@@ -64,7 +77,7 @@ export const footerData = {
       title: "Nous Contacter",
       links:[
         { text: "citizenlabsenegal@africtivistes.org", href:'mailto:citizenlabsenegal@africtivistes.org ' },
-        { text: "+221 37 646 16 64", href: 'tel:+221376461664'},
+        { text: "+221 77 777 77 77", href: 'tel:+221777777777'},
         {text: " Dakar, Sénégal ", href: '#'}
       ]
     }

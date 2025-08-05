@@ -101,8 +101,5 @@ export default defineConfig({
         },
       },
     },
-    define: {
-      'import.meta.env.PUBLIC_WORDPRESS_API_URL': JSON.stringify('https://citizenlab.africtivistes.org/senegal/graphql'),
-    },
   },
 });
