@@ -18,22 +18,10 @@ export const headerData = {
     {
       text: 'Actualités',
       href: getBlogPermalink(),
-      links: [
-
-        {
-          text: 'Campagnes',
-          href: getPermalink('campagnes', 'category'),
-        },
-        {
-          text: 'Podcasts',
-          href: getPermalink('podcast', 'category'),
-        },
-        {
-          text: 'Vidéos',
-          href: getPermalink('videos', 'category'),
-        },
-
-      ],
+    },
+    {
+      text: 'Campagnes',
+      href: getPermalink('campagnes', 'category'),
     },
     {
       text: 'Blog',
@@ -47,7 +35,6 @@ export const headerData = {
       text: 'Contact',
       href: getPermalink('/contact'),
     },
-    
   ],
 };
 

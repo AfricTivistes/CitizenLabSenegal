@@ -7,6 +7,7 @@ import Button from "~/components/ui/Button.astro"
 import { getHomePermalink, trimSlash } from "~/utils/permalinks";
 import type { CallToAction } from "~/types";
 import { navQuery } from "~/utils/api";
+import { headerData } from "~/navigation.js";
 import Search from '~/components/Search.astro';
 
 interface Link {
@@ -46,7 +47,14 @@ const {
 
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`
 
-const data = (await navQuery()) || [];
+// Try to get menu from WordPress API, fallback to local navigation
+let data = [];
+try {
+  data = (await navQuery()) || [];
+} catch (error) {
+  console.log('Using local navigation as fallback');
+  data = headerData.links || [];
+}
 ---
 
 <header
@@ -81,9 +89,12 @@ const data = (await navQuery()) || [];
         class="flex flex-col md:flex-row md:self-center w-full md:w-auto text-xl md:text-[0.9375rem] tracking-[0.01rem] font-medium"
       >
         {
-          Array.isArray(data) && data.map(({ text, href, childItems = { nodes: [] } }) => (
-            <li class={childItems.nodes?.length ? "dropdown" : ""}>
-              {Array.isArray(childItems.nodes) && childItems.nodes.length ? (
+          Array.isArray(data) && data.map(({ text, href, childItems = { nodes: [] }, links }) => {
+            // Handle both WordPress format (childItems) and local format (links)
+            const subItems = childItems?.nodes || links || [];
+            return (
+            <li class={subItems.length ? "dropdown" : ""}>
+              {subItems.length ? (
                 <>
                 <a href={href} >
                   <button class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center">
@@ -91,7 +102,7 @@ const data = (await navQuery()) || [];
                   </button>
                   </a>
                   <ul class="dropdown-menu md:backdrop-blur-md dark:md:bg-dark rounded md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl">
-                    {childItems.nodes.map(({ text: text2 = '', href: href2 = '' }) => (
+                    {subItems.map(({ text: text2 = '', href: href2 = '' }) => (
                       <li>
                         <a
                           class:list={[
@@ -118,7 +129,7 @@ const data = (await navQuery()) || [];
                 </a>
               )}
             </li>
-          ))
+          )})
         }
       </ul>
     </nav>
