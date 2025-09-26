@@ -13,7 +13,16 @@ const uri = `/${Astro.params.uri}/`;
 const data = await getNodeByURI(uri);
 const node = data.nodeByUri;
 export async function getStaticPaths() {
-    return await getAllUris();
+    const uris = await getAllUris();
+    
+    // Exclure les routes statiques qui ont leurs propres fichiers
+    const staticRoutes = ['equipe', 'contact', 'about', 'services', 'pricing'];
+    const filteredUris = uris.filter(uri => {
+        const routeName = uri.params.uri;
+        return !staticRoutes.includes(routeName);
+    });
+    
+    return filteredUris;
 }
 function resolveOgType(node) {
     let type;
