@@ -1,19 +1,20 @@
-# 🚀 AstroWind
+# 🇸🇳 CitizenLab Sénégal
 
 <img src="https://raw.githubusercontent.com/onwidget/.github/main/resources/astrowind/lighthouse-score.png" align="right"
-     alt="AstroWind Lighthouse Score" width="100" height="358">
+     alt="CitizenLab Sénégal Lighthouse Score" width="100" height="358">
 
-🌟 _Most *starred* & *forked* Astro theme in 2022_. 🌟
+🌟 _Plateforme de participation citoyenne pour le Sénégal_. 🌟
 
-**AstroWind** is a free and open-source template to make your website using **[Astro 3.0](https://astro.build/) + [Tailwind CSS](https://tailwindcss.com/)**. Ready to start a new project and designed taking into account web best practices.
+**CitizenLab Sénégal** est une fabrique citoyenne développée avec **[Astro 4.0](https://astro.build/) + [Tailwind CSS](https://tailwindcss.com/)**. Le projet vise à appuyer, accompagner et outiller les acteurs de la société civile sénégalaise par la formation, le développement d'outils et l'accompagnement à l'innovation et à la co-création.
 
 - ✅ **Production-ready** scores in **PageSpeed Insights** reports.
 - ✅ Integration with **Tailwind CSS** supporting **Dark mode** and **_RTL_**.
-- ✅ **Fast and SEO friendly blog** with automatic **RSS feed**, **MDX** support, **Categories & Tags**, **Social Share**, ...
+- ✅ **Communication WordPress** via GraphQL API pour récupérer les données de l'équipe.
+- ✅ **Page équipe dynamique** avec affichage des membres depuis WordPress.
 - ✅ **Image Optimization** (using new **Astro Assets** and **Unpic** for Universal image CDN).
 - ✅ Generation of **project sitemap** based on your routes.
 - ✅ **Open Graph tags** for social media sharing.
-- ✅ **Analytics** built-in Google Analytics, and Splitbee integration.
+- ✅ **Déploiement automatique** sur Netlify avec configuration optimisée.
 
 <br>
 

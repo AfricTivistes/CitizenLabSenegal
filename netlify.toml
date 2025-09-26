@@ -5,11 +5,30 @@
 [build.environment]
   NODE_VERSION = "18.19.0"
   NPM_FLAGS = "--prefer-offline --no-audit"
-  PUBLIC_WORDPRESS_API_URL = "https://citizenlab.africtivistes.org/cameroun/graphql"
+  PUBLIC_WORDPRESS_API_URL = "https://citizenlab.africtivistes.org/senegal/graphql"
+  SITE_URL = "https://citizenlabsenegal.netlify.app"
+  SITE_NAME = "AfricTivistes CitizenLab Sénégal"
 
 [build.processing]
   skip_processing = false
 
+# Redirections pour les pages statiques
+[[redirects]]
+  from = "/equipe/"
+  to = "/equipe"
+  status = 301
+
+[[redirects]]
+  from = "/contact/"
+  to = "/contact"
+  status = 301
+
+[[redirects]]
+  from = "/about/"
+  to = "/about"
+  status = 301
+
+# Redirection générale pour SPA
 [[redirects]]
   from = "/*"
   to = "/index.html"
