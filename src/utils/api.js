@@ -336,8 +336,6 @@ export async function newsPagePostsQuery() {
 export async function getAllMembers() {
   const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/senegal/graphql';
   
-  console.log('Using API URL:', apiUrl);
-  
   if (!apiUrl) {
     console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning empty array');
     return [];

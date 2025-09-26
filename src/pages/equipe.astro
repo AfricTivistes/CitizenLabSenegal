@@ -10,11 +10,7 @@ const metadata = {
   title: 'Equipe',
 };
 
-// Debug: Vérifier la variable d'environnement
-console.log('PUBLIC_WORDPRESS_API_URL:', import.meta.env.PUBLIC_WORDPRESS_API_URL);
-
 const members = await getAllMembers();
-console.log('Members fetched:', members.length, members);
 ---
 
 <Layout metadata={metadata}>
@@ -26,13 +22,6 @@ console.log('Members fetched:', members.length, members);
     </Headline>
 
     <!-- Membres ****************** -->
-    
-    <!-- Debug: Affichage direct des données -->
-    <div class="bg-yellow-100 p-4 mb-4">
-      <h3>Debug - Membres récupérés: {members.length}</h3>
-      <p>URL API: {import.meta.env.PUBLIC_WORDPRESS_API_URL || 'Non définie'}</p>
-      <pre>{JSON.stringify(members, null, 2)}</pre>
-    </div>
 
     <Membres team={members}/>
 
