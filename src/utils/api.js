@@ -222,45 +222,98 @@ export async function findLatestPostsAPI() {
     console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning empty array');
     return [];
   }
-  
-  const response = await fetch(apiUrl, {
-    method: 'post',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      query: `{
-                  posts(first: 8) {
-                    nodes {
-                      date
-                      permalink: uri
-                      title
-                      categories {
-                        nodes {
-                          name
-                          permalink: uri
+
+  try {
+    // Créer un AbortController pour gérer le timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 secondes de timeout
+
+    const response = await fetch(apiUrl, {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: `{
+                    posts(first: 8) {
+                      nodes {
+                        date
+                        permalink: uri
+                        title
+                        categories {
+                          nodes {
+                            name
+                            permalink: uri
+                          }
                         }
-                      }
-                      terms {
-                        nodes {
-                          name
-                          slug
+                        terms {
+                          nodes {
+                            name
+                            slug
+                          }
                         }
-                      }
-                      commentCount
-                      excerpt
-                      featuredImage {
-                        node {
-                          mediaItemUrl
-                          altText
+                        commentCount
+                        excerpt
+                        featuredImage {
+                          node {
+                            mediaItemUrl
+                            altText
+                          }
                         }
                       }
                     }
                   }
-                }
-              `
-    })
-  });
-  const { data } = await response.json();
-  return data.posts.nodes;
+                `
+      }),
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const { data } = await response.json();
+    return data?.posts?.nodes || [];
+  } catch (error) {
+    console.error('Error fetching latest posts:', error.message);
+    // Retourner des données de démonstration en cas d'erreur
+    return [
+      {
+        date: new Date().toISOString(),
+        permalink: '/blog/actualites-citizenlab',
+        title: 'Actualités CitizenLab Sénégal',
+        excerpt: 'Découvrez les dernières actualités et activités de CitizenLab Sénégal...',
+        featuredImage: {
+          node: {
+            mediaItemUrl: '/assets/images/formation1.jpg',
+            altText: 'Formation CitizenLab'
+          }
+        },
+        categories: {
+          nodes: [
+            { name: 'Actualités', permalink: '/category/actualites' }
+          ]
+        }
+      },
+      {
+        date: new Date(Date.now() - 86400000).toISOString(),
+        permalink: '/blog/participation-citoyenne',
+        title: 'La Participation Citoyenne au Sénégal',
+        excerpt: 'Comment encourager et développer la participation citoyenne dans notre pays...',
+        featuredImage: {
+          node: {
+            mediaItemUrl: '/assets/images/hero.png',
+            altText: 'Participation citoyenne'
+          }
+        },
+        categories: {
+          nodes: [
+            { name: 'Démocratie', permalink: '/category/democratie' }
+          ]
+        }
+      }
+    ];
+  }
 }
 export async function newsPagePostsQuery() {
   const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
@@ -269,68 +322,104 @@ export async function newsPagePostsQuery() {
     console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning empty array');
     return [];
   }
-  
-  let allPosts = [];
-  let afterCursor = null;
-  let hasNextPage = true;
 
-  while (hasNextPage) {
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query: `
-          query Posts( $after: String) {
-            posts(first: 50, after: $after) {
-              pageInfo {
-                hasNextPage
-                endCursor
-              }
-              nodes {
-                date
-                permalink: uri
-                title
-                commentCount
-                excerpt
-                categories {
-                  nodes {
-                    name
-                    permalink: uri
-                  }
+  try {
+    let allPosts = [];
+    let afterCursor = null;
+    let hasNextPage = true;
+
+    while (hasNextPage) {
+      // Créer un AbortController pour gérer le timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 secondes de timeout
+
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: `
+            query Posts( $after: String) {
+              posts(first: 50, after: $after) {
+                pageInfo {
+                  hasNextPage
+                  endCursor
                 }
-                terms {
-                  nodes {
-                    name
-                    slug
-                    permalink: uri
+                nodes {
+                  date
+                  permalink: uri
+                  title
+                  commentCount
+                  excerpt
+                  categories {
+                    nodes {
+                      name
+                      permalink: uri
+                    }
                   }
-                }
-                featuredImage {
-                  node {
-                    mediaItemUrl
-                    altText
+                  terms {
+                    nodes {
+                      name
+                      slug
+                      permalink: uri
+                    }
+                  }
+                  featuredImage {
+                    node {
+                      mediaItemUrl
+                      altText
+                    }
                   }
                 }
               }
             }
-          }
-        `,
-        variables: { after: afterCursor }
-      })
-    });
+          `,
+          variables: { after: afterCursor }
+        }),
+        signal: controller.signal
+      });
 
-    const { data } = await response.json();
-    const postsData = data?.posts;
+      clearTimeout(timeoutId);
 
-    if (postsData) {
-      allPosts = [...allPosts, ...postsData.nodes]; // Ajouter les nouveaux posts à la liste
-      hasNextPage = postsData.pageInfo.hasNextPage;
-      afterCursor = postsData.pageInfo.endCursor;
-    } else {
-      hasNextPage = false; // Arrêter en cas d'erreur
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const { data } = await response.json();
+      const postsData = data?.posts;
+
+      if (postsData) {
+        allPosts = [...allPosts, ...postsData.nodes]; // Ajouter les nouveaux posts à la liste
+        hasNextPage = postsData.pageInfo.hasNextPage;
+        afterCursor = postsData.pageInfo.endCursor;
+      } else {
+        hasNextPage = false; // Arrêter en cas d'erreur
+      }
     }
+
+    return allPosts;
+  } catch (error) {
+    console.error('Error fetching news posts:', error.message);
+    // Retourner des données de démonstration en cas d'erreur
+    return [
+      {
+        date: new Date().toISOString(),
+        permalink: '/blog/actualites-citizenlab',
+        title: 'Actualités CitizenLab Sénégal',
+        excerpt: 'Découvrez les dernières actualités et activités de CitizenLab Sénégal...',
+        featuredImage: {
+          node: {
+            mediaItemUrl: '/assets/images/formation1.jpg',
+            altText: 'Formation CitizenLab'
+          }
+        },
+        categories: {
+          nodes: [
+            { name: 'Actualités', permalink: '/category/actualites' }
+          ]
+        }
+      }
+    ];
   }
-  return allPosts;
 }
 
 export async function getAllMembers() {
