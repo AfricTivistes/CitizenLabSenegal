@@ -3,7 +3,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": [
+        "src/*"
+      ]
     },
     "strict": true,
     "noUnusedLocals": true,
@@ -12,7 +14,7 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "jsx": "preserve",
-    "jsxImportSource": "astro"
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
   }
 }
