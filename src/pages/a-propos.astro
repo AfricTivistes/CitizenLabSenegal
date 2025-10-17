@@ -1,0 +1,464 @@
+---
+import Layout from "~/layouts/PageLayout.astro";
+import { Image } from "astro:assets";
+import LogoSenegal from "~/assets/images/logo_lg.png";
+import Value from "~/assets/images/value.jpg";
+import First from "~/assets/images/first.jpg";
+import TeamWork from "~/assets/images/teamwork.jpg";
+import { IoIosArrowForward } from "react-icons/io";
+import { FaRegLightbulb, FaGlobe } from "react-icons/fa";
+import { GiTeacher } from "react-icons/gi";
+import { CiMap } from "react-icons/ci";
+import { BsStars } from "react-icons/bs";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { IoMdCheckmark } from "react-icons/io";
+import { HiOutlineOfficeBuilding } from "react-icons/hi";
+import Banner from "~/components/widgets/Banner.astro";
+
+const metadata = {
+  title: "A propos",
+  description:
+    "En savoir plus sur CitizenLab Sénégal, notre mission, notre équipe et nos valeurs.",
+};
+
+const values = [
+  {
+    title: "Inclusion",
+    description: "Accès équitable au numérique pour tous",
+    color: "from-purple-500 to-pink-500",
+  },
+  {
+    title: "Transparence",
+    description: "Clarté et ouverture dans toutes nos actions",
+    color: "from-blue-500 to-cyan-500",
+  },
+  {
+    title: "Collaboration",
+    description: "Travail en partenariat avec divers acteurs",
+    color: "from-green-500 to-emerald-500",
+  },
+  {
+    title: "Innovation",
+    description: "Créativité et adoption de nouvelles technologies",
+    color: "from-orange-500 to-red-500",
+  },
+  {
+    title: "Engagement citoyen",
+    description: "Participation active dans la gouvernance",
+    color: "from-indigo-500 to-purple-500",
+  },
+];
+
+const axes = [
+  {
+    title: "Formation et sensibilisation",
+    subtitle: "au numérique",
+    gradient: "from-amber-400 via-orange-500 to-red-500",
+    number: "01",
+    icon: GiTeacher,
+  },
+  {
+    title: "Innovation, Digitalisation",
+    subtitle: "et Transparence",
+    gradient: "from-cyan-400 via-blue-500 to-indigo-600",
+    number: "02",
+    icon: FaRegLightbulb,
+  },
+  {
+    title: "Infrastructures, Accessibilité",
+    subtitle: "& Adoption",
+    gradient: "from-green-400 via-emerald-500 to-teal-600",
+    number: "03",
+    icon: FaGlobe,
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <!-- Banner -->
+  <Banner
+    title="À Propos de Nous"
+    subtitle="Découvrez notre mission, notre équipe et nos valeurs."
+  >
+    <Image
+      src={TeamWork}
+      alt="À Propos de Nous"
+      class="w-full h-full object-cover absolute inset-0 border-0 z-0 scale-110 transition-transform duration-700"
+    />
+  </Banner>
+
+  <!-- Qui sommes-nous - Card moderne -->
+  <div class="max-w-7xl mx-auto px-4 py-20">
+    <div class="relative bg-white rounded-3xl shadow-2xl overflow-hidden">
+      <div
+        class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/2"
+      >
+      </div>
+
+      <div class="relative grid md:grid-cols-2 gap-12 p-12 md:p-16">
+        <div class="space-y-6">
+          <div
+            class="inline-flex items-center gap-3 px-4 py-2 bg-green-100 rounded-full"
+          >
+            <HiOutlineOfficeBuilding className="w-5 h-5 text-green-800" />
+            <span class="text-green-800 font-semibold text-sm"
+              >QUI NOUS SOMMES</span
+            >
+          </div>
+
+          <h2
+            class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight"
+          >
+            CitizenLab Sénégal
+          </h2>
+
+          <div class="space-y-4 text-gray-600 leading-relaxed text-lg">
+            <p>
+              Une initiative portée par <span
+                class="font-semibold text-green-600">AfricTivistes</span
+              >, dédiée à la promotion de la citoyenneté numérique, de la
+              transparence et de la participation citoyenne.
+            </p>
+            <p>
+              Né de la volonté d'accompagner la transformation digitale du
+              Sénégal, le programme vise à faire du numérique un levier de
+              gouvernance démocratique et d'inclusion sociale.
+            </p>
+            <p>
+              En collaborant avec les gouvernements locaux, les organisations de
+              la société civile et les citoyens, nous aspirons à créer un
+              environnement où chaque voix compte.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start justify-center">
+          <Image src={LogoSenegal} alt="Logo CitizenLab Sénégal" class="w-48 h-48 md:w-80 md:h-80 object-contain" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notre Mission - Design asymétrique -->
+  <div class="bg-gradient-to-r from-yellow-50 to-orange-50 py-20">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid md:grid-cols-5 gap-8 items-center">
+        <div class="md:col-span-3 space-y-6">
+          <div
+            class="inline-flex items-center gap-3 px-4 py-2 bg-yellow-200 rounded-full"
+          >
+            <FaRegCircleCheck className="w-5 h-5 text-yellow-800" />
+            <span class="text-yellow-900 font-semibold text-sm"
+              >NOTRE MISSION</span
+            >
+          </div>
+
+          <h2 class="md:text-5xl text-4xl font-black text-gray-900">
+            Transformer par le <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-orange-600"
+              >numérique</span
+            >
+          </h2>
+
+          <div class="space-y-4">
+            <div
+              class="flex gap-4 items-center group hover:translate-x-2 transition-transform duration-300"
+            >
+              <div
+                class="mt-1 p-2 bg-yellow-200 rounded-lg group-hover:bg-yellow-300 transition-colors"
+              >
+                <IoMdCheckmark
+                  className="w-5 h-5 text-yellow-800"/>
+              </div>
+              <p class="text-gray-700 text-lg">
+                Renforcer les capacités des jeunes, des femmes et des acteurs de
+                la société civile
+              </p>
+            </div>
+
+            <div
+              class="flex gap-4 items-center group hover:translate-x-2 transition-transform duration-300"
+            >
+              <div
+                class="mt-1 p-2 bg-yellow-200 rounded-lg group-hover:bg-yellow-300 transition-colors"
+              >
+                <IoMdCheckmark
+                  className="w-5 h-5 text-yellow-800"/>
+              </div>
+              <p class="text-gray-700 text-lg">
+                Utiliser le numérique comme outil d'engagement citoyen et de
+                redevabilité
+              </p>
+            </div>
+
+            <div
+              class="flex gap-4 items-center group hover:translate-x-2 transition-transform duration-300"
+            >
+              <div
+                class="mt-1 p-2 bg-yellow-200 rounded-lg group-hover:bg-yellow-300 transition-colors"
+              >
+                <IoMdCheckmark
+                  className="w-5 h-5 text-yellow-800"/>
+              </div>
+              <p class="text-gray-700 text-lg">
+                Favoriser la co-création de solutions Civic Tech innovantes
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-span-2">
+          <Image
+            src={First}
+            alt="Notre Mission"
+            class="w-full rounded-3xl shadow-2xl hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nos Valeurs -->
+  <div class="relative py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50"></div>
+    
+    <!-- Formes décoratives -->
+    <div class="absolute top-20 left-10 w-64 h-64 bg-blue-200/30 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4">
+      <div class="text-center mb-20">
+        <div class="inline-flex items-center gap-3 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full mb-6 shadow-lg">
+          <BsStars className="w-5 h-5 text-blue-800" />
+          <span class="text-blue-800 font-semibold text-sm">NOS VALEURS</span>
+        </div>
+        <h2 class="text-4xl md:text-5xl font-black text-center text-gray-900 mb-4">
+          Ce qui nous <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">anime</span>
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto text-center">
+          Nos principes fondamentaux guident chacune de nos actions
+        </p>
+      </div>
+
+      <!-- Layout circulaire / Bento style -->
+      <div class="relative">
+        <Image
+          src={Value}
+          alt="Nos Valeurs"
+          class="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full object-cover shadow-2xl border-8 border-white z-10 hidden lg:block"
+        />
+        
+        <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+          <!-- Inclusion -->
+          <div class="group">
+            <div class="relative p-8 hover:translate-x-2 transition-all duration-300">
+              <div class="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-purple-500 to-pink-500 rounded-full transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></div>
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300 shadow-lg">
+                  <span class="text-2xl font-black text-white">01</span>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">Inclusion</h3>
+                  <p class="text-gray-600">Accès équitable au numérique pour tous</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Transparence -->
+          <div class="group md:text-right">
+            <div class="relative p-8 hover:-translate-x-2 transition-all duration-300">
+              <div class="absolute -right-4 top-0 w-1 h-full bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></div>
+              <div class="flex items-start gap-4 md:flex-row-reverse">
+                <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center transform group-hover:-rotate-12 transition-transform duration-300 shadow-lg">
+                  <span class="text-2xl font-black text-white">02</span>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">Transparence</h3>
+                  <p class="text-gray-600">Clarté et ouverture dans toutes nos actions</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Collaboration -->
+          <div class="group">
+            <div class="relative p-8 hover:translate-x-2 transition-all duration-300">
+              <div class="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-green-500 to-emerald-500 rounded-full transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></div>
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300 shadow-lg">
+                  <span class="text-2xl font-black text-white">03</span>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">Collaboration</h3>
+                  <p class="text-gray-600">Travail en partenariat avec divers acteurs</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Innovation -->
+          <div class="group md:text-right">
+            <div class="relative p-8 hover:-translate-x-2 transition-all duration-300">
+              <div class="absolute -right-4 top-0 w-1 h-full bg-gradient-to-b from-orange-500 to-red-500 rounded-full transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></div>
+              <div class="flex items-start gap-4 md:flex-row-reverse">
+                <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center transform group-hover:-rotate-12 transition-transform duration-300 shadow-lg">
+                  <span class="text-2xl font-black text-white">04</span>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">Innovation</h3>
+                  <p class="text-gray-600">Créativité et adoption de nouvelles technologies</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Engagement citoyen - Centré en bas -->
+        <div class="mt-8 flex justify-center">
+          <div class="group max-w-2xl">
+            <div class="relative p-8 hover:scale-105 transition-all duration-300">
+              <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl opacity-10 group-hover:opacity-20 transition-opacity"></div>
+              <div class="relative flex gap-4 text-center flex-col items-center">
+                <div class="flex-shrink-0 w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-3xl flex items-center justify-center transform group-hover:rotate-6 transition-transform duration-300 shadow-xl">
+                  <span class="text-3xl font-black text-white">05</span>
+                </div>
+                <div class="text-center">
+                  <h3 class="text-3xl text-center font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">Engagement citoyen</h3>
+                  <p class="text-gray-600 text-center text-lg">Participation active des citoyens dans la gouvernance</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Axes d'intervention - Cards modernes -->
+  <div class="bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 py-20">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <div
+          class="inline-flex items-center gap-3 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-6"
+        >
+          <CiMap className="w-5 h-5 text-white" />
+          <span class="text-white font-semibold text-sm">NOS AXES</span>
+        </div>
+        <h2 class="text-5xl font-black text-white mb-4">
+          Nos axes d'intervention
+        </h2>
+        <p class="text-gray-400 text-lg max-w-2xl text-center mx-auto">
+          Trois piliers stratégiques pour transformer le Sénégal
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {
+          axes.map((axe) => (
+            <div class="group relative">
+              <div class="relative bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300 h-full">
+                <div
+                  class={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${axe.gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-t-full`}
+                />
+
+                <div class="space-y-6">
+                  <div class="flex items-center justify-between">
+                    <div
+                      class={`w-16 h-16 rounded-2xl bg-gradient-to-br ${axe.gradient} flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300`}
+                    >
+                      <axe.icon className="w-8 h-8 text-white" />
+                    </div>
+                    <span class="text-6xl font-black text-white/10 group-hover:text-white/20 transition-colors">
+                      {axe.number}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 class="text-2xl font-bold text-white mb-2">
+                      {axe.title}
+                    </h3>
+                    <p class="text-gray-400 text-lg">{axe.subtitle}</p>
+                  </div>
+
+                  <div class="pt-4">
+                    <a class="inline-flex cursor-pointer items-center gap-2 text-white/60 group-hover:text-white transition-colors">
+                      <span class="text-sm font-semibold">En savoir plus</span>
+                      <IoIosArrowForward className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Final - Design moderne -->
+  <div class="max-w-7xl mx-auto px-4 py-20">
+    <div class="relative overflow-hidden rounded-3xl">
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600"
+      >
+      </div>
+      <div class="absolute inset-0 opacity-30">
+        <div
+          class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-pulse"
+        >
+        </div>
+        <div
+          class="absolute bottom-0 right-0 w-96 h-96 bg-yellow-300 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 animate-pulse"
+        >
+        </div>
+      </div>
+
+      <div class="relative z-10 px-8 py-20 text-center">
+        <div>
+          <h2 class="text-3xl md:text-5xl font-black text-white mb-6">
+            Rejoignez le mouvement
+          </h2>
+          <p class="text-xl text-green-100 text-center max-w-2xl mx-auto mb-10">
+            Ensemble, construisons un Sénégal numérique inclusif, transparent et
+            participatif
+          </p>
+          <a
+            href="/contact"
+            class="group inline-flex items-center gap-3 px-8 py-4 bg-white text-green-700 font-bold rounded-full hover:bg-gray-50 transition-all duration-300 transform hover:scale-105 shadow-2xl"
+          >
+            <span>Nous Contacter</span>
+            <svg
+              class="w-5 h-5 transform group-hover:translate-x-2 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes pulse {
+      0%,
+      100% {
+        opacity: 0.3;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .animate-pulse {
+      animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style></Layout
+>
