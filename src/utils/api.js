@@ -1,138 +1,177 @@
 export async function navQuery() {
-  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
-  console.log('Fetching menu from:', apiUrl);
-  
-  if (!apiUrl) {
-    console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning empty menu');
-    return [];
-  }
-  
-  const response = await fetch(apiUrl, {
-    method: 'post',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      query: `{
-              menuItems(where: {location: HEADER_MENU}) {
-                nodes {
-                  text: label
-                  parentId
-                  href: uri
-                  childItems {
-                    nodes {
-                      text: label
-                      href: uri
+  try {
+    const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/senegal/graphql';
+    console.log('Fetching menu from:', apiUrl);
+    
+    // Créer un AbortController pour gérer le timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 secondes de timeout
+    
+    const response = await fetch(apiUrl, {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: `{
+                menuItems(where: {location: HEADER_MENU}) {
+                  nodes {
+                    text: label
+                    parentId
+                    href: uri
+                    childItems {
+                      nodes {
+                        text: label
+                        href: uri
+                      }
                     }
                   }
                 }
               }
-            }
-            `
-    })
-  });
-  const json = await response.json();
-  console.log('API Response:', json);
-  const { data } = json;
-  console.log('Menu Data:', data);
-  if (!data || !data.menuItems || !Array.isArray(data.menuItems.nodes)) {
-    console.error('Menu data is missing or malformed:', data);
-    return [];
+              `
+      }),
+      signal: controller.signal
+    });
+    
+    clearTimeout(timeoutId);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const json = await response.json();
+    console.log('API Response:', json);
+    const { data } = json;
+    console.log('Menu Data:', data);
+    
+    if (!data || !data.menuItems || !Array.isArray(data.menuItems.nodes)) {
+      console.error('Menu data is missing or malformed:', data);
+      return getDefaultMenu();
+    }
+    
+    const menuItems = data.menuItems.nodes.filter(node => node.parentId === null);
+    console.log('Filtered Menu Items:', menuItems);
+    return menuItems;
+  } catch (error) {
+    console.error('Error fetching menu:', error.message);
+    return getDefaultMenu();
   }
-  const menuItems = data.menuItems.nodes.filter(node => node.parentId === null);
-  console.log('Filtered Menu Items:', menuItems);
-  return menuItems;
+}
+
+// Menu par défaut en cas d'erreur
+function getDefaultMenu() {
+  return [
+    {
+      text: 'Accueil',
+      parentId: null,
+      href: '/',
+      childItems: { nodes: [] }
+    },
+    {
+      text: 'FAQ',
+      parentId: null,
+      href: '/faq',
+      childItems: { nodes: [] }
+    },
+    {
+      text: 'Contact',
+      parentId: null,
+      href: '/contact',
+      childItems: { nodes: [] }
+    }
+  ];
 }
 
 export async function getNodeByURI(uri) {
-  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
-  
-  if (!apiUrl) {
-    console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning null');
-    return null;
-  }
-  
-  const response = await fetch(apiUrl, {
-    method: 'post',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      query: `query GetNodeByURI($uri: String!) {
-                  nodeByUri(uri: $uri) {
-                    __typename
-                    isContentNode
-                    isTermNode
-                    ... on Post {
-                      id
-                      title
-                      date
-                      permalink: uri
-                      excerpt
-                      content
-                      categories {
-                        nodes {
-                          name
-                          permalink: uri
-                          slug
-                        }
-                      }
-                      terms {
-                        nodes {
-                          name
-                          slug
-                          permalink:uri
-                        }
-                      }
-                      featuredImage {
-                        node {
-                          srcSet
-                          sourceUrl
-                          altText
-                          mediaDetails {
-                            height
-                            width
+  try {
+    const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/senegal/graphql';
+    
+    // Créer un AbortController pour gérer le timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 secondes de timeout
+    
+    const response = await fetch(apiUrl, {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: `query GetNodeByURI($uri: String!) {
+                    nodeByUri(uri: $uri) {
+                      __typename
+                      isContentNode
+                      isTermNode
+                      ... on Post {
+                        id
+                        title
+                        date
+                        permalink: uri
+                        excerpt
+                        content
+                        categories {
+                          nodes {
+                            name
+                            permalink: uri
+                            slug
                           }
                         }
-                      }
-                    }
-                    ... on Page {
-                      id
-                      title
-                      permalink: uri
-                      date
-                      content
-                      featuredImage {
-                        node {
-                          srcSet
-                          sourceUrl
-                          altText
-                          mediaDetails {
-                            height
-                            width
+                        terms {
+                          nodes {
+                            name
+                            slug
+                            permalink:uri
                           }
                         }
-                      }
-                    }
-                    ... on Category {
-                      id
-                      name
-                      posts {
-                        nodes {
-                          date
-                          title
-                          excerpt
-                          permalink: uri
-                          categories {
-                            nodes {
-                              name
-                              permalink: uri
+                        featuredImage {
+                          node {
+                            srcSet
+                            sourceUrl
+                            altText
+                            mediaDetails {
+                              height
+                              width
                             }
                           }
-                          featuredImage {
-                            node {
-                              srcSet
-                              sourceUrl
-                              altText
-                              mediaDetails {
-                                height
-                                width
+                        }
+                      }
+                      ... on Page {
+                        id
+                        title
+                        permalink: uri
+                        date
+                        content
+                        featuredImage {
+                          node {
+                            srcSet
+                            sourceUrl
+                            altText
+                            mediaDetails {
+                              height
+                              width
+                            }
+                          }
+                        }
+                      }
+                      ... on Category {
+                        id
+                        name
+                        posts {
+                          nodes {
+                            date
+                            title
+                            excerpt
+                            permalink: uri
+                            categories {
+                              nodes {
+                                name
+                                permalink: uri
+                              }
+                            }
+                            featuredImage {
+                              node {
+                                srcSet
+                                sourceUrl
+                                altText
+                                mediaDetails {
+                                  height
+                                  width
+                                }
                               }
                             }
                           }
@@ -140,88 +179,132 @@ export async function getNodeByURI(uri) {
                       }
                     }
                   }
-                }
-              `,
-      variables: {
-        uri: uri
-      }
-    })
-  });
-  const { data } = await response.json();
-  return data;
+                `,
+        variables: {
+          uri: uri
+        }
+      }),
+      signal: controller.signal
+    });
+    
+    clearTimeout(timeoutId);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const { data } = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error fetching node by URI ${uri}:`, error.message);
+    return null;
+  }
 }
 export async function getAllUris() {
-  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
-  
-  if (!apiUrl) {
-    console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning empty array');
-    return [];
-  }
-  
-  let allUris = [];
-  let afterCursor = null;
-  let hasNextPage = true;
+  try {
+    const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/senegal/graphql';
+    
+    let allUris = [];
+    let afterCursor = null;
+    let hasNextPage = true;
+    let maxAttempts = 3; // Nombre maximum de tentatives
+    let attempt = 0;
 
-  while (hasNextPage) {
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query: `query GetAllUris($after: String) {
-          posts(first: 50, after: $after) {
-            pageInfo {
-              hasNextPage
-              endCursor
-            }
-            nodes {
-              uri
-            }
-          }
-          pages {
-            nodes {
-              uri
-            }
-          }
-        }`,
-        variables: { after: afterCursor }
-      })
-    });
-
-    const { data } = await response.json();
-    const postsData = data?.posts;
-    const pagesData = data?.pages?.nodes || [];
-
-    if (postsData) {
-      allUris = [...allUris, ...postsData.nodes, ...pagesData];
-      hasNextPage = postsData.pageInfo.hasNextPage;
-      afterCursor = postsData.pageInfo.endCursor;
-    } else {
-      hasNextPage = false;
-    }
-  }
-
-  // Nettoyage des URI
-  return allUris
-    .filter(node => node.uri !== null)
-    .map(node => {
-      let trimmedURI = node.uri.substring(1);
-      trimmedURI = trimmedURI.substring(0, trimmedURI.length - 1);
-      return {
-        params: {
-          uri: decodeURI(trimmedURI)
+    while (hasNextPage && attempt < maxAttempts) {
+      try {
+        // Créer un AbortController pour gérer le timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 secondes de timeout
+        
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: `query GetAllUris($after: String) {
+              posts(first: 50, after: $after) {
+                pageInfo {
+                  hasNextPage
+                  endCursor
+                }
+                nodes {
+                  uri
+                }
+              }
+              pages {
+                nodes {
+                  uri
+                }
+              }
+            }`,
+            variables: { after: afterCursor }
+          }),
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-      };
-    });
+
+        const { data } = await response.json();
+        const postsData = data?.posts;
+        const pagesData = data?.pages?.nodes || [];
+
+        if (postsData) {
+          allUris = [...allUris, ...postsData.nodes, ...pagesData];
+          hasNextPage = postsData.pageInfo.hasNextPage;
+          afterCursor = postsData.pageInfo.endCursor;
+        } else {
+          hasNextPage = false;
+        }
+        
+        // Réinitialiser le compteur de tentatives en cas de succès
+        attempt = 0;
+      } catch (error) {
+        console.error(`Error fetching URIs (attempt ${attempt + 1}/${maxAttempts}):`, error.message);
+        attempt++;
+        
+        // Attendre avant de réessayer
+        if (attempt < maxAttempts) {
+          await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+        }
+      }
+    }
+
+    // Si nous avons des URIs, les nettoyer et les retourner
+    if (allUris.length > 0) {
+      return allUris
+        .filter(node => node.uri !== null)
+        .map(node => {
+          let trimmedURI = node.uri.substring(1);
+          trimmedURI = trimmedURI.substring(0, trimmedURI.length - 1);
+          return {
+            params: {
+              uri: decodeURI(trimmedURI)
+            }
+          };
+        });
+    }
+    
+    // Retourner un tableau par défaut si aucune URI n'est trouvée
+    return [
+      { params: { uri: 'faq' } },
+      { params: { uri: 'contact' } }
+    ];
+  } catch (error) {
+    console.error('Error in getAllUris:', error.message);
+    // Retourner un tableau par défaut en cas d'erreur
+    return [
+      { params: { uri: 'faq' } },
+      { params: { uri: 'contact' } }
+    ];
+  }
 }
 
 
 export async function findLatestPostsAPI() {
-  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
-  
-  if (!apiUrl) {
-    console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning empty array');
-    return [];
-  }
+  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/senegal/graphql';
 
   try {
     // Créer un AbortController pour gérer le timeout
@@ -316,12 +399,7 @@ export async function findLatestPostsAPI() {
   }
 }
 export async function newsPagePostsQuery() {
-  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
-  
-  if (!apiUrl) {
-    console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning empty array');
-    return [];
-  }
+  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/senegal/graphql';
 
   try {
     let allPosts = [];
