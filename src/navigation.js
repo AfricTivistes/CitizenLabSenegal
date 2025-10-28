@@ -3,7 +3,11 @@ import { getPermalink, getBlogPermalink } from '~/utils/permalinks';
 export const headerData = {
   links: [
     {
-      text: 'CitizenLab',
+      text: 'Accueil',
+      href: getPermalink('/'),
+    },
+    {
+      text: 'Qui nous sommes',
       links: [
         {
           text: 'A Propos',
@@ -12,6 +16,21 @@ export const headerData = {
         {
           text: 'Equipe',
           href: getPermalink('/equipe'),
+        },
+        {
+          text: 'FAQ',
+          href: getPermalink('/faq'),
+        },
+
+
+      ],
+    },
+    {
+      text: 'CitizenLab',
+      links: [
+        {
+          text: 'Partenaires',
+          href: getPermalink('/partenaires'),
         },
       ],
     },
@@ -47,7 +66,7 @@ export const headerData = {
       text: 'Contact',
       href: getPermalink('/contact'),
     },
-    
+
   ],
 };
 

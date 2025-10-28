@@ -3,6 +3,7 @@ import { Icon } from 'astro-icon/components';
 import type { Brands } from '~/types';
 import Headline from '~/components/ui/Headline.astro';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+
 const {
   title = '',
   subtitle = '',
@@ -19,20 +20,167 @@ const {
 <WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-6xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
   <Headline title={title} subtitle={subtitle} tagline={tagline} />
 
-  <div class="flex flex-wrap justify-center gap-x-6 sm:gap-x-12 lg:gap-x-24">
-    {icons && icons.map((icon) => <Icon name={icon} class="py-3 lg:py-5 w-12 h-auto mx-auto sm:mx-0 text-gray-500" />)}
-    {
-      images &&
-        images.map(
-          (image) =>
-            image.src && (
-              <div class="flex justify-center col-span-1 my-2 lg:my-4 py-1 px-3 rounded-md dark:bg-gray-200">
-              <a href={image.href} target="_blank">
-                <img src={image.src} alt={image.alt || ''} class="max-h-12" />
-              </a>
+  <!-- Slider Container -->
+  <div class="relative w-full max-w-4xl mx-auto">
+    <!-- Main slider with partners -->
+    <div class="overflow-hidden rounded-lg shadow-lg">
+      <div id="partners-slider" class="flex transition-transform duration-500 ease-in-out">
+        {images && images.map((image, index) => (
+          image.src && (
+            <div class="w-full flex-shrink-0 bg-white dark:bg-slate-800 p-8 text-center">
+              <div class="flex flex-col items-center justify-center h-64">
+                <a href={image.href} target="_blank" class="mb-4 transition-transform hover:scale-105">
+                  <img src={image.src} alt={image.alt || ''} class="max-h-16 mx-auto object-contain" />
+                </a>
+                {image.description && (
+                  <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed max-w-md">
+                    {image.description}
+                  </p>
+                )}
               </div>
-            )
-        )
-    }
+            </div>
+          )
+        ))}
+      </div>
+    </div>
+
+    <!-- Navigation dots -->
+    <div class="flex justify-center mt-6 space-x-2">
+      {images && images.map((_, index) => (
+        <button
+          class={`partners-dot w-3 h-3 rounded-full transition-colors duration-200 ${index === 0 ? 'bg-primary' : 'bg-gray-300 dark:bg-gray-600'}`}
+          data-slide={index}
+          aria-label={`Aller au partenaire ${index + 1}`}
+        ></button>
+      ))}
+    </div>
+
+    <!-- Navigation arrows -->
+    <button
+      id="prev-partner"
+      class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600 text-gray-800 dark:text-white p-2 rounded-full shadow-lg transition-colors duration-200"
+      aria-label="Partenaire précédent"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg>
+    </button>
+
+    <button
+      id="next-partner"
+      class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600 text-gray-800 dark:text-white p-2 rounded-full shadow-lg transition-colors duration-200"
+      aria-label="Partenaire suivant"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    </button>
   </div>
+
+  <!-- Auto-slide script -->
+  <script>
+    class PartnersSlider {
+      constructor() {
+        this.currentSlide = 0;
+        this.slides = document.querySelectorAll('#partners-slider > div');
+        this.dots = document.querySelectorAll('.partners-dot');
+        this.prevBtn = document.getElementById('prev-partner');
+        this.nextBtn = document.getElementById('next-partner');
+        this.autoSlideInterval = null;
+
+        this.init();
+      }
+
+      init() {
+        if (this.slides.length <= 1) return;
+
+        // Add event listeners
+        this.prevBtn?.addEventListener('click', () => this.prevSlide());
+        this.nextBtn?.addEventListener('click', () => this.nextSlide());
+
+        this.dots.forEach((dot, index) => {
+          dot.addEventListener('click', () => this.goToSlide(index));
+        });
+
+        // Auto-slide every 4 seconds
+        this.startAutoSlide();
+
+        // Pause auto-slide on hover
+        const sliderContainer = document.querySelector('.relative.w-full');
+        sliderContainer?.addEventListener('mouseenter', () => this.stopAutoSlide());
+        sliderContainer?.addEventListener('mouseleave', () => this.startAutoSlide());
+      }
+
+      goToSlide(slideIndex) {
+        if (slideIndex < 0 || slideIndex >= this.slides.length) return;
+
+        this.currentSlide = slideIndex;
+        this.updateSlider();
+
+        // Restart auto-slide
+        this.restartAutoSlide();
+      }
+
+      nextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+        this.updateSlider();
+        this.restartAutoSlide();
+      }
+
+      prevSlide() {
+        this.currentSlide = this.currentSlide === 0 ? this.slides.length - 1 : this.currentSlide - 1;
+        this.updateSlider();
+        this.restartAutoSlide();
+      }
+
+      updateSlider() {
+        const slider = document.getElementById('partners-slider');
+        if (slider) {
+          slider.style.transform = `translateX(-${this.currentSlide * 100}%)`;
+        }
+
+        // Update dots
+        this.dots.forEach((dot, index) => {
+          if (index === this.currentSlide) {
+            dot.classList.remove('bg-gray-300', 'dark:bg-gray-600');
+            dot.classList.add('bg-primary');
+          } else {
+            dot.classList.remove('bg-primary');
+            dot.classList.add('bg-gray-300', 'dark:bg-gray-600');
+          }
+        });
+      }
+
+      startAutoSlide() {
+        this.stopAutoSlide();
+        this.autoSlideInterval = setInterval(() => {
+          this.nextSlide();
+        }, 4000);
+      }
+
+      stopAutoSlide() {
+        if (this.autoSlideInterval) {
+          clearInterval(this.autoSlideInterval);
+          this.autoSlideInterval = null;
+        }
+      }
+
+      restartAutoSlide() {
+        this.stopAutoSlide();
+        setTimeout(() => {
+          this.startAutoSlide();
+        }, 1000);
+      }
+    }
+
+    // Initialize slider when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      new PartnersSlider();
+    });
+
+    // Also initialize for Astro's hydration
+    document.addEventListener('astro:page-load', () => {
+      new PartnersSlider();
+    });
+  </script>
 </WidgetWrapper>

@@ -7,7 +7,7 @@ import Button from "~/components/ui/Button.astro"
 import { getHomePermalink, trimSlash } from "~/utils/permalinks";
 import type { CallToAction } from "~/types";
 import { navQuery } from "~/utils/api";
-import Search from '~/components/Search.astro';
+
 
 interface Link {
   text?: string;
@@ -141,7 +141,7 @@ const data = (await navQuery()) || [];
             </span>
           )
         }
-        <Search />
+
       </div>
     </div>
   </div>
