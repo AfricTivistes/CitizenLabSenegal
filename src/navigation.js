@@ -9,7 +9,7 @@ export const headerData = {
         { text: "A propos", href: getPermalink("/a-propos") },
         { text: "Équipe", href: getPermalink("/equipe") },
         { text: "Partenaires", href: "#" },
-        { text: "FAQ", href: "#" },
+        { text: "FAQ", href: getPermalink("/faq") },
       ],
     },
     {
