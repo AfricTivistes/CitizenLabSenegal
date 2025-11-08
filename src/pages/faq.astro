@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import { Image } from 'astro:assets';
+import baniereImage from '../assets/images/baniere.png';
 
 const metadata = {
   title: "Questions Fréquentes - AfricTivistes CitizenLab Sénégal",
@@ -76,7 +77,7 @@ const questionsPartenariats = [
     <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60 z-10"></div>
     <div class="absolute inset-0">
       <Image 
-        src="/src/assets/images/baniere.png" 
+        src={baniereImage}
         alt="CitizenLab Sénégal FAQ" 
         width={1920} 
         height={800} 
