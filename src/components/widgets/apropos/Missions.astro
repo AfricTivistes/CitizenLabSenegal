@@ -1,0 +1,62 @@
+---
+import { Image } from "astro:assets";
+import First from "~/assets/images/first.jpg";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { IoMdCheckmark } from "react-icons/io";
+
+const missionPoints = [
+  "Renforcer les capacités des jeunes, des femmes et des acteurs de la société civile",
+  "Utiliser le numérique comme outil d'engagement citoyen et de redevabilité",
+  "Favoriser la co-création de solutions Civic Tech innovantes",
+];
+---
+
+<!-- Notre Mission - Design asymétrique -->
+<div class="bg-gradient-to-r from-yellow-50 to-orange-50 py-20">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid md:grid-cols-5 gap-8 items-center">
+      <div class="md:col-span-3 space-y-6">
+        <div
+          class="inline-flex items-center gap-3 px-4 py-2 bg-yellow-200 rounded-full"
+        >
+          <FaRegCircleCheck className="w-5 h-5 text-yellow-800" />
+          <span class="text-yellow-900 font-semibold text-sm"
+            >NOTRE MISSION</span
+          >
+        </div>
+
+        <h2 class="md:text-5xl text-4xl font-black text-gray-900">
+          Transformer par le <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-orange-600"
+            >numérique</span
+          >
+        </h2>
+
+        <div class="space-y-4">
+          {missionPoints.map((point) => (
+            <div
+              class="flex gap-4 items-center group hover:translate-x-2 transition-transform duration-300"
+            >
+              <div
+                class="mt-1 p-2 bg-yellow-200 rounded-lg group-hover:bg-yellow-300 transition-colors"
+              >
+                <IoMdCheckmark className="w-5 h-5 text-yellow-800" />
+              </div>
+              <p class="text-gray-700 text-lg">
+                {point}
+              </p>
+            </div>
+          ))} 
+        </div>
+      </div>
+
+      <div class="md:col-span-2">
+        <Image
+          src={First}
+          alt="Notre Mission"
+          class="w-full rounded-3xl shadow-2xl hover:scale-105 transition-transform duration-300"
+        />
+      </div>
+    </div>
+  </div>
+</div>
