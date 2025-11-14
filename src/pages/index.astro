@@ -1,256 +1,46 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
-
-import Hero from '~/components/widgets/Hero.astro';
-import Features from '~/components/widgets/Features.astro';
-import Features2 from '~/components/widgets/Features2.astro';
-import Steps from '~/components/widgets/Steps.astro';
-import Brands from '~/components/widgets/Brands.astro';
-import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
-import Stats from '~/components/widgets/Stats.astro';
+import Layout from "~/layouts/PageLayout.astro";
+import HeroSection from "~/components/widgets/home/HeroSection.astro";
+import MissionSection from "~/components/widgets/home/MissionSection.astro";
+import ProjectSection from "~/components/widgets/home/ProjectSection.astro";
+import ActuSection from "~/components/widgets/home/ActuSection.astro";
+import EventSection from "~/components/widgets/home/EventSection.astro";
+import ParticipationSection from "~/components/widgets/home/ParticipationSection.astro";
+import TestimonySection from "~/components/widgets/home/TestimonySection.astro";
+import PartenaireSection from "~/components/widgets/home/PartenaireSection.astro";
 
 const metadata = {
-  title: "Africtivistes CitizenLab Sénégal 🇸🇳 — Votre plateforme d'informations citoyenne",
+  title:
+    "Africtivistes CitizenLab Sénégal 🇸🇳 — Votre plateforme d'informations citoyenne",
   ignoreTitleTemplate: true,
 };
 ---
 
 <Layout metadata={metadata}>
-  <!-- Hero Widget ******************* -->
+  <!-- Hero Section -->
+  <HeroSection />
 
-  <Hero
-    actions={[
-      { text: 'En savoir plus',
-        href: '#features',
-        variant: 'primary',
-        class: 'text-lg font-semibold px-8 py-3' },
-    ]}
-  >
-    <Fragment slot="title">
-      <span class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
-        Votre plateforme d&apos;informations
-        <span class="text-accent dark:text-accent highlight"> citoyennes</span>
-        au <span class="text-primary dark:text-primary highlight">Sénégal</span>
-      </span>
-    </Fragment>
-    <Fragment slot="subtitle">
-      <p class="text-xl md:text-2xl text-muted dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
-        Promouvoir la participation citoyenne et la démocratie participative par l&apos;utilisation de la technologie civique (civic tech)
-      </p>
-    </Fragment>
-  </Hero>
-  
-  <!-- HighlightedPosts Widget ******* -->
+  <!-- Mission Section  -->
+  <MissionSection />
 
-  <BlogLatestPosts
-    title="Découvrez les dernières actualités!"
-    information={`Vitrine de l'actualité et des activités autour de la participation citoyenne au Sénégal.`}
-    classes={{
-      container: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-800',
-      title: 'text-4xl md:text-5xl font-bold text-center mb-6 text-gray-900 dark:text-white tracking-tight',
-      information: 'text-xl text-center text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-16 leading-relaxed',
-      grid: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8',
-      card: 'bg-white dark:bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden',
-      cardImage: 'w-full h-48 object-cover rounded-t-xl',
-      cardContent: 'p-6',
-      cardTitle: 'text-xl font-semibold text-gray-900 dark:text-white mb-3 hover:text-primary dark:hover:text-primary transition-colors duration-200',
-      cardDescription: 'text-gray-600 dark:text-gray-300 text-base leading-relaxed mb-4',
-      cardDate: 'text-sm text-gray-500 dark:text-gray-400 mb-4',
-      cardLink: 'inline-flex items-center text-primary hover:opacity-80 dark:text-primary-light dark:hover:text-primary transition-colors duration-200 font-medium',
-      cardIcon: 'ml-2 w-4 h-4'
-    }}
-  />
+  <!-- Featured Projects Section -->
+  <ProjectSection />
 
-  <!-- Features Widget *************** -->
+  <!-- Latest News Section -->
+  <ActuSection />
 
-  <Features
-    id="features"
-    tagline="AfricTivistes"
-    title="CitizenLab Sénégal"
-    subtitle="Ensemble pour une démocratie participative"
-    items={[
-      {
-        title: "Accès à l'information",
-        description:
-          "CitizenLab Sénégal à travers une mobilisation sur Internet, produit des contenus de valeurs pour impulser une nouvelle prise de conscience citoyenne au Sénégal et fait la promotion de l'accès à l'information.",
-        icon: 'tabler:components',
-      },
-      {
-        title: "Promouvoir la participation citoyenne",
-        description:
-          "Nous oeuvrons pour plus d'implication citoyenne dans les organes de prise de décision publiques et dans l'élaboration des politiques publiques en conformité avec la charte africaine de la jeunesse et d'autres textes régionaux et continentaux.",
-        icon: 'tabler:components',
-      },
-      {
-        title: "Education et participation citoyenne",
-        description:
-          "Nous devons outiller les jeunes à travers les actions de formations, de sensibilisation et des campagnes d'actions pour impulser une forte participation citoyenne.",
-        icon: 'tabler:transform',
-      },
-      {
-        title: "Réseau d'acteurs engagés",
-        description:
-          "En se fondant sur l'intelligence collective, nous envisageons de créer une communauté de jeunes qui partagent des idéologies et des valeurs profondes pour construire un Sénégal où la démocratie participative et la Gouvernance ouverte sont des réalités.",
-        icon: 'tabler:link',
-      },
-      {
-        title: "Plaidoyer pour une démocratie inclusive et plus adaptée",
-        description:
-          "La charte africaine, de la démocratie, des élections et de la gouvernance (CADEG) et le Menu des Engagements Possibles sont des instruments continentaux et internationaux pour consolider la démocratie. Leur adoption et leur domestication nécessitent des campagnes de plaidoyer pour une Nouvelle prise de conscience afin de renforcer les institutions publiques.",
-        icon: 'tabler:rocket',
-      },
-      {
-        title: "Des campagnes de sensibilisation en ligne",
-        description:
-          "Nous déployons des campagnes de plaidoyer en ligne pour promouvoir la participation citoyenne et impulser une nouvelle dynamique de participation citoyenne pour avoir un Sénégal démocratique et bien gouverné.",
-        icon: 'tabler:network',
-      },
-    ]}
-  />
+  <!-- Formation - Bootcamp Section -->
+  <EventSection />
 
-  <!-- Steps Widget ****************** -->
+  <!-- Participation Section -->
+  <ParticipationSection />
 
-  <Steps
-    title="Africtivistes CitizenLab Sénégal en trois étapes"
-    items={[
-      {
-        title: 'Octobre - Novembre 2023: <span class="font-medium">Appel à candidatures</span>',
-        description:
-          "Appel a candidatures ouvert à tous les jeunes sénégalais pour recruter l'équipe projet de CitizenLab Sénégal.",
-        icon: 'tabler:progress-check',
-      },
-      {
-        title: 'Novembre 2023: <span class="font-medium">Formation des formateurs</em>',
-        description:
-          "Les sessions ont porté sur les dynamiques de la participation citoyenne; la stratégie de plaidoyer digitale et sur l'identification des engagements contenus dans le Menu des engagements de la Cohorte Jeunesse",
-        icon: 'tabler:progress-check',
-      },
-      {
-        title: '24 Novembre 2023: <span class="font-medium">Lancement officiel du projet</em>',
-        icon: 'tabler:check',
-      },
-    ]}
-    image={{
-      src: '~/assets/images/formation1.jpg',
-      alt: 'Steps image',
-    }}
-  />
+  <!-- Brands / Partners Section -->
+  <PartenaireSection/>
 
-  <!-- Features2 Widget ************** -->
+  <!-- Testimony Section -->
+  <TestimonySection />
 
-  <Features2
-    title="Démocratie, Etat de Droit et Citoyenneté"
-    subtitle="Agissons pour un changement positif au Sénégal avec AfricTivistes CitizenLab"
-    tagline=""
-    items={[
-      {
-        title: 'Droits et libertés',
-        description: "Les droits et libertés sont des éléments clés de la citoyenneté, et incluent le droit à la vie, la liberté de pensée, d'expression, de religion, et l'égalité devant la loi.",
-        icon: 'flat-color-icons:template',
-      },
-      {
-        title: 'Participation politique',
-        description:
-          "La participation politique est un aspect important de la citoyenneté, et comprend le droit de vote, le droit de se présenter aux élections, le droit de pétition et le droit de manifester.",
-        icon: 'flat-color-icons:gallery',
-      },
-      {
-        title: 'Engagement citoyen',
-        description:
-          "L'engagement civique inclut les actions entreprises pour améliorer la communauté, telles que le bénévolat, le service communautaire, la participation à des groupes de quartier et la prise de responsabilité pour améliorer la qualité de vie dans son environnement.",
-        icon: 'flat-color-icons:todo-list',
-      },
-      {
-        title: 'Éducation citoyenne',
-        description:
-          "L'éducation civique est une composante essentielle de la citoyenneté, qui vise à donner aux citoyens les connaissances, les compétences et les valeurs nécessaires pour participer efficacement à la vie politique et civique",
-        icon: 'flat-color-icons:document',
-      },
-      {
-        title: 'Responsabilité citoyenne',
-        description:
-          "Les citoyens ont des responsabilités envers leur communauté, notamment respecter les lois, voter, payer des impôts, respecter les droits des autres, être tolérants, protéger l'environnement et participer à la vie communautaire.",
-        icon: 'flat-color-icons:advertising',
-      },
-      {
-        title: 'Diversité',
-        description: "La diversité est une réalité de la plupart des sociétés, elle implique le respect des différences culturelles, religieuses et ethniques des autres, ainsi que de promouvoir l'inclusion et l'égalité.",
-        icon: 'flat-color-icons:currency-exchange',
-      },
-      {
-        title: 'Dialogue et délibération',
-        description: "Le dialogue et la délibération sont des éléments clés de la citoyenneté, car ils permettent aux citoyens de discuter de questions importantes, de partager des opinions et de trouver des solutions ensemble.",
-        icon: 'flat-color-icons:voice-presentation',
-      },
-      {
-        title: 'Responsabilisation',
-        description:
-          "La responsabilisation est un élément important de la citoyenneté, car elle implique que les gouvernements et les dirigeants soient responsables de leurs actions, rendent des comptes à la population et respectent les droits des citoyens",
-        icon: 'flat-color-icons:business-contact',
-      },
-      {
-        title: 'Participation à la vie économique',
-        description: "La participation à la vie économique est un élément important de la citoyenneté, car elle implique la participation à l'économie, la compréhension de son fonctionnement et de ses impacts, ainsi que la promotion de l'équité économique",
-        icon: 'flat-color-icons:database',
-      },
-    ]}
-  >
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-green-50 dark:bg-slate-800"></div>
-    </Fragment>
-  </Features2>
-
-
-
-
-  <!-- Stats Widget ****************** -->
-
-  <Stats
-    stats={[
-      { title: 'Offres de formations', amount: '50' },
-      { title: 'Jeunes outillés', amount: '+150' },
-      { title: 'Contenus de Valeurs', amount: '+130' },
-      { title: "Nouvelles consciences citoyennes", amount: '+10M' },
-    ]}
-    classes={{
-      container: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-gray-50 dark:bg-slate-800',
-      title: 'text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white',
-      items: {
-        container: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8',
-        panel: 'text-center p-6 bg-white dark:bg-slate-700 rounded-lg shadow-lg',
-        amount: 'text-4xl md:text-5xl font-bold text-primary dark:text-white mb-2',
-        title: 'text-lg text-gray-600 dark:text-gray-300'
-      }
-    }}
-  />
-
-
-  <!-- Brands Widget ****************** -->
-
-  <Brands
-    title="Partenaires"
-    subtitle="Le projet est financé par l' EU International Partnerships et soutenu par la Youth Democracy Cohort"
-    icons={[]}
-    images={[
-      {
-        src: 'https://update.africtivistes.org/wp-content/uploads/2023/10/Logo-Africtivistes.png',
-        href:'https://www.africtivistes.com/fr/',
-        alt: 'AfricTivistes',
-      },
-      {
-        src: 'https://citizenlab.africtivistes.org/cameroun/wp-content/uploads/sites/2/2025/04/logoue.png',
-        href: 'https://international-partnerships.ec.europa.eu/index_fr',
-        alt: "EU International Partnerships",
-      },
-      {
-        src: 'https://citizenlab.africtivistes.org/cameroun/wp-content/uploads/sites/2/2025/04/logoydc.png',
-        href: 'https://youthdemocracycohort.com/',
-        alt: 'Youth Democracy Cohort',
-      },
-
-    ]}
-  />
-
-
-  
 </Layout>
+
+

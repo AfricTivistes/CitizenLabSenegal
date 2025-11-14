@@ -1,0 +1,91 @@
+---
+import { CiMap } from "react-icons/ci";
+import { IoIosArrowForward } from "react-icons/io";
+import { FaRegLightbulb, FaGlobe } from "react-icons/fa";
+import { GiTeacher } from "react-icons/gi";
+
+const axes = [
+  {
+    title: "Formation et sensibilisation",
+    subtitle: "au numérique",
+    gradient: "from-amber-400 via-orange-500 to-red-500",
+    number: "01",
+    icon: GiTeacher,
+  },
+  {
+    title: "Innovation, Digitalisation",
+    subtitle: "et Transparence",
+    gradient: "from-cyan-400 via-blue-500 to-indigo-600",
+    number: "02",
+    icon: FaRegLightbulb,
+  },
+  {
+    title: "Infrastructures, Accessibilité",
+    subtitle: "& Adoption",
+    gradient: "from-green-400 via-emerald-500 to-teal-600",
+    number: "03",
+    icon: FaGlobe,
+  },
+];
+
+---
+
+<div class="bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 py-20">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-16">
+      <div
+        class="inline-flex items-center gap-3 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-6"
+      >
+        <CiMap className="w-5 h-5 text-white" />
+        <span class="text-white font-semibold text-sm">NOS AXES</span>
+      </div>
+      <h2 class="text-5xl font-black text-white mb-4">
+        Nos axes d'intervention
+      </h2>
+      <p class="text-gray-400 text-lg max-w-2xl text-center mx-auto">
+        Trois piliers stratégiques pour transformer le Sénégal
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      {
+        axes.map((axe) => (
+          <div class="group relative">
+            <div class="relative bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300 h-full">
+              <div
+                class={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${axe.gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-t-full`}
+              />
+
+              <div class="space-y-6">
+                <div class="flex items-center justify-between">
+                  <div
+                    class={`w-16 h-16 rounded-2xl bg-gradient-to-br ${axe.gradient} flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300`}
+                  >
+                    <axe.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <span class="text-6xl font-black text-white/10 group-hover:text-white/20 transition-colors">
+                    {axe.number}
+                  </span>
+                </div>
+
+                <div>
+                  <h3 class="text-2xl font-bold text-white mb-2">
+                    {axe.title}
+                  </h3>
+                  <p class="text-gray-400 text-lg">{axe.subtitle}</p>
+                </div>
+
+                <div class="pt-4">
+                  <a class="inline-flex cursor-pointer items-center gap-2 text-white/60 group-hover:text-white transition-colors">
+                    <span class="text-sm font-semibold">En savoir plus</span>
+                    <IoIosArrowForward className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>

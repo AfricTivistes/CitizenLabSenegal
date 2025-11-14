@@ -15,6 +15,8 @@ import { readingTimeRemarkPlugin } from "./src/utils/frontmatter.mjs";
 
 import { ANALYTICS, SITE } from "./src/utils/config.ts";
 
+import react from "@astrojs/react";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const whenExternalScripts = (items = []) =>
@@ -47,15 +49,12 @@ export default defineConfig({
         tabler: ["*"],
       },
     }),
-
     ...whenExternalScripts(() =>
       partytown({
         config: { forward: ["dataLayer.push"] },
       })
     ),
-
     tasks(),
-
     compress({
       CSS: true,
       HTML: {
@@ -75,6 +74,7 @@ export default defineConfig({
       SVG: true,
       Logger: 1,
     }),
+    react(),
   ],
 
   markdown: {
