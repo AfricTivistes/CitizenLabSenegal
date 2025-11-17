@@ -7,7 +7,7 @@ export const headerData = {
       text: "Qui nous sommes",
       links: [
         { text: "A propos", href: getPermalink("/a-propos") },
-        { text: "Équipe", href: getPermalink("/equipe") },
+        { text: "Equipe", href: getPermalink("/equipe") },
         { text: "Partenaires", href: getPermalink("/partenaires") },
         { text: "FAQ", href: getPermalink("/faq") },
       ],
