@@ -29,6 +29,30 @@ export const headerData = {
         { text: "Vidéos", href: getPermalink("videos", "category") },
       ],
     },
+    {
+      text: "Formations & Ressources",
+      links: [
+        { text: "Bootcamps / Ateliers", href: getPermalink("/bootcamp") },
+        {
+          text: "Modules en ligne",
+          href: getPermalink("campagnes", "category"),
+        },
+        {
+          text: "Ressources pédagogiques",
+          href: getPermalink("blog", "category"),
+        },
+      ],
+    },
+    // {
+    //   text: "Participez / Implications",
+    //   links: [
+    //     { text: "Devenir partenaire", href: getPermalink("/news") },
+    //     {
+    //       text: "Appels à candidatures",
+    //       href: getPermalink("campagnes", "category"),
+    //     },
+    //   ],
+    // },
     { text: "Contact", href: getPermalink("/contact") },
   ],
 };
