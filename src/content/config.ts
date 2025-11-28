@@ -63,6 +63,33 @@ const postCollection = defineCollection({
   }),
 });
 
+const newsCollection = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    category: z.string(),
+    image: z.string(),
+  }),
+});
+
+const podcastCollection = defineCollection({
+  schema: z.object({
+    id: z.number(),
+    title: z.string(),
+    episode: z.string(),
+    duration: z.string(),
+    date: z.string(),
+    category: z.string(),
+    description: z.string(),
+    coverImage: z.string(),
+    host: z.string(),
+    guests: z.array(z.string()),
+    featured: z.boolean(),
+  }),
+})
+
 export const collections = {
   post: postCollection,
+  news: newsCollection,
+  podcasts: podcastCollection,
 };
