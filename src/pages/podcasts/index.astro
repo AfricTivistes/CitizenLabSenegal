@@ -1,0 +1,185 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import podcast_bg from '~/assets/images/podcast_bg.jpg';
+import PodcastPlayer from '~/components/podcasts/PodcastPlayer.astro';
+import Banner from '~/components/widgets/Banner.astro';
+import { Image } from 'astro:assets';
+
+const metadata = {
+    title: 'Podcast - CitizenLab Sénégal',
+    description: 'Découvrez nos podcasts inspirants sur l\'engagement citoyen et le changement social'
+};
+
+// Données des podcasts
+const podcasts = [
+  {
+    id: 1,
+    title: "Voix Citoyennes",
+    episode: "Épisode 12",
+    duration: "45 min",
+    date: "15 Nov 2025",
+    category: "Engagement Citoyen",
+    description: "Comment les jeunes Sénégalais transforment leur communauté grâce au numérique. Rencontre avec des activistes qui font bouger les lignes.",
+    audioUrl: "src/assets/audio/podcast.mp3",
+    coverImage: "" ,
+    host: "Aminata Diallo",
+    guests: ["Moussa Sarr", "Fatou Ndiaye"],
+    featured: true
+  },
+  {
+    id: 2,
+    title: "Tech & Société",
+    episode: "Épisode 8",
+    duration: "38 min",
+    date: "10 Nov 2025",
+    category: "Innovation",
+    description: "Les Civic Tech en Afrique : défis et opportunités. Une plongée dans l'écosystème tech africain au service du bien commun.",
+    coverImage: "" ,
+    host: "Cheikh Ba",
+    guests: ["Dr. Awa Cissé"],
+    featured: true
+  },
+  {
+    id: 3,
+    title: "Démocratie Participative",
+    episode: "Épisode 15",
+    duration: "52 min",
+    date: "5 Nov 2025",
+    category: "Politique",
+    description: "Repenser la participation citoyenne à l'ère numérique. Comment les plateformes digitales redéfinissent le rapport citoyen-État.",
+    audioUrl: "src/assets/audio/podcast.mp3",
+    host: "Ibrahima Diop",
+    guests: ["Marie Seck", "Omar Fall"],
+    featured: false
+  },
+  {
+    id: 4,
+    title: "Jeunesse & Avenir",
+    episode: "Épisode 20",
+    duration: "41 min",
+    date: "1 Nov 2025",
+    category: "Jeunesse",
+    description: "Les jeunes leaders qui façonnent le Sénégal de demain. Leurs projets, leurs rêves et leur vision pour un pays plus inclusif.",
+    host: "Aissatou Thiam",
+    guests: ["Khadija Niang"],
+    featured: false
+  },
+  {
+    id: 5,
+    title: "Innovation Sociale",
+    episode: "Épisode 6",
+    duration: "35 min",
+    date: "28 Oct 2025",
+    category: "Innovation",
+    description: "Quand l'innovation rencontre l'impact social. Des solutions créatives aux problèmes sociétaux les plus pressants.",
+    host: "Mamadou Sy",
+    guests: ["Bineta Diagne", "Alioune Kane"],
+    featured: false
+  },
+  {
+    id: 6,
+    title: "Transparence & Gouvernance",
+    episode: "Épisode 11",
+    duration: "48 min",
+    date: "22 Oct 2025",
+    category: "Gouvernance",
+    description: "L'open data au service de la transparence publique. Comment les données ouvertes renforcent la redevabilité des institutions.",
+    host: "Ousmane Diaw",
+    guests: ["Ndeye Seye"],
+    featured: false
+  }
+];
+
+---
+
+<Layout metadata={metadata}>
+  
+  <!-- Hero Section avec Banner -->
+  <Banner
+    title={metadata.title}
+    subtitle="Nous sommes là pour vous aider. N'hésitez pas à nous envoyer un message !"
+  >
+    <Image 
+      src={podcast_bg} 
+      alt="Contact Us" 
+      class="w-full h-full object-cover absolute inset-0 border-0 z-0 scale-110 transition-transform duration-700"
+    />
+  </Banner>
+
+  <!-- Tous Les Épisodes -->
+  <section class="py-20 bg-gradient-to-b from-gray-50 via-white to-green-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-center justify-between mb-12">
+        <div>
+          <h2 class="text-4xl font-bold text-green-900 mb-2">Tous Les Épisodes</h2>
+          <p class="text-gray-600">Plongez dans l'univers de nos podcats</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {podcasts.map(podcast => (
+          <article class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+            <div class="md:flex">
+              <!-- Image -->
+              <div class="relative md:w-48 h-48 md:h-auto overflow-hidden flex-shrink-0">
+                <img 
+                  src={!podcast.coverImage ? "/src/assets/images/microphone.jpg" : podcast.coverImage} 
+                  alt={podcast.title}
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                
+              </div>
+
+              <!-- Contenu -->
+              <div class="p-6 flex-1">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
+                    {podcast.category}
+                  </span>
+                  <span class="text-gray-400 text-sm">•</span>
+                  <span class="text-gray-600 text-sm">{podcast.date}</span>
+                </div>
+
+                <h3 class="text-2xl font-bold text-green-900 mb-2 group-hover:text-green-700 transition-colors">
+                  {podcast.title}
+                </h3>
+                
+                <p class="text-green-800 font-semibold text-sm mb-3">{podcast.episode}</p>
+                
+                <p class="text-gray-600 mb-4 line-clamp-2">
+                  {podcast.description}
+                </p>
+
+                <div class="flex items-center gap-4 mb-4 text-sm text-gray-500">
+                  <div class="flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>{podcast.duration}</span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    </svg>
+                    <span>{podcast.host}</span>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                  {!podcast.audioUrl ? <span class="text-sm text-red-500">Audio indisponible</span> : 
+                  <PodcastPlayer audioUrl={podcast.audioUrl}/>}
+                  <button class="p-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
