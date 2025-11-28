@@ -1,0 +1,161 @@
+---
+import { Image } from 'astro:assets';
+import jeunesse from '~/assets/images/Jeunesse.jpeg';
+import partenaire from '~/assets/images/partenaire.jpg';
+import plateforme from '~/assets/images/plateforme.png';
+import { HiOutlineNewspaper } from "react-icons/hi";
+import { FaArrowRightLong } from "react-icons/fa6";
+
+// Tableau des actualités
+const newsItems = [
+  {
+    type: "Événement",
+    title: "50 jeunes formés aux outils de démocratie numérique",
+    description:
+      "Notre dernière session de formation a permis à 50 jeunes de Dakar et Thiès de maîtriser les outils digitaux pour renforcer la participation citoyenne dans leurs communautés.",
+    image: jeunesse,
+    alt: "Formation civic tech pour les jeunes",
+    link: "/actualites/formation-jeunes-civic-tech",
+    variant: "overlay",
+    large: true,
+    icon: FaArrowRightLong,
+  },
+  {
+    type: "Événement",
+    title:
+      "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    image: plateforme,
+    alt: "Lancement plateforme citoyenne",
+    link: "/actualites/lancement-plateforme-signalement",
+    variant: "split",
+    icon: FaArrowRightLong,
+  },
+  {
+    type: "Événement",
+    title:
+      "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    image: partenaire,
+    alt: "Partenariat institutionnel",
+    link: "/actualites/partenariat-collectivites-locales",
+    variant: "overlay-light",
+    icon: FaArrowRightLong,
+  },
+];
+---
+
+<section class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Titre de section -->
+    <div class="text-center mb-16">
+      <div class="inline-block animate-fade-in-down mb-6">
+        <span class="px-5 py-2 border border-green-600 text-green-600 bg-white rounded-full text-xs font-semibold tracking-wide uppercase">
+          News
+        </span>
+      </div>
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">
+        Actualités et <span class="text-green-600">médias</span>
+      </h2>
+      <p class="text-lg text-center text-gray-600 max-w-2xl mx-auto">
+        Restez informés de nos dernières initiatives, événements et succès dans la civic tech au Sénégal
+      </p>
+    </div>
+
+    <!-- Grille -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+      {newsItems.map((item) => (
+        item.variant === "split" ? (
+          <!-- Carte split (moitié image, moitié texte) -->
+          <article class="relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group bg-[#d4c9a8]">
+            <div class="flex flex-col md:flex-row h-full">
+              <div class="md:w-1/2 p-8 flex flex-col justify-between">
+                <div>
+                  <span class="text-sm font-semibold text-gray-600 uppercase tracking-wider mb-4 block">
+                    {item.type}
+                  </span>
+                  <h3 class="text-2xl font-bold text-gray-800 mb-4 leading-tight">
+                    {item.title}
+                  </h3>
+                </div>
+                <a
+                  href={item.link}
+                  class="inline-flex items-center justify-center w-12 h-12 bg-green-700 rounded-full hover:bg-green-800 transition-colors self-start"
+                >
+                  <item.icon className="w-5 h-5 text-white"/>
+                </a>
+              </div>
+              <div class="md:w-1/2 relative">
+                <Image
+                  src={item.image}
+                  alt={item.alt}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 min-h-[250px] md:min-h-full rounded-l-[40px]"
+                />
+              </div>
+            </div>
+          </article>
+        ) : (
+          <!-- Carte overlay (image avec texte par-dessus) -->
+          <article
+            class={`relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group ${
+              item.large ? 'lg:row-span-2' : ''
+            }`}
+          >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
+            <Image
+              src={item.image}
+              alt={item.alt}
+              class={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ${
+                item.large ? 'min-h-[600px]' : 'min-h-[300px]'
+              }`}
+            />
+            <div class="absolute top-6 left-6 z-20">
+              <span
+                class={`${
+                  item.variant === 'overlay-light'
+                    ? 'bg-white/90 text-gray-800'
+                    : 'bg-green-600 text-white'
+                } text-sm font-semibold px-4 py-2 rounded-full uppercase tracking-wider`}
+              >
+                {item.type}
+              </span>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 p-8 z-20 text-white">
+              <h3
+                class={`font-bold mb-4 leading-tight ${
+                  item.large ? 'text-3xl' : 'text-2xl'
+                }`}
+              >
+                {item.title}
+              </h3>
+              {item.description && (
+                <p class="text-gray-200 mb-6 text-lg leading-relaxed">
+                  {item.description}
+                </p>
+              )}
+              <a
+                href={item.link}
+                class={`inline-flex items-center justify-center w-12 h-12 ${
+                  item.variant === 'overlay-light'
+                    ? 'bg-white/20 backdrop-blur hover:bg-white/30'
+                    : 'bg-green-600 hover:bg-green-700'
+                } rounded-full transition-colors group-hover:scale-110 transition-transform`}
+              >
+                <item.icon className="w-5 h-5 text-white"/>
+              </a>
+            </div>
+          </article>
+        )
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center">
+      <a
+        href="/actualites"
+        class="inline-flex items-center gap-3 px-8 py-4 text-lg font-semibold border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white rounded-lg transition-all shadow-md hover:shadow-lg"
+      >
+        Toutes les actualités
+        <HiOutlineNewspaper className="w-5 h-5" />
+      </a>
+    </div>
+  </div>
+</section>
