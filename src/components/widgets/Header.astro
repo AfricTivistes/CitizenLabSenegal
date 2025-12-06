@@ -75,14 +75,13 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`
 >
     {
         Array.isArray(links) && links.map(({ text, href, links: childItems = [] }) => {
-            
-            // Logique d'activation : Vérifie si le chemin actuel est dans les liens enfants.
+           
             const isChildActive = Array.isArray(childItems) && childItems.some(
                 (child) => (child.href && currentPath) ? child.href === currentPath : false
             );
             
             return (
-                // Le LI utilise "aw-link-active" (pour le fond s'il y en avait un)
+             
                 <li class:list={[{ 
                     "dropdown": childItems.length > 0, 
                     "aw-link-active": isChildActive 
@@ -90,11 +89,10 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`
                     {Array.isArray(childItems) && childItems.length > 0 ? (
                         <>
                             <a href={href || '#'} >
-                                {/* 🎯 APPLICATION DU STYLE AU BUTTON qui a le PADDING */}
                                 <button 
                                     class:list={[
                                         "hover:text-link dark:hover:text-white px-4 py-3 flex items-center", 
-                                        { "aw-link-active-text": isChildActive } // 👈 NOUVELLE CLASSE DE STYLE
+                                        { "aw-link-active-text": isChildActive } 
                                     ]}
                                 >
                                     {text} <Icon name="tabler:chevron-down" class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline" />
@@ -110,7 +108,7 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`
                                         <a
                                             class:list={[
                                                 "first:rounded-t last:rounded-b md:hover:bg-gray-100 hover:text-link dark:hover:text-white dark:hover:bg-gray-700 py-2 px-5 block whitespace-no-wrap",
-                                                { "aw-link-active-text" : (href2 && currentPath) ? href2 === currentPath : false} // 👈 NOUVELLE CLASSE
+                                                { "aw-link-active-text" : (href2 && currentPath) ? href2 === currentPath : false} 
                                             ]}
                                             href={href2}
                                         >
@@ -124,7 +122,7 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`
                         <a
                             class:list={[
                                 "hover:text-link dark:hover:text-white px-4 py-3 flex items-centers",
-                                { "aw-link-active-text": (href && currentPath) ? href === currentPath : false } // 👈 NOUVELLE CLASSE
+                                { "aw-link-active-text": (href && currentPath) ? href === currentPath : false } 
                             ]}
                             href={href}
                         >
