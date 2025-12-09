@@ -173,15 +173,14 @@ declare module 'astro:content' {
   data: InferEntrySchema<"news">
 } & { render(): Render[".md"] };
 };
-"podcasts": {
-"podcast1.md": {
-	id: "podcast1.md";
-  slug: "podcast1";
+"podcasts": Record<string, {
+  id: string;
+  slug: string;
   body: string;
   collection: "podcasts";
-  data: InferEntrySchema<"podcasts">
-} & { render(): Render[".md"] };
-};
+  data: InferEntrySchema<"podcasts">;
+  render(): Render[".md"];
+}>;
 "post": {
 "astrowind-template-in-depth.mdx": {
 	id: "astrowind-template-in-depth.mdx";
