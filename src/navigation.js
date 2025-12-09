@@ -25,7 +25,7 @@ export const headerData = {
         { text: "Actualités", href: getPermalink("/news") },
         { text: "Campagnes", href: getPermalink("campagnes", "category") },
         { text: "Blog / Opinions", href: getPermalink("blog", "category") },
-        { text: "Podcasts", href: getPermalink("podcast", "category") },
+        { text: "Podcasts", href: getPermalink("/podcasts") },
         { text: "Vidéos", href: getPermalink("videos", "category") },
       ],
     },
@@ -72,10 +72,10 @@ export const footerData = {
     {
       title: "Actualités",
       links: [
-        { text: "Actualités", href: getBlogPermalink() },
+        { text: "Actualités", href: getBlogPermalink("/news") },
         { text: "Blog", href: getPermalink("blog", "category") },
         { text: "Campagnes", href: "#" },
-        { text: "Podcasts", href: getPermalink("podcast", "category") },
+        { text: "Podcasts", href: getPermalink("/podcasts") },
         { text: "Vidéos", href: getPermalink("videos", "category") },
         { text: "Formations", href: getPermalink("formations", "category") },
       ],
@@ -85,10 +85,10 @@ export const footerData = {
       title: "Nous Contacter",
       links: [
         {
-          text: "citizenlabsenegal@africtivistes.org",
-          href: "mailto:citizenlabsenegal@africtivistes.org ",
+          text: "aclsenegal@africtivistes.org",
+          href: "mailto:aclsenegal@africtivistes.org ",
         },
-        { text: "+221 77 777 77 77", href: "tel:+221777777777" },
+        { text: "+221 78 018 01 05", href: "tel:+221 78 018 01 05" },
         { text: " Dakar, Sénégal ", href: "#" },
       ],
     },
@@ -101,18 +101,18 @@ export const footerData = {
     //{ text: 'Privacy Policy', href: getPermalink('/privacy') },
   ],
   socialLinks: [
-    { icon: "tabler:brand-x", href: "https://twitter.com/SenegalCitizenlab" },
+    { icon: "tabler:brand-x", href: "https://x.com/citizenlabsn?s=11" },
     {
       icon: "tabler:brand-instagram",
-      href: "https://www.instagram.com/citizenlabsenegal/",
+      href: "https://www.instagram.com/citizenlab_senegal?igsh=MWc4cDYzNGc5em9pcA%3D%3D&utm_source=qr",
     },
     {
       icon: "tabler:brand-facebook",
-      href: "https://www.facebook.com/profile.php?id=61553614994311",
+      href: "https://www.facebook.com/share/1AE5haRBVN/?mibextid=wwXIfr",
     },
     {
       icon: "tabler:brand-linkedin",
-      href: "https://www.linkedin.com/company/citizen-lab-senegal/about/",
+      href: "https://www.linkedin.com/company/citizenlab-senegal/",
     },
     {
       icon: "tabler:brand-github",
