@@ -5,6 +5,7 @@ import Banner from '~/components/widgets/Banner.astro';
 import { Image } from 'astro:assets';
 import PodcastPlayer from '~/components/Podcasts/PodcastPlayer.astro';
 import microphone from '~/assets/images/microphone.jpg';
+import audio from '~/assets/audio/podcast.mp3';
 
 
 const metadata = {
@@ -22,7 +23,7 @@ const podcasts = [
     date: "15 Nov 2025",
     category: "Engagement Citoyen",
     description: "Comment les jeunes Sénégalais transforment leur communauté grâce au numérique. Rencontre avec des activistes qui font bouger les lignes.",
-    audioUrl: "src/assets/audio/podcast.mp3",
+    audioUrl: audio,
     coverImage: microphone ,
     host: "Aminata Diallo",
     guests: ["Moussa Sarr", "Fatou Ndiaye"],
@@ -36,6 +37,7 @@ const podcasts = [
     date: "10 Nov 2025",
     category: "Innovation",
     description: "Les Civic Tech en Afrique : défis et opportunités. Une plongée dans l'écosystème tech africain au service du bien commun.",
+     audioUrl: audio,
     coverImage: microphone ,
     host: "Cheikh Ba",
     guests: ["Dr. Awa Cissé"],
@@ -49,7 +51,7 @@ const podcasts = [
     date: "5 Nov 2025",
     category: "Politique",
     description: "Repenser la participation citoyenne à l'ère numérique. Comment les plateformes digitales redéfinissent le rapport citoyen-État.",
-    audioUrl: "src/assets/audio/podcast.mp3",
+    audioUrl: audio,
      coverImage: microphone ,
     host: "Ibrahima Diop",
     guests: ["Marie Seck", "Omar Fall"],
@@ -65,6 +67,7 @@ const podcasts = [
     description: "Les jeunes leaders qui façonnent le Sénégal de demain. Leurs projets, leurs rêves et leur vision pour un pays plus inclusif.",
     host: "Aissatou Thiam",
      coverImage: microphone ,
+      audioUrl: audio,
     guests: ["Khadija Niang"],
     featured: false
   },
@@ -78,6 +81,7 @@ const podcasts = [
     description: "Quand l'innovation rencontre l'impact social. Des solutions créatives aux problèmes sociétaux les plus pressants.",
     host: "Mamadou Sy",
      coverImage: microphone ,
+      audioUrl: audio,
     guests: ["Bineta Diagne", "Alioune Kane"],
     featured: false
   },
@@ -90,6 +94,7 @@ const podcasts = [
     category: "Gouvernance",
     description: "L'open data au service de la transparence publique. Comment les données ouvertes renforcent la redevabilité des institutions.",
     host: "Ousmane Diaw",
+     audioUrl: audio,
      coverImage: microphone ,
     guests: ["Ndeye Seye"],
     featured: false
