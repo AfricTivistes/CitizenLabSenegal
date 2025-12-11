@@ -4,6 +4,8 @@ import podcast_bg from '~/assets/images/podcast_bg.jpg';
 import Banner from '~/components/widgets/Banner.astro';
 import { Image } from 'astro:assets';
 import PodcastPlayer from '~/components/Podcasts/PodcastPlayer.astro';
+import microphone from '~/assets/images/microphone.jpg';
+
 
 const metadata = {
     title: 'Podcast - CitizenLab Sénégal',
@@ -21,7 +23,7 @@ const podcasts = [
     category: "Engagement Citoyen",
     description: "Comment les jeunes Sénégalais transforment leur communauté grâce au numérique. Rencontre avec des activistes qui font bouger les lignes.",
     audioUrl: "src/assets/audio/podcast.mp3",
-    coverImage: "" ,
+    coverImage: microphone ,
     host: "Aminata Diallo",
     guests: ["Moussa Sarr", "Fatou Ndiaye"],
     featured: true
@@ -34,7 +36,7 @@ const podcasts = [
     date: "10 Nov 2025",
     category: "Innovation",
     description: "Les Civic Tech en Afrique : défis et opportunités. Une plongée dans l'écosystème tech africain au service du bien commun.",
-    coverImage: "" ,
+    coverImage: microphone ,
     host: "Cheikh Ba",
     guests: ["Dr. Awa Cissé"],
     featured: true
@@ -48,6 +50,7 @@ const podcasts = [
     category: "Politique",
     description: "Repenser la participation citoyenne à l'ère numérique. Comment les plateformes digitales redéfinissent le rapport citoyen-État.",
     audioUrl: "src/assets/audio/podcast.mp3",
+     coverImage: microphone ,
     host: "Ibrahima Diop",
     guests: ["Marie Seck", "Omar Fall"],
     featured: false
@@ -61,6 +64,7 @@ const podcasts = [
     category: "Jeunesse",
     description: "Les jeunes leaders qui façonnent le Sénégal de demain. Leurs projets, leurs rêves et leur vision pour un pays plus inclusif.",
     host: "Aissatou Thiam",
+     coverImage: microphone ,
     guests: ["Khadija Niang"],
     featured: false
   },
@@ -73,6 +77,7 @@ const podcasts = [
     category: "Innovation",
     description: "Quand l'innovation rencontre l'impact social. Des solutions créatives aux problèmes sociétaux les plus pressants.",
     host: "Mamadou Sy",
+     coverImage: microphone ,
     guests: ["Bineta Diagne", "Alioune Kane"],
     featured: false
   },
@@ -85,10 +90,12 @@ const podcasts = [
     category: "Gouvernance",
     description: "L'open data au service de la transparence publique. Comment les données ouvertes renforcent la redevabilité des institutions.",
     host: "Ousmane Diaw",
+     coverImage: microphone ,
     guests: ["Ndeye Seye"],
     featured: false
   }
 ];
+
 
 ---
 
@@ -122,8 +129,8 @@ const podcasts = [
             <div class="md:flex">
               <!-- Image -->
               <div class="relative md:w-48 h-48 md:h-auto overflow-hidden flex-shrink-0">
-                <img 
-                  src={!podcast.coverImage ? "/src/assets/images/microphone.jpg" : podcast.coverImage} 
+                <Image 
+                  src={podcast.coverImage}
                   alt={podcast.title}
                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />

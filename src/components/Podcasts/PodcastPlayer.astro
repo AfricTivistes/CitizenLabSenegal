@@ -55,7 +55,7 @@ const { audioUrl, variant = 'compact' } = Astro.props;
     let isPlaying = false;
 
     // Format temps
-    const formatTime = (seconds) => {
+    const formatTime = (seconds:any) => {
       if (isNaN(seconds)) return "0:00";
       const mins = Math.floor(seconds / 60);
       const secs = String(Math.floor(seconds % 60)).padStart(2, "0");
@@ -63,13 +63,13 @@ const { audioUrl, variant = 'compact' } = Astro.props;
     };
 
     // Play/Pause
-    playPauseBtn.addEventListener("click", () => {
+    playPauseBtn?.addEventListener("click", () => {
       if (isPlaying) {
-        audio.pause();
+        audio?.pause();
         playIcon.style.opacity = "1";
         pauseIcon.style.opacity = "0";
       } else {
-        audio.play();
+        audio?.play();
         playIcon.style.opacity = "0";
         pauseIcon.style.opacity = "1";
       }
@@ -87,12 +87,12 @@ const { audioUrl, variant = 'compact' } = Astro.props;
     });
 
     // Avancer 10s
-    forwardBtn.addEventListener("click", () => {
+    forwardBtn?.addEventListener("click", () => {
       audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
     });
 
     // Reset à la fin
-    audio.addEventListener("ended", () => {
+    audio?.addEventListener("ended", () => {
       isPlaying = false;
       playIcon.style.opacity = "1";
       pauseIcon.style.opacity = "0";
