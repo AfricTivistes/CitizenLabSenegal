@@ -1,35 +1,35 @@
 export async function navQuery() {
   try {
     const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/senegal/graphql';
-    console.log('Fetching menu from:', apiUrl);
-    
+  console.log('Fetching menu from:', apiUrl);
+  
     // Créer un AbortController pour gérer le timeout
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 secondes de timeout
-    
-    const response = await fetch(apiUrl, {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query: `{
-                menuItems(where: {location: HEADER_MENU}) {
-                  nodes {
-                    text: label
-                    parentId
-                    href: uri
-                    childItems {
-                      nodes {
-                        text: label
-                        href: uri
-                      }
+  
+  const response = await fetch(apiUrl, {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: `{
+              menuItems(where: {location: HEADER_MENU}) {
+                nodes {
+                  text: label
+                  parentId
+                  href: uri
+                  childItems {
+                    nodes {
+                      text: label
+                      href: uri
                     }
                   }
                 }
               }
-              `
+            }
+            `
       }),
       signal: controller.signal
-    });
+  });
     
     clearTimeout(timeoutId);
     
@@ -37,19 +37,19 @@ export async function navQuery() {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
-    const json = await response.json();
-    console.log('API Response:', json);
-    const { data } = json;
-    console.log('Menu Data:', data);
+  const json = await response.json();
+  console.log('API Response:', json);
+  const { data } = json;
+  console.log('Menu Data:', data);
     
-    if (!data || !data.menuItems || !Array.isArray(data.menuItems.nodes)) {
-      console.error('Menu data is missing or malformed:', data);
+  if (!data || !data.menuItems || !Array.isArray(data.menuItems.nodes)) {
+    console.error('Menu data is missing or malformed:', data);
       return getDefaultMenu();
-    }
+  }
     
-    const menuItems = data.menuItems.nodes.filter(node => node.parentId === null);
-    console.log('Filtered Menu Items:', menuItems);
-    return menuItems;
+  const menuItems = data.menuItems.nodes.filter(node => node.parentId === null);
+  console.log('Filtered Menu Items:', menuItems);
+  return menuItems;
   } catch (error) {
     console.error('Error fetching menu:', error.message);
     return getDefaultMenu();
@@ -87,91 +87,90 @@ export async function getNodeByURI(uri) {
     // Créer un AbortController pour gérer le timeout
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 secondes de timeout
-    
-    const response = await fetch(apiUrl, {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query: `query GetNodeByURI($uri: String!) {
-                    nodeByUri(uri: $uri) {
-                      __typename
-                      isContentNode
-                      isTermNode
-                      ... on Post {
-                        id
-                        title
-                        date
-                        permalink: uri
-                        excerpt
-                        content
-                        categories {
-                          nodes {
-                            name
-                            permalink: uri
-                            slug
-                          }
+  
+  const response = await fetch(apiUrl, {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: `query GetNodeByURI($uri: String!) {
+                  nodeByUri(uri: $uri) {
+                    __typename
+                    isContentNode
+                    isTermNode
+                    ... on Post {
+                      id
+                      title
+                      date
+                      permalink: uri
+                      excerpt
+                      content
+                      categories {
+                        nodes {
+                          name
+                          permalink: uri
+                          slug
                         }
-                        terms {
-                          nodes {
-                            name
-                            slug
-                            permalink:uri
-                          }
+                      }
+                      terms {
+                        nodes {
+                          name
+                          slug
+                          permalink:uri
                         }
-                        featuredImage {
-                          node {
-                            srcSet
-                            sourceUrl
-                            altText
-                            mediaDetails {
-                              height
-                              width
-                            }
+                      }
+                      featuredImage {
+                        node {
+                          srcSet
+                          sourceUrl
+                          altText
+                          mediaDetails {
+                            height
+                            width
                           }
                         }
                       }
-                      ... on Page {
-                        id
-                        title
-                        permalink: uri
-                        date
-                        content
-                        featuredImage {
-                          node {
-                            srcSet
-                            sourceUrl
-                            altText
-                            mediaDetails {
-                              height
-                              width
-                            }
+                    }
+                    ... on Page {
+                      id
+                      title
+                      permalink: uri
+                      date
+                      content
+                      featuredImage {
+                        node {
+                          srcSet
+                          sourceUrl
+                          altText
+                          mediaDetails {
+                            height
+                            width
                           }
                         }
                       }
-                      ... on Category {
-                        id
-                        name
-                        posts {
-                          nodes {
-                            date
-                            title
-                            excerpt
-                            permalink: uri
-                            categories {
-                              nodes {
-                                name
-                                permalink: uri
-                              }
+                    }
+                    ... on Category {
+                      id
+                      name
+                      posts {
+                        nodes {
+                          date
+                          title
+                          excerpt
+                          permalink: uri
+                          categories {
+                            nodes {
+                              name
+                              permalink: uri
                             }
-                            featuredImage {
-                              node {
-                                srcSet
-                                sourceUrl
-                                altText
-                                mediaDetails {
-                                  height
-                                  width
-                                }
+                          }
+                          featuredImage {
+                            node {
+                              srcSet
+                              sourceUrl
+                              altText
+                              mediaDetails {
+                                height
+                                width
                               }
                             }
                           }
@@ -179,13 +178,14 @@ export async function getNodeByURI(uri) {
                       }
                     }
                   }
-                `,
-        variables: {
-          uri: uri
-        }
+                }
+              `,
+      variables: {
+        uri: uri
+      }
       }),
       signal: controller.signal
-    });
+  });
     
     clearTimeout(timeoutId);
     
@@ -193,8 +193,8 @@ export async function getNodeByURI(uri) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
-    const { data } = await response.json();
-    return data;
+  const { data } = await response.json();
+  return data;
   } catch (error) {
     console.error(`Error fetching node by URI ${uri}:`, error.message);
     return null;
@@ -203,10 +203,10 @@ export async function getNodeByURI(uri) {
 export async function getAllUris() {
   try {
     const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/senegal/graphql';
-    
-    let allUris = [];
-    let afterCursor = null;
-    let hasNextPage = true;
+  
+  let allUris = [];
+  let afterCursor = null;
+  let hasNextPage = true;
     let maxAttempts = 3; // Nombre maximum de tentatives
     let attempt = 0;
 
@@ -216,30 +216,30 @@ export async function getAllUris() {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 secondes de timeout
         
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            query: `query GetAllUris($after: String) {
-              posts(first: 50, after: $after) {
-                pageInfo {
-                  hasNextPage
-                  endCursor
-                }
-                nodes {
-                  uri
-                }
-              }
-              pages {
-                nodes {
-                  uri
-                }
-              }
-            }`,
-            variables: { after: afterCursor }
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: `query GetAllUris($after: String) {
+          posts(first: 50, after: $after) {
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
+            nodes {
+              uri
+            }
+          }
+          pages {
+            nodes {
+              uri
+            }
+          }
+        }`,
+        variables: { after: afterCursor }
           }),
           signal: controller.signal
-        });
+    });
         
         clearTimeout(timeoutId);
         
@@ -247,17 +247,17 @@ export async function getAllUris() {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const { data } = await response.json();
-        const postsData = data?.posts;
-        const pagesData = data?.pages?.nodes || [];
+    const { data } = await response.json();
+    const postsData = data?.posts;
+    const pagesData = data?.pages?.nodes || [];
 
-        if (postsData) {
-          allUris = [...allUris, ...postsData.nodes, ...pagesData];
-          hasNextPage = postsData.pageInfo.hasNextPage;
-          afterCursor = postsData.pageInfo.endCursor;
-        } else {
-          hasNextPage = false;
-        }
+    if (postsData) {
+      allUris = [...allUris, ...postsData.nodes, ...pagesData];
+      hasNextPage = postsData.pageInfo.hasNextPage;
+      afterCursor = postsData.pageInfo.endCursor;
+    } else {
+      hasNextPage = false;
+    }
         
         // Réinitialiser le compteur de tentatives en cas de succès
         attempt = 0;
@@ -270,21 +270,21 @@ export async function getAllUris() {
           await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
         }
       }
-    }
+  }
 
     // Si nous avons des URIs, les nettoyer et les retourner
     if (allUris.length > 0) {
-      return allUris
-        .filter(node => node.uri !== null)
-        .map(node => {
-          let trimmedURI = node.uri.substring(1);
-          trimmedURI = trimmedURI.substring(0, trimmedURI.length - 1);
-          return {
-            params: {
-              uri: decodeURI(trimmedURI)
-            }
-          };
-        });
+  return allUris
+    .filter(node => node.uri !== null)
+    .map(node => {
+      let trimmedURI = node.uri.substring(1);
+      trimmedURI = trimmedURI.substring(0, trimmedURI.length - 1);
+      return {
+        params: {
+          uri: decodeURI(trimmedURI)
+        }
+      };
+    });
     }
     
     // Retourner un tableau par défaut si aucune URI n'est trouvée
