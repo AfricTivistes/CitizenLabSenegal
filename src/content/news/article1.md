@@ -2,7 +2,7 @@
 title: "Comment renforcer la participation citoyenne grâce au numérique en 2025"
 date: "2025-11-10"
 category: "Civic Tech"
-image: "/src/assets/images/news1.jpg"
+image: "/images/news1.jpg"
 ---
 
 La transformation numérique ouvre de nouvelles opportunités pour rapprocher les citoyens des institutions. En 2025, les plateformes numériques, les réseaux sociaux et les outils de Civic Tech deviennent essentiels pour encourager l'engagement, faciliter le dialogue et renforcer la démocratie participative.
