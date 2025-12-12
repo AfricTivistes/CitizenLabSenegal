@@ -2,7 +2,7 @@
 title: "Comment renforcer la participation citoyenne grâce au numérique en 2025"
 date: "2025-11-10"
 category: "Civic Tech"
-image: "/src/assets/images/news1.jpg"
+image: "./../../src/assets/images/news1.jpg"
 ---
 
 La transformation numérique ouvre de nouvelles opportunités pour rapprocher les citoyens des institutions. En 2025, les plateformes numériques, les réseaux sociaux et les outils de Civic Tech deviennent essentiels pour encourager l'engagement, faciliter le dialogue et renforcer la démocratie participative.
@@ -11,6 +11,7 @@ La transformation numérique ouvre de nouvelles opportunités pour rapprocher le
 
 Les citoyens — particulièrement les jeunes — s'informent, s’expriment et agissent principalement en ligne.  
 Assurer une participation inclusive nécessite :
+
 - d’identifier leurs habitudes numériques,
 - de comprendre leurs préoccupations,
 - et de leur offrir des espaces d’expression adaptés.
@@ -18,6 +19,7 @@ Assurer une participation inclusive nécessite :
 ## 2. Les outils numériques qui transforment la participation
 
 Les Civic Tech permettent aujourd’hui :
+
 - de signaler un problème public,
 - de soumettre une idée citoyenne,
 - de suivre des décisions publiques,
