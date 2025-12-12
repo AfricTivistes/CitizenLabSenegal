@@ -23,7 +23,7 @@ export const headerData = {
       text: "Médias & Actualités",
       links: [
         { text: "Actualités", href: getPermalink("/news") },
-        { text: "Campagnes", href: getPermalink("campagnes", "category") },
+        // { text: "Campagnes", href: getPermalink("campagnes", "category") },
         // { text: "Blog / Opinions", href: getPermalink("blog", "category") },
         { text: "Podcasts", href: getPermalink("/podcasts") },
         { text: "Vidéos", href: getPermalink("videos", "category") },
