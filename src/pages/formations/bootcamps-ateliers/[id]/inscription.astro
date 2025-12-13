@@ -1,0 +1,421 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+// Données des bootcamps (à synchroniser avec votre page principale)
+const bootcamps = {
+  "1": {
+    title: "Bootcamp Civic Tech Intensif",
+    date: "15-19 Janvier 2025",
+    location: "Dakar, Impact Hub",
+    price: "Gratuit",
+    duration: "5 jours"
+  },
+  "2": {
+    title: "Atelier Data & Transparence",
+    date: "8-9 Février 2025",
+    location: "Thiès, Sencampus",
+    price: "Gratuit",
+    duration: "2 jours"
+  }
+};
+
+// Cette fonction indique à Astro quelles pages générer
+export function getStaticPaths() {
+  return [
+    { params: { id: "1" } },
+    { params: { id: "2" } }
+  ];
+}
+
+const { id } = Astro.params;
+const bootcamp = bootcamps[id] || null;
+
+if (!bootcamp) {
+  return Astro.redirect('/formations/bootcamps-ateliers');
+}
+
+const metadata = {
+  title: `Inscription - ${bootcamp.title}`,
+  description: `Inscrivez-vous au ${bootcamp.title}`
+};
+---
+
+<Layout metadata={metadata}>
+  <div class="min-h-screen bg-gradient-to-b from-green-50 to-white py-12 px-6">
+    <div class="max-w-4xl mx-auto">
+      
+      <!-- En-tête -->
+      <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+        <div class="flex items-start justify-between mb-6">
+          <div>
+            <h1 class="text-3xl md:text-4xl font-bold text-green-900 mb-2">
+              {bootcamp.title}
+            </h1>
+            <div class="flex flex-wrap gap-4 text-sm text-gray-600">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                {bootcamp.date}
+              </div>
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                {bootcamp.location}
+              </div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-sm text-gray-500 mb-1">Prix</div>
+            <div class="text-2xl font-bold text-green-600">{bootcamp.price}</div>
+          </div>
+        </div>
+        
+        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+          <p class="text-sm text-green-800">
+            ✓ Places limitées - Inscription confirmée par email
+          </p>
+        </div>
+      </div>
+
+      <!-- Formulaire -->
+      <div class="bg-white rounded-2xl shadow-xl p-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">
+          Formulaire d'inscription
+        </h2>
+
+        <form id="inscriptionForm" class="space-y-6">
+          
+          <!-- Informations personnelles -->
+          <div class="border-b border-gray-200 pb-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+              Informations personnelles
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label for="prenom" class="block text-sm font-medium text-gray-700 mb-2">
+                  Prénom <span class="text-red-500">*</span>
+                </label>
+                <input 
+                  type="text" 
+                  id="prenom" 
+                  name="prenom" 
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                  placeholder="Votre prénom"
+                />
+              </div>
+
+              <div>
+                <label for="nom" class="block text-sm font-medium text-gray-700 mb-2">
+                  Nom <span class="text-red-500">*</span>
+                </label>
+                <input 
+                  type="text" 
+                  id="nom" 
+                  name="nom" 
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                  placeholder="Votre nom"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                  Email <span class="text-red-500">*</span>
+                </label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                  placeholder="votre.email@example.com"
+                />
+              </div>
+
+              <div>
+                <label for="telephone" class="block text-sm font-medium text-gray-700 mb-2">
+                  Téléphone <span class="text-red-500">*</span>
+                </label>
+                <input 
+                  type="tel" 
+                  id="telephone" 
+                  name="telephone" 
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                  placeholder="+221 77 123 45 67"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Profil -->
+          <div class="border-b border-gray-200 pb-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+              Votre profil
+            </h3>
+
+            <div class="space-y-6">
+              <div>
+                <label for="occupation" class="block text-sm font-medium text-gray-700 mb-2">
+                  Occupation actuelle <span class="text-red-500">*</span>
+                </label>
+                <select 
+                  id="occupation" 
+                  name="occupation" 
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                >
+                  <option value="">Sélectionnez...</option>
+                  <option value="etudiant">Étudiant(e)</option>
+                  <option value="employe">Employé(e)</option>
+                  <option value="entrepreneur">Entrepreneur(se)</option>
+                  <option value="freelance">Freelance</option>
+                  <option value="chomage">En recherche d'emploi</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="organisation" class="block text-sm font-medium text-gray-700 mb-2">
+                  Organisation / Établissement
+                </label>
+                <input 
+                  type="text" 
+                  id="organisation" 
+                  name="organisation"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                  placeholder="Université, entreprise, association..."
+                />
+              </div>
+
+              <div>
+                <label for="experience" class="block text-sm font-medium text-gray-700 mb-2">
+                  Niveau d'expérience <span class="text-red-500">*</span>
+                </label>
+                <select 
+                  id="experience" 
+                  name="experience" 
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                >
+                  <option value="">Sélectionnez...</option>
+                  <option value="debutant">Débutant - Aucune expérience</option>
+                  <option value="intermediaire">Intermédiaire - Quelques projets</option>
+                  <option value="avance">Avancé - Plusieurs années d'expérience</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Motivations -->
+          <div class="border-b border-gray-200 pb-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+              Motivations
+            </h3>
+
+            <div>
+              <label for="motivation" class="block text-sm font-medium text-gray-700 mb-2">
+                Pourquoi souhaitez-vous participer à ce bootcamp ? <span class="text-red-500">*</span>
+              </label>
+              <textarea 
+                id="motivation" 
+                name="motivation" 
+                required
+                rows="4"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                placeholder="Parlez-nous de vos motivations, objectifs et ce que vous espérez apprendre..."
+              ></textarea>
+              <p class="text-sm text-gray-500 mt-1">Minimum 50 caractères</p>
+            </div>
+
+            <div class="mt-6">
+              <label for="attentes" class="block text-sm font-medium text-gray-700 mb-2">
+                Quelles sont vos attentes spécifiques ?
+              </label>
+              <textarea 
+                id="attentes" 
+                name="attentes"
+                rows="3"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                placeholder="Compétences que vous souhaitez développer, thématiques qui vous intéressent..."
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Informations complémentaires -->
+          <div class="border-b border-gray-200 pb-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+              Informations complémentaires
+            </h3>
+
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <input 
+                  type="checkbox" 
+                  id="ordinateur" 
+                  name="ordinateur" 
+                  required
+                  class="mt-1 w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+                />
+                <label for="ordinateur" class="text-sm text-gray-700">
+                  Je confirme disposer d'un ordinateur portable pour participer au bootcamp <span class="text-red-500">*</span>
+                </label>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <input 
+                  type="checkbox" 
+                  id="disponibilite" 
+                  name="disponibilite" 
+                  required
+                  class="mt-1 w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+                />
+                <label for="disponibilite" class="text-sm text-gray-700">
+                  Je confirme être disponible pendant toute la durée du bootcamp ({bootcamp.duration}) <span class="text-red-500">*</span>
+                </label>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <input 
+                  type="checkbox" 
+                  id="engagement" 
+                  name="engagement" 
+                  required
+                  class="mt-1 w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+                />
+                <label for="engagement" class="text-sm text-gray-700">
+                  Je m'engage à participer activement et assidûment à toutes les sessions <span class="text-red-500">*</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Newsletter -->
+          <div class="pb-6">
+            <div class="flex items-start gap-3">
+              <input 
+                type="checkbox" 
+                id="newsletter" 
+                name="newsletter"
+                class="mt-1 w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+              />
+              <label for="newsletter" class="text-sm text-gray-700">
+                Je souhaite recevoir les actualités et informations de CitizenLab Sénégal
+              </label>
+            </div>
+          </div>
+
+          <!-- Messages -->
+          <div id="successMessage" class="hidden bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <div>
+                <h4 class="font-semibold text-green-900 mb-1">Inscription réussie !</h4>
+                <p class="text-sm text-green-800">Vous recevrez un email de confirmation dans quelques instants.</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="errorMessage" class="hidden bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+              </svg>
+              <div>
+                <h4 class="font-semibold text-red-900 mb-1">Erreur</h4>
+                <p class="text-sm text-red-800" id="errorText">Une erreur est survenue. Veuillez réessayer.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Boutons -->
+          <div class="flex flex-col sm:flex-row gap-4 pt-6">
+            <button 
+              type="submit"
+              id="submitButton"
+              class="flex-1 bg-green-900 hover:bg-green-800 text-white font-bold py-4 px-8 rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
+            >
+              Confirmer mon inscription
+            </button>
+            <a 
+              href="/formations/bootcamps-ateliers"
+              class="text-center bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold py-4 px-8 rounded-lg transition-colors duration-300"
+            >
+              Annuler
+            </a>
+          </div>
+
+          <p class="text-xs text-gray-500 text-center pt-4">
+            En soumettant ce formulaire, vous acceptez notre politique de confidentialité et nos conditions d'utilisation.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('inscriptionForm');
+      const submitButton = document.getElementById('submitButton');
+      const successMessage = document.getElementById('successMessage');
+      const errorMessage = document.getElementById('errorMessage');
+      const errorText = document.getElementById('errorText');
+
+      form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Validation
+        const motivation = document.getElementById('motivation').value;
+        if (motivation.length < 50) {
+          errorText.textContent = 'La motivation doit contenir au moins 50 caractères.';
+          errorMessage.classList.remove('hidden');
+          successMessage.classList.add('hidden');
+          return;
+        }
+
+        // Désactiver le bouton
+        submitButton.disabled = true;
+        submitButton.textContent = 'Envoi en cours...';
+
+        // Récupérer les données du formulaire
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+
+        try {
+          // Simuler l'envoi (remplacez par votre API)
+          await new Promise(resolve => setTimeout(resolve, 1500));
+          
+          // Afficher le message de succès
+          successMessage.classList.remove('hidden');
+          errorMessage.classList.add('hidden');
+          form.reset();
+          
+          // Scroll vers le message
+          successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          
+          // Rediriger après 3 secondes
+          setTimeout(() => {
+            window.location.href = '/bootcamps';
+          }, 3000);
+          
+        } catch (error) {
+          errorText.textContent = 'Une erreur est survenue. Veuillez réessayer.';
+          errorMessage.classList.remove('hidden');
+          successMessage.classList.add('hidden');
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Confirmer mon inscription';
+        }
+      });
+    });
+  </script>
+</Layout>
