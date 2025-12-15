@@ -87,11 +87,12 @@ export function getStaticPaths() {
 }
 
 const { id } = Astro.params;
-const bootcamp = bootcamps[id];
+// const bootcamp = bootcamps[id];
+const bootcamp = bootcamps[0];
 
-if (!bootcamp) {
-  return Astro.redirect('/formations/bootcamps-ateliers');
-}
+// if (!bootcamp) {
+//   return Astro.redirect('/formations/bootcamps-ateliers');
+// }
 
 function getStatusColor(status : any) {
   switch (status) {
