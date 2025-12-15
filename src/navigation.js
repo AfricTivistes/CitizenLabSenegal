@@ -15,7 +15,7 @@ export const headerData = {
     {
       text: "Projets & Réalisations",
       links: [
-        { text: "Projets en cours", href: "#" },
+        { text: "Projets en cours", href: getPermalink("/projets") },
         { text: "Projets réalisés", href: "#" },
       ],
     },
