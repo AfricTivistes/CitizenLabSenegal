@@ -1,0 +1,312 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { Image } from 'astro:assets';
+import bootcamp_hero from '~/assets/images/bootcamp-atelier-bg.jpg';
+import Banner from '~/components/widgets/Banner.astro';
+import bootcamp1 from '~/assets/images/bootcamp1.jpg';
+import bootcamp2 from '~/assets/images/bootcamp2.jpg';
+
+const metadata = {
+    title: 'Bootcamps & Ateliers - CitizenLab Sénégal',
+    description: 'Développez vos compétences en Civic Tech, innovation sociale et engagement citoyen'
+};
+
+// Bootcamps à venir
+const upcomingBootcamps = [
+  {
+    id: 1,
+    title: "Bootcamp Civic Tech Intensif",
+    type: "Bootcamp",
+    category: "Formation intensive",
+    duration: "5 jours",
+    level: "Débutant à Intermédiaire",
+    participants: "25 places",
+    date: "15-19 Janvier 2025",
+    location: "Dakar, Impact Hub",
+    image: bootcamp1.src,
+    description: "Apprenez à créer des solutions numériques pour résoudre des problèmes citoyens. Formation pratique avec projets réels et mentorat personnalisé.",
+    highlights: [
+      "Développement d'applications citoyennes",
+      "Design thinking & idéation collaborative",
+      "Pitch et présentation de projet",
+      "Mentorat par des experts du secteur",
+      "Certification de participation"
+    ],
+    program: [
+      { day: "Jour 1", topic: "Introduction à la Civic Tech", description: "Comprendre les enjeux et opportunités" },
+      { day: "Jour 2-3", topic: "Idéation & Prototypage", description: "Créer votre solution citoyenne" },
+      { day: "Jour 4", topic: "Développement", description: "Construire un MVP fonctionnel" },
+      { day: "Jour 5", topic: "Pitch Final", description: "Présenter votre projet devant un jury" }
+    ],
+    status: "Inscriptions ouvertes",
+    price: "Gratuit",
+    spotsLeft: 12,
+    featured: true,
+    instructors: [
+      { name: "Moussa Sarr", role: "Expert Civic Tech"}
+    ],
+    requirements: [
+      "Ordinateur portable obligatoire",
+      "Motivation et engagement total",
+      "Aucune compétence technique requise"
+    ]
+  },
+  {
+    id: 2,
+    title: "Atelier Data & Transparence",
+    type: "Atelier",
+    category: "Atelier pratique",
+    duration: "2 jours",
+    level: "Intermédiaire",
+    participants: "15 places",
+    date: "8-9 Février 2025",
+    location: "Thiès, Sencampus",
+    image:bootcamp2.src,
+    description: "Maîtrisez la visualisation de données publiques et créez des dashboards interactifs pour plus de transparence.",
+    highlights: [
+      "Collecte et nettoyage de données",
+      "Création de visualisations impactantes",
+      "Outils open source (Python, Tableau)",
+      "Projet de groupe concret"
+    ],
+    program: [
+      { day: "Jour 1", topic: "Data Collection & Cleaning", description: "Techniques de traitement de données" },
+      { day: "Jour 2", topic: "Visualization & Storytelling", description: "Créer des dashboards percutants" }
+    ],
+    status: "Inscriptions ouvertes",
+    price: "Gratuit",
+    spotsLeft: 5,
+    featured: true,
+    instructors: [
+      { name: "Cheikh Ba", role: "Data Scientist" }
+    ],
+    requirements: [
+      "Notions de base en Excel/Google Sheets",
+      "Ordinateur portable",
+      "Intérêt pour l'open data"
+    ]
+  }
+];
+// Thématiques
+const themes = [
+  {
+    title: "Civic Tech",
+    icon: "💻",
+    description: "Applications citoyennes, participation numérique",
+    color: "blue"
+  },
+  {
+    title: "Innovation Sociale",
+    icon: "💡",
+    description: "Solutions à impact social, entrepreneuriat",
+    color: "purple"
+  },
+  {
+    title: "Data & Transparence",
+    icon: "📊",
+    description: "Visualisation de données, open data",
+    color: "green"
+  },
+  {
+    title: "Communication",
+    icon: "📱",
+    description: "Stratégie digitale, réseaux sociaux",
+    color: "pink"
+  },
+  {
+    title: "Robotique & IoT",
+    icon: "🤖",
+    description: "Arduino, capteurs, prototypage",
+    color: "orange"
+  },
+  {
+    title: "Leadership",
+    icon: "👥",
+    description: "Management, gestion de projets",
+    color: "indigo"
+  }
+];
+
+function getStatusColor(status: string) {
+  switch(status) {
+    case "Inscriptions ouvertes":
+      return "bg-green-100 text-green-800 border-green-300";
+    case "Places limitées":
+      return "bg-orange-100 text-orange-800 border-orange-300";
+    case "Complet":
+      return "bg-red-100 text-red-800 border-red-300";
+    default:
+      return "bg-gray-100 text-gray-800 border-gray-300";
+  }
+}
+
+function getThemeColor(color: string) {
+  const colors = {
+    blue: "from-blue-500 to-blue-700",
+    purple: "from-purple-500 to-purple-700",
+    green: "from-green-500 to-green-700",
+    pink: "from-pink-500 to-pink-700",
+    orange: "from-orange-500 to-orange-700",
+    indigo: "from-indigo-500 to-indigo-700"
+  };
+  return colors[color] || colors.blue;
+}
+
+---
+
+<Layout metadata={metadata}>
+
+  <!-- Banner Section -->
+  <Banner 
+      title={metadata.title}
+      subtitle={metadata.description}
+  >
+    <Image 
+      src={bootcamp_hero} 
+      alt="Bootcamps et Ateliers CitizenLab Sénégal" 
+      class="w-full h-full object-cover"
+    />
+  </Banner>
+
+  <!-- Prochains Bootcamps -->
+    <!-- Prochains Bootcamps -->
+  <section id="prochains" class="py-20 bg-gradient-to-b from-white to-green-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="inline-block px-5 py-2 bg-green-100 text-green-800 rounded-full text-sm font-bold mb-4">
+          🔥 Ne ratez pas ces opportunités
+        </span>
+        <h2 class="text-4xl md:text-5xl font-bold text-green-900 mb-4">
+          Prochaines Sessions
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Formations pratiques et gratuites pour booster votre impact citoyen
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {upcomingBootcamps.map((bootcamp) => (
+          <article class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+            <!-- Image -->
+            <div class="relative h-64 overflow-hidden">
+              <img 
+                src={bootcamp.image} 
+                alt={bootcamp.title}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+
+              <!-- Badges -->
+              <div class="absolute top-4 left-4 flex flex-wrap gap-2">
+                <span class={`px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm border ${getStatusColor(bootcamp.status)}`}>
+                  {bootcamp.status}
+                </span>
+                {bootcamp.spotsLeft <= 10 && (
+                  <span class="px-3 py-1 bg-red-600/90 backdrop-blur-sm text-white rounded-full text-xs font-bold">
+                    ⚡ {bootcamp.spotsLeft} places restantes
+                  </span>
+                )}
+              </div>
+
+              <!-- Prix -->
+              <div class="absolute bottom-4 left-4 px-4 py-2 bg-green-700/90 backdrop-blur-sm rounded-full text-white font-bold">
+                {bootcamp.price}
+              </div>
+            </div>
+
+            <!-- Contenu compact -->
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-green-900 mb-2">
+                {bootcamp.title}
+              </h3>
+
+              <p class="text-gray-600 text-sm line-clamp-2 mb-4">
+                {bootcamp.description}
+              </p>
+
+              <!-- Infos clés en ligne -->
+              <div class="flex flex-wrap gap-4 text-sm text-gray-600 mb-5">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                  <span>{bootcamp.date}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <span>{bootcamp.duration}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  <span>{bootcamp.location}</span>
+                </div>
+              </div>
+
+              <!-- Highlights compact -->
+              <div class="mb-5">
+                <div class="flex flex-wrap gap-2">
+                  {bootcamp.highlights.slice(0, 3).map((highlight) => (
+                    <span class="text-xs bg-green-50 text-green-800 px-3 py-1 rounded-full">
+                      {highlight}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <!-- CTA -->
+              <div class="flex gap-3">
+                <a 
+                  href={`/formations/bootcamps-ateliers/${bootcamp.id}/inscription`}
+                  class="flex-1 text-center px-5 py-3 bg-green-700 hover:bg-green-800 text-white font-bold rounded-lg transition-colors shadow-md"
+                >
+                  S'inscrire
+                </a>
+                <a 
+                  href={`/formations/bootcamps-ateliers/${bootcamp.id}/details`}
+                  class="px-5 py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold rounded-lg transition-colors"
+                >
+                  Détails
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Thématiques -->
+  <section id="thematiques" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-green-900 mb-4">
+          Nos Thématiques
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Des formations adaptées à tous les niveaux et domaines de la Civic Tech
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {themes.map(theme => (
+          <div class={`relative bg-gradient-to-br ${getThemeColor(theme.color)} rounded-2xl p-8 text-white overflow-hidden shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-500 cursor-pointer group`}>
+            <div class="text-6xl mb-6 opacity-90 group-hover:opacity-100 transition-opacity">
+              {theme.icon}
+            </div>
+            <h3 class="text-3xl font-bold mb-4">{theme.title}</h3>
+            <p class="text-white/90 group-hover:text-white transition-colors">
+              {theme.description}
+            </p>
+            <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+</Layout>

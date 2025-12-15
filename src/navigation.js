@@ -31,17 +31,18 @@ export const headerData = {
     },
     {
       text: "Formations & Ressources",
-      links: [
-        { text: "Bootcamps / Ateliers", href: getPermalink("/bootcamp") },
-        {
-          text: "Modules en ligne",
-          href: getPermalink("campagnes", "category"),
-        },
-        {
-          text: "Ressources pédagogiques",
-          href: getPermalink("blog", "category"),
-        },
-      ],
+      href: getPermalink("/formations/bootcamps-ateliers"),
+      // links: [
+      //   { text: "Bootcamps / Ateliers", href: getPermalink("/bootcamp") },
+      //   {
+      //     text: "Modules en ligne",
+      //     href: getPermalink("campagnes", "category"),
+      //   },
+      //   {
+      //     text: "Ressources pédagogiques",
+      //     href: getPermalink("blog", "category"),
+      //   },
+      // ],
     },
     // {
     //   text: "Participez / Implications",
