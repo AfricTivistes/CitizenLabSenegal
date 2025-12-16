@@ -1,0 +1,697 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { Image } from 'astro:assets';
+import campaign_hero from '~/assets/images/campaign_hero.jpg';
+
+const metadata = {
+    title: 'Nos Campagnes - CitizenLab Sénégal',
+    description: 'Découvrez nos campagnes de sensibilisation, plaidoyer et actions citoyennes'
+};
+
+// Campagnes actives
+const activeCampaigns = [
+  {
+    id: 1,
+    title: "Plaidoyer sur les droits numériques au Sénégal",
+    type: "Plaidoyer",
+    status: "En cours",
+    progress: 65,
+    description: "Sensibiliser 10 000 jeunes, produire un mémo national et formuler des recommandations pour renforcer les droits numériques.",
+    image: "/src/assets/images/campaign1.jpg",
+    startDate: "Octobre 2024",
+    endDate: "Mars 2025",
+    impact: {
+      target: "10 000 jeunes",
+      current: "6 500 touchés",
+      regions: ["Dakar", "Thiès", "Saint-Louis"]
+    },
+    actions: [
+      "Enquête participative en ligne",
+      "Ateliers dans 3 régions",
+      "Production d'un mémo national",
+      "Lobbying auprès des institutions"
+    ]
+  }
+];
+
+// Campagnes passées par catégorie
+const campaigns = {
+  sensibilisation: [
+    {
+      title: "Droits Numériques pour Tous",
+      date: "Juin 2024",
+      image: "/src/assets/images/sens1.jpg",
+      description: "Campagne de sensibilisation sur les droits fondamentaux dans l'espace numérique",
+      results: "5 000+ personnes sensibilisées",
+      media: ["Vidéos", "Infographies", "Flyers"]
+    },
+    {
+      title: "Cybersécurité Citoyenne",
+      date: "Avril 2024",
+      image: "/src/assets/images/sens2.jpg",
+      description: "Ateliers pratiques sur la protection des données personnelles et la navigation sécurisée",
+      results: "15 ateliers • 800 participants",
+      media: ["Guides PDF", "Tutoriels vidéo"]
+    },
+    {
+      title: "Internet Pour Tous",
+      date: "Mars 2024",
+      image: "/src/assets/images/sens3.jpg",
+      description: "Plaidoyer pour un accès équitable à Internet dans les zones rurales",
+      results: "3 régions couvertes",
+      media: ["Documentaire", "Rapport d'étude"]
+    }
+  ],
+  plaidoyer: [
+    {
+      title: "Transparence des Données Publiques",
+      date: "Mai 2024",
+      image: "/src/assets/images/plaid1.jpg",
+      description: "Campagne pour l'ouverture des données publiques et la redevabilité",
+      results: "1 mémo produit • 50 recommandations",
+      media: ["Mémo", "Infographies", "Présentations"]
+    },
+    {
+      title: "Gouvernance Numérique Inclusive",
+      date: "Février 2024",
+      image: "/src/assets/images/plaid2.jpg",
+      description: "Plaidoyer pour l'inclusion des jeunes dans les processus de décision numérique",
+      results: "3 rencontres institutionnelles",
+      media: ["Policy Brief", "Vidéos témoignages"]
+    }
+  ],
+  digitales: [
+    {
+      title: "#CitoyenNumérique Challenge",
+      date: "Juillet 2024",
+      image: "/src/assets/images/digital1.jpg",
+      description: "Challenge TikTok sur les bonnes pratiques numériques citoyennes",
+      results: "2M+ vues • 15K interactions",
+      media: ["TikTok", "Instagram", "Twitter"],
+      hashtag: "#CitoyenNumérique"
+    },
+    {
+      title: "Les Voix du Digital",
+      date: "Mai 2024",
+      image: "/src/assets/images/digital2.jpg",
+      description: "Série de mini-vidéos avec des jeunes activistes numériques",
+      results: "100K+ vues • 10 épisodes",
+      media: ["YouTube", "Facebook Live"]
+    }
+  ],
+  communautaires: [
+    {
+      title: "Caravane Numérique 2024",
+      date: "Août 2024",
+      image: "/src/assets/images/comm1.jpg",
+      description: "Road-show dans 5 villes pour sensibiliser les jeunes aux outils numériques",
+      results: "1 500 jeunes • 5 villes • 20 ateliers",
+      media: ["Photos", "Vidéos", "Témoignages"]
+    },
+    {
+      title: "Robotique & IoT en Action",
+      date: "Juin 2024",
+      image: "/src/assets/images/comm2.jpg",
+      description: "Ateliers pratiques de robotique et IoT dans les écoles",
+      results: "500 élèves formés • 10 écoles",
+      media: ["Démonstrations", "Prototypes"]
+    },
+    {
+      title: "Hackathon Civic Tech",
+      date: "Avril 2024",
+      image: "/src/assets/images/comm3.jpg",
+      description: "48h pour créer des solutions numériques aux problèmes citoyens",
+      results: "80 participants • 15 projets • 3 lauréats",
+      media: ["Photos", "Pitch videos"]
+    }
+  ]
+};
+
+// Chiffres d'impact
+const impactStats = [
+  { number: "10 000+", label: "Jeunes sensibilisés", icon: "users" },
+  { number: "5", label: "Régions couvertes", icon: "map" },
+  { number: "35", label: "Ateliers organisés", icon: "calendar" },
+  { number: "8", label: "Campagnes nationales", icon: "megaphone" },
+  { number: "3", label: "Mémos produits", icon: "document" },
+  { number: "2M+", label: "Portée digitale", icon: "trending" }
+];
+
+// Partenaires
+const partners = [
+  { name: "AfricTivistes", logo: "/src/assets/images/partners/africti.png" },
+  { name: "Digital Youth", logo: "/src/assets/images/partners/digitalyouth.png" },
+  { name: "Ministère du Numérique", logo: "/src/assets/images/partners/minnum.png" },
+  { name: "UCAD", logo: "/src/assets/images/partners/ucad.png" },
+  { name: "SIMPLON", logo: "/src/assets/images/partners/simplon.png" },
+  { name: "ADEPME", logo: "/src/assets/images/partners/adepme.png" }
+];
+
+// Prochaine campagne
+const upcomingCampaign = {
+  title: "Éducation Numérique en Milieu Scolaire",
+  launch: "Janvier 2025",
+  description: "Déploiement d'un programme national d'éducation au numérique dans 50 établissements",
+  teaser: "Une campagne ambitieuse pour former 5 000 élèves aux compétences numériques du 21e siècle"
+};
+---
+
+<Layout metadata={metadata}>
+  
+  <!-- Hero Section -->
+  <section class="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <Image 
+        src={campaign_hero} 
+        alt="Campagnes CitizenLab" 
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-br from-green-900/90 via-green-800/80 to-green-900/90"></div>
+    </div>
+
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <span class="inline-block px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-semibold mb-6 border border-white/30">
+        📢 Actions & Impact
+      </span>
+      
+      <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+        Nos Campagnes Citoyennes
+      </h1>
+      
+      <p class="text-xl text-green-100 leading-relaxed max-w-3xl mx-auto">
+        Les campagnes du CitizenLab Sénégal visent à sensibiliser, mobiliser et engager les citoyens — en particulier les jeunes — autour des enjeux du numérique, de la démocratie, de la participation citoyenne et des droits numériques.
+      </p>
+    </div>
+
+    <div class="absolute bottom-0 left-0 right-0 z-10">
+      <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+        <path d="M0 0L60 10C120 20 240 40 360 46.7C480 53 600 47 720 43.3C840 40 960 40 1080 46.7C1200 53 1320 67 1380 73.3L1440 80V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0V0Z" fill="white"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Campagne en cours -->
+  {activeCampaigns.map(campaign => (
+    <section class="py-20 bg-gradient-to-b from-white to-green-50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center gap-3 mb-12">
+          <div class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+          </div>
+          <h2 class="text-4xl font-bold text-green-900">Campagne en Cours</h2>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+          <div class="md:flex">
+            <div class="md:w-1/2 relative h-64 md:h-auto">
+              <img src={campaign.image} alt={campaign.title} class="w-full h-full object-cover" />
+              <div class="absolute top-6 left-6">
+                <span class="px-4 py-2 bg-red-500 text-white font-bold rounded-full text-sm">
+                  {campaign.status}
+                </span>
+              </div>
+            </div>
+
+            <div class="md:w-1/2 p-8">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="px-3 py-1 bg-green-100 text-green-800 text-sm font-semibold rounded-full">
+                  {campaign.type}
+                </span>
+                <span class="text-gray-600 text-sm">
+                  {campaign.startDate} - {campaign.endDate}
+                </span>
+              </div>
+
+              <h3 class="text-3xl font-bold text-green-900 mb-4">
+                {campaign.title}
+              </h3>
+
+              <p class="text-gray-600 mb-6 leading-relaxed">
+                {campaign.description}
+              </p>
+
+              <!-- Barre de progression -->
+              <div class="mb-6">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="text-sm font-semibold text-gray-700">Progression</span>
+                  <span class="text-sm font-bold text-green-900">{campaign.progress}%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-3">
+                  <div 
+                    class="bg-gradient-to-r from-green-600 to-green-400 h-3 rounded-full transition-all duration-500"
+                    style={`width: ${campaign.progress}%`}
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Impact -->
+              <div class="grid grid-cols-3 gap-4 mb-6 p-4 bg-green-50 rounded-lg">
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-green-900">{campaign.impact.target}</div>
+                  <div class="text-xs text-gray-600">Cible</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-green-900">{campaign.impact.current}</div>
+                  <div class="text-xs text-gray-600">Déjà atteints</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-green-900">{campaign.impact.regions.length}</div>
+                  <div class="text-xs text-gray-600">Régions</div>
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div class="mb-6">
+                <h4 class="font-semibold text-gray-900 mb-3">Actions en cours :</h4>
+                <ul class="space-y-2">
+                  {campaign.actions.map(action => (
+                    <li class="flex items-start gap-2 text-sm text-gray-600">
+                      <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>{action}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <a href="#participer" class="inline-flex items-center gap-2 px-6 py-3 bg-green-900 text-white font-semibold rounded-lg hover:bg-green-800 transition-colors">
+                Rejoindre la campagne
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Chiffres d'impact -->
+  <section class="py-20 bg-green-900 text-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4">Notre Impact en Chiffres</h2>
+        <p class="text-green-200 text-lg">Des actions concrètes, des résultats mesurables</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+        {impactStats.map(stat => (
+          <div class="text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-4">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+              </svg>
+            </div>
+            <div class="text-4xl font-bold mb-2">{stat.number}</div>
+            <div class="text-green-200 text-sm">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Campagnes par type -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Sensibilisation -->
+      <div class="mb-20">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-3xl font-bold text-green-900">Campagnes de Sensibilisation</h2>
+            <p class="text-gray-600">Informer et éduquer sur les enjeux numériques</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <a href="/rejoindre" class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-8 hover:bg-white/20 transition-all duration-300 group text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Rejoindre la campagne</h3>
+          <p class="text-green-100 text-sm">Devenez acteur du changement</p>
+        </a>
+
+        <a href="/enquete" class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-8 hover:bg-white/20 transition-all duration-300 group text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Contribuer à l'enquête</h3>
+          <p class="text-green-100 text-sm">Partagez votre expérience</p>
+        </a>
+
+        <a href="/ateliers" class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-8 hover:bg-white/20 transition-all duration-300 group text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Participer à un atelier</h3>
+          <p class="text-green-100 text-sm">Apprenez et échangez</p>
+        </a>
+
+        <a href="/partenariat" class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-8 hover:bg-white/20 transition-all duration-300 group text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Devenir partenaire</h3>
+          <p class="text-green-100 text-sm">Collaborons ensemble</p>
+        </a>
+
+        <a href="/newsletter" class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-8 hover:bg-white/20 transition-all duration-300 group text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Recevoir les alertes</h3>
+          <p class="text-green-100 text-sm">Restez informé(e)</p>
+        </a>
+
+        <a href="/don" class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-8 hover:bg-white/20 transition-all duration-300 group text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Soutenir nos actions</h3>
+          <p class="text-green-100 text-sm">Contribuez financièrement</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Médias -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-green-900 mb-4">Nos Campagnes dans les Médias</h2>
+        <p class="text-gray-600 text-lg">Retrouvez nos interventions médiatiques</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a href="#" class="bg-white rounded-xl p-6 hover:shadow-lg transition-all duration-300 text-center group">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">Vidéos YouTube</h3>
+          <p class="text-sm text-gray-600">15 vidéos</p>
+        </a>
+
+        <a href="#" class="bg-white rounded-xl p-6 hover:shadow-lg transition-all duration-300 text-center group">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+            </svg>
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">Podcasts</h3>
+          <p class="text-sm text-gray-600">8 épisodes</p>
+        </a>
+
+        <a href="#" class="bg-white rounded-xl p-6 hover:shadow-lg transition-all duration-300 text-center group">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">Interviews Radio</h3>
+          <p class="text-sm text-gray-600">12 passages</p>
+        </a>
+
+        <a href="#" class="bg-white rounded-xl p-6 hover:shadow-lg transition-all duration-300 text-center group">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+            </svg>
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">Articles de Presse</h3>
+          <p class="text-sm text-gray-600">25 articles</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partenaires -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-green-900 mb-4">Nos Partenaires</h2>
+        <p class="text-gray-600 text-lg">Ensemble pour un impact durable</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+        {partners.map(partner => (
+          <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all duration-300 flex items-center justify-center grayscale hover:grayscale-0">
+            <img src={partner.logo} alt={partner.name} class="max-h-16 w-auto" />
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="/partenaires" class="inline-flex items-center gap-2 px-6 py-3 bg-green-900 text-white font-semibold rounded-lg hover:bg-green-800 transition-colors">
+          Voir tous nos partenaires
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prochaine campagne -->
+  <section class="py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 relative overflow-hidden">
+    <!-- Effet de fond -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <span class="inline-block px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-semibold mb-6 border border-white/30">
+        🚀 À venir
+      </span>
+
+      <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+        Prochaine Campagne
+      </h2>
+
+      <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 mb-8">
+        <h3 class="text-3xl font-bold text-white mb-4">
+          {upcomingCampaign.title}
+        </h3>
+        <p class="text-xl text-blue-100 mb-6">
+          {upcomingCampaign.description}
+        </p>
+        <div class="inline-flex items-center gap-2 px-6 py-3 bg-white/20 rounded-lg text-white font-semibold">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          Lancement : {upcomingCampaign.launch}
+        </div>
+      </div>
+
+      <p class="text-lg text-blue-100 mb-8 leading-relaxed">
+        {upcomingCampaign.teaser}
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/newsletter" class="px-8 py-4 bg-white text-blue-900 font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl">
+          Me tenir informé(e)
+        </a>
+        <a href="/contact" class="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-lg hover:bg-white hover:text-blue-900 transition-all duration-300">
+          Devenir partenaire
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>d-cols-3 gap-6">
+          {campaigns.sensibilisation.map(camp => (
+            <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group">
+              <div class="relative h-48 overflow-hidden">
+                <img src={camp.image} alt={camp.title} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <span class="absolute top-4 right-4 px-3 py-1 bg-white/95 backdrop-blur-sm rounded-full text-xs font-semibold text-gray-900">
+                  {camp.date}
+                </span>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-green-900 mb-3 group-hover:text-green-700 transition-colors">
+                  {camp.title}
+                </h3>
+                <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                  {camp.description}
+                </p>
+                <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                  <span class="text-sm font-semibold text-green-900">{camp.results}</span>
+                  <div class="flex gap-1">
+                    {camp.media.map(m => (
+                      <span class="px-2 py-1 bg-green-50 text-green-700 text-xs rounded">
+                        {m}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <!-- Plaidoyer -->
+      <div class="mb-20">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-3xl font-bold text-green-900">Campagnes de Plaidoyer</h2>
+            <p class="text-gray-600">Influencer les politiques et les décisions publiques</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {campaigns.plaidoyer.map(camp => (
+            <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group">
+              <div class="md:flex">
+                <div class="relative md:w-1/3 h-48 md:h-auto overflow-hidden">
+                  <img src={camp.image} alt={camp.title} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <div class="p-6 md:w-2/3">
+                  <span class="text-xs font-semibold text-gray-500 mb-2 block">{camp.date}</span>
+                  <h3 class="text-xl font-bold text-green-900 mb-3 group-hover:text-green-700 transition-colors">
+                    {camp.title}
+                  </h3>
+                  <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                    {camp.description}
+                  </p>
+                  <div class="space-y-2">
+                    <div class="text-sm font-semibold text-green-900">{camp.results}</div>
+                    <div class="flex flex-wrap gap-1">
+                      {camp.media.map(m => (
+                        <span class="px-2 py-1 bg-purple-50 text-purple-700 text-xs rounded">
+                          {m}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <!-- Digitales -->
+      <div class="mb-20">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-3xl font-bold text-green-900">Campagnes Digitales</h2>
+            <p class="text-gray-600">Mobilisation sur les réseaux sociaux</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {campaigns.digitales.map(camp => (
+            <article class="bg-gradient-to-br from-pink-50 to-purple-50 border border-pink-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300">
+              <div class="flex items-start gap-4 mb-4">
+                <img src={camp.image} alt={camp.title} class="w-20 h-20 rounded-lg object-cover" />
+                <div class="flex-1">
+                  <span class="text-xs font-semibold text-gray-600 mb-1 block">{camp.date}</span>
+                  <h3 class="text-xl font-bold text-gray-900 mb-2">
+                    {camp.title}
+                  </h3>
+                  {camp.hashtag && (
+                    <span class="inline-block px-3 py-1 bg-pink-500 text-white text-xs font-bold rounded-full">
+                      {camp.hashtag}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <p class="text-gray-700 mb-4 text-sm">
+                {camp.description}
+              </p>
+              <div class="flex items-center justify-between pt-4 border-t border-pink-200">
+                <span class="text-sm font-bold text-pink-600">{camp.results}</span>
+                <div class="flex gap-1">
+                  {camp.media.map(m => (
+                    <span class="px-2 py-1 bg-white text-pink-700 text-xs rounded font-semibold">
+                      {m}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <!-- Communautaires -->
+      <div>
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-3xl font-bold text-green-900">Campagnes Communautaires</h2>
+            <p class="text-gray-600">Actions terrain et engagement local</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {campaigns.communautaires.map(camp => (
+            <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group">
+              <div class="relative h-48 overflow-hidden">
+                <img src={camp.image} alt={camp.title} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              </div>
+              <div class="p-6">
+                <span class="text-xs font-semibold text-gray-500 mb-2 block">{camp.date}</span>
+                <h3 class="text-xl font-bold text-green-900 mb-3 group-hover:text-green-700 transition-colors">
+                  {camp.title}
+                </h3>
+                <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                  {camp.description}
+                </p>
+                <div class="pt-4 border-t border-gray-100">
+                  <div class="text-sm font-semibold text-orange-600 mb-2">{camp.results}</div>
+                  <div class="flex flex-wrap gap-1">
+                    {camp.media.map(m => (
+                      <span class="px-2 py-1 bg-orange-50 text-orange-700 text-xs rounded">
+                        {m}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </section>
+</Layout>
