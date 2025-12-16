@@ -1,15 +1,17 @@
 export async function navQuery() {
   const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
-  console.log('Fetching menu from:', apiUrl);
-  
+  console.log("Fetching menu from:", apiUrl);
+
   if (!apiUrl) {
-    console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning empty menu');
+    console.warn(
+      "PUBLIC_WORDPRESS_API_URL is not defined, returning empty menu"
+    );
     return [];
   }
-  
+
   const response = await fetch(apiUrl, {
-    method: 'post',
-    headers: { 'Content-Type': 'application/json' },
+    method: "post",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       query: `{
               menuItems(where: {location: HEADER_MENU}) {
@@ -26,33 +28,35 @@ export async function navQuery() {
                 }
               }
             }
-            `
-    })
+            `,
+    }),
   });
   const json = await response.json();
-  console.log('API Response:', json);
+  console.log("API Response:", json);
   const { data } = json;
-  console.log('Menu Data:', data);
+  console.log("Menu Data:", data);
   if (!data || !data.menuItems || !Array.isArray(data.menuItems.nodes)) {
-    console.error('Menu data is missing or malformed:', data);
+    console.error("Menu data is missing or malformed:", data);
     return [];
   }
-  const menuItems = data.menuItems.nodes.filter(node => node.parentId === null);
-  console.log('Filtered Menu Items:', menuItems);
+  const menuItems = data.menuItems.nodes.filter(
+    (node) => node.parentId === null
+  );
+  console.log("Filtered Menu Items:", menuItems);
   return menuItems;
 }
 
 export async function getNodeByURI(uri) {
   const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
-  
+
   if (!apiUrl) {
-    console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning null');
+    console.warn("PUBLIC_WORDPRESS_API_URL is not defined, returning null");
     return null;
   }
-  
+
   const response = await fetch(apiUrl, {
-    method: 'post',
-    headers: { 'Content-Type': 'application/json' },
+    method: "post",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       query: `query GetNodeByURI($uri: String!) {
                   nodeByUri(uri: $uri) {
@@ -143,29 +147,31 @@ export async function getNodeByURI(uri) {
                 }
               `,
       variables: {
-        uri: uri
-      }
-    })
+        uri: uri,
+      },
+    }),
   });
   const { data } = await response.json();
   return data;
 }
 export async function getAllUris() {
   const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
-  
+
   if (!apiUrl) {
-    console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning empty array');
+    console.warn(
+      "PUBLIC_WORDPRESS_API_URL is not defined, returning empty array"
+    );
     return [];
   }
-  
+
   let allUris = [];
   let afterCursor = null;
   let hasNextPage = true;
 
   while (hasNextPage) {
     const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         query: `query GetAllUris($after: String) {
           posts(first: 50, after: $after) {
@@ -183,8 +189,8 @@ export async function getAllUris() {
             }
           }
         }`,
-        variables: { after: afterCursor }
-      })
+        variables: { after: afterCursor },
+      }),
     });
 
     const { data } = await response.json();
@@ -202,30 +208,31 @@ export async function getAllUris() {
 
   // Nettoyage des URI
   return allUris
-    .filter(node => node.uri !== null)
-    .map(node => {
+    .filter((node) => node.uri !== null)
+    .map((node) => {
       let trimmedURI = node.uri.substring(1);
       trimmedURI = trimmedURI.substring(0, trimmedURI.length - 1);
       return {
         params: {
-          uri: decodeURI(trimmedURI)
-        }
+          uri: decodeURI(trimmedURI),
+        },
       };
     });
 }
 
-
 export async function findLatestPostsAPI() {
   const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
-  
+
   if (!apiUrl) {
-    console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning empty array');
+    console.warn(
+      "PUBLIC_WORDPRESS_API_URL is not defined, returning empty array"
+    );
     return [];
   }
-  
+
   const response = await fetch(apiUrl, {
-    method: 'post',
-    headers: { 'Content-Type': 'application/json' },
+    method: "post",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       query: `{
                   posts(first: 8) {
@@ -256,28 +263,30 @@ export async function findLatestPostsAPI() {
                     }
                   }
                 }
-              `
-    })
+              `,
+    }),
   });
   const { data } = await response.json();
   return data.posts.nodes;
 }
 export async function newsPagePostsQuery() {
   const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
-  
+
   if (!apiUrl) {
-    console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning empty array');
+    console.warn(
+      "PUBLIC_WORDPRESS_API_URL is not defined, returning empty array"
+    );
     return [];
   }
-  
+
   let allPosts = [];
   let afterCursor = null;
   let hasNextPage = true;
 
   while (hasNextPage) {
     const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         query: `
           query Posts( $after: String) {
@@ -315,8 +324,8 @@ export async function newsPagePostsQuery() {
             }
           }
         `,
-        variables: { after: afterCursor }
-      })
+        variables: { after: afterCursor },
+      }),
     });
 
     const { data } = await response.json();
@@ -334,17 +343,21 @@ export async function newsPagePostsQuery() {
 }
 
 export async function getAllMembers() {
-  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/senegal/graphql';
-  
+  const apiUrl =
+    import.meta.env.PUBLIC_WORDPRESS_API_URL ||
+    "https://citizenlab.africtivistes.org/senegal/graphql";
+
   if (!apiUrl) {
-    console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning empty array');
+    console.warn(
+      "PUBLIC_WORDPRESS_API_URL is not defined, returning empty array"
+    );
     return [];
   }
-  
+
   try {
     const response = await fetch(apiUrl, {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
+      method: "post",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         query: `{
           equipes (where: {status: PUBLISH}, first: 100) {
@@ -369,22 +382,85 @@ export async function getAllMembers() {
                     }
           }
           }     
-        `
-      })
+        `,
+      }),
     });
-    
+
     const { data } = await response.json();
-    
+
     // Check if data.equipes exists and has nodes
     if (data && data.equipes && data.equipes.nodes) {
       return data.equipes.nodes;
     } else {
-      console.error('No equipes data found in API response');
+      console.error("No equipes data found in API response");
       // Return an empty array as fallback
       return [];
     }
   } catch (error) {
-    console.error('Error fetching team members:', error);
+    console.error("Error fetching team members:", error);
     return [];
   }
+}
+
+export async function getPodcastPosts() {
+  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
+
+  if (!apiUrl) {
+    console.warn("PUBLIC_WORDPRESS_API_URL is not defined");
+    return [];
+  }
+
+  const response = await fetch(apiUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: `
+        query PodcastPosts {
+          posts(
+            where: { categoryName: "Podcasts" }
+            first: 20
+          ) {
+            nodes {
+              id
+              slug
+              title
+              excerpt
+              content 
+              date
+              permalink: uri
+              featuredImage {
+                node {
+                  mediaItemUrl
+                  altText
+                }
+              } 
+              categories {
+                nodes {
+                  name
+                  slug
+                }
+              }
+            }
+          }
+        }
+      `,
+    }),
+  });
+
+  const { data } = await response.json();
+  return data?.posts?.nodes || [];
+}
+
+export function extractAudioUrl(postContent) {
+  if (!postContent) return '';
+  
+  // On récupère le bloc <audio> ou <figure class="wp-block-audio">
+  const match = postContent.match(/<audio[\s\S]*?<\/audio>/);
+  if (match) return match[0];
+
+  // Si le thème utilise wp-block-audio
+  const wpAudioMatch = postContent.match(/<figure class="wp-block-audio"[\s\S]*?<\/figure>/);
+  if (wpAudioMatch) return wpAudioMatch[0];
+
+  return '';
 }
