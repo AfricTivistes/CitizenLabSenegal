@@ -1,5 +1,6 @@
 ---
 import type { Podcast } from "~/types/podcasts";
+import microphone from "~/assets/images/microphone.jpg"
 
 interface Props {
   podcast: Podcast;
@@ -23,7 +24,7 @@ const truncate = (text: string, numWords: number) => {
     <!-- Image -->
     <div class="relative md:w-48 h-48 md:h-auto overflow-hidden flex-shrink-0">
       <img
-        src={podcast.coverImage || "/src/assets/images/microphone.jpg"}
+        src={podcast.coverImage || microphone.src}
         alt={podcast.title}
         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
       />
