@@ -26,7 +26,7 @@ export const headerData = {
         // { text: "Campagnes", href: getPermalink("campagnes", "category") },
         // { text: "Blog / Opinions", href: getPermalink("blog", "category") },
         { text: "Podcasts", href: getPermalink("/podcasts") },
-        { text: "Vidéos", href: getPermalink("videos", "category") },
+        { text: "Vidéos", href: getPermalink("videos") },
       ],
     },
     {
@@ -73,12 +73,15 @@ export const footerData = {
     {
       title: "Actualités",
       links: [
-        { text: "Actualités", href: getBlogPermalink("/news") },
-        { text: "Blog", href: getPermalink("blog", "category") },
-        { text: "Campagnes", href: "#" },
+        { text: "Actualités", href: getPermalink("/news") },
+        // { text: "Blog", href: getPermalink("blog", "category") },
+        // { text: "Campagnes", href: "#" },
         { text: "Podcasts", href: getPermalink("/podcasts") },
-        { text: "Vidéos", href: getPermalink("videos", "category") },
-        { text: "Formations", href: getPermalink("formations", "category") },
+        { text: "Vidéos", href: getPermalink("videos") },
+        {
+          text: "Formations",
+          href: getPermalink("formations/bootcamps-ateliers"),
+        },
       ],
     },
 

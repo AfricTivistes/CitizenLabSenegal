@@ -1,0 +1,353 @@
+---
+import Layout from "~/layouts/PageLayout.astro";
+import Banner from "~/components/widgets/Banner.astro";
+import videos_img from "~/assets/images/videos_img.jpg";
+import { Image } from "astro:assets";
+
+const categories = [
+  { id: "tous", label: "Tous", icon: "🎬" },
+  { id: "sensibilisation", label: "Sensibilisation", icon: "💡" },
+  { id: "formations", label: "Formations", icon: "📚" },
+  { id: "campagnes", label: "Campagnes", icon: "📢" },
+  { id: "vlogs", label: "Vlogs", icon: "🎥" },
+  { id: "temoignages", label: "Témoignages", icon: "💬" },
+  { id: "tech", label: "Tech/Démo", icon: "💻" },
+];
+
+const videos = [
+  {
+    id: 1,
+    titre: "Comprendre les droits numériques",
+    categorie: "sensibilisation",
+    duree: "2:30",
+    thumbnail:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800",
+    description: "Introduction aux droits fondamentaux dans l'espace numérique",
+    lien: "#",
+  },
+  {
+    id: 2,
+    titre: "Protection des données personnelles",
+    categorie: "sensibilisation",
+    duree: "1:45",
+    thumbnail:
+      "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800",
+    description: "Pourquoi et comment protéger vos données",
+    lien: "#",
+  },
+  {
+    id: 3,
+    titre: "Participation citoyenne en ligne",
+    categorie: "sensibilisation",
+    duree: "3:00",
+    thumbnail:
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800",
+    description: "Comment s'engager dans la vie publique numérique",
+    lien: "#",
+  },
+  {
+    id: 4,
+    titre: "Qu'est-ce qu'une Civic Tech ?",
+    categorie: "sensibilisation",
+    duree: "2:15",
+    thumbnail:
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800",
+    description: "Découvrez le mouvement des technologies citoyennes",
+    lien: "#",
+  },
+  // Formations
+  {
+    id: 5,
+    titre: "Formation Civic Tech - Extraits",
+    categorie: "formations",
+    duree: "0:45",
+    thumbnail:
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800",
+    description: "Aperçu de notre formation complète (Janvier)",
+    lien: "#",
+  },
+  {
+    id: 6,
+    titre: "Sécurité des données à Thiès",
+    categorie: "formations",
+    duree: "1:00",
+    thumbnail:
+      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800",
+    description: "Session de formation sur la cybersécurité (Juin)",
+    lien: "#",
+  },
+  {
+    id: 7,
+    titre: "Initiation Robotique et IoT",
+    categorie: "formations",
+    duree: "0:50",
+    thumbnail:
+      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800",
+    description: "Découverte de la robotique pour tous (Octobre)",
+    lien: "#",
+  },
+  // Campagnes
+  {
+    id: 8,
+    titre: "Campagne Droits Numériques",
+    categorie: "campagnes",
+    duree: "0:30",
+    thumbnail:
+      "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=800",
+    description: "Spot de sensibilisation aux droits digitaux",
+    lien: "#",
+  },
+  {
+    id: 9,
+    titre: "Road-show CitizenLab",
+    categorie: "campagnes",
+    duree: "0:45",
+    thumbnail:
+      "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800",
+    description: "Caravane citoyenne dans les quartiers",
+    lien: "#",
+  },
+  // Vlogs
+  {
+    id: 10,
+    titre: "Une journée au CitizenLab",
+    categorie: "vlogs",
+    duree: "3:30",
+    thumbnail:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800",
+    description: "Coulisses de notre quotidien",
+    lien: "#",
+  },
+  {
+    id: 11,
+    titre: "Vlog Hackathon Citoyen",
+    categorie: "vlogs",
+    duree: "4:00",
+    thumbnail:
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800",
+    description: "48h d'innovation citoyenne",
+    lien: "#",
+  },
+  // Témoignages
+  {
+    id: 12,
+    titre: "Témoignage - Fatou, développeuse",
+    categorie: "temoignages",
+    duree: "0:35",
+    thumbnail:
+      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800",
+    description: "Parcours d'une jeune formée",
+    lien: "#",
+  },
+  {
+    id: 13,
+    titre: "Témoignage - Partenaire ONG",
+    categorie: "temoignages",
+    duree: "0:40",
+    thumbnail:
+      "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800",
+    description: "Impact de notre collaboration",
+    lien: "#",
+  },
+  // Tech
+  {
+    id: 14,
+    titre: "Démo Plateforme CitizenLab",
+    categorie: "tech",
+    duree: "2:00",
+    thumbnail:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800",
+    description: "Visite guidée de notre plateforme",
+    lien: "#",
+  },
+  {
+    id: 15,
+    titre: "Tutoriel Taxaw Temm",
+    categorie: "tech",
+    duree: "1:30",
+    thumbnail:
+      "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800",
+    description: "Comment utiliser notre application",
+    lien: "#",
+  },
+];
+
+const metadata = {
+  title: "Vidéos - CitizenLab Sénégal",
+  description:
+    "Explorez notre collection de vidéos éducatives et inspirantes sur l'engagement citoyen et les technologies au service du bien commun.",
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Banner -->
+  <Banner
+    title={metadata.title}
+    subtitle="Nous sommes là pour vous aider. N'hésitez pas à nous envoyer un message !"
+  >
+    <Image
+      src={videos_img}
+      alt="Contact Us"
+      class="w-full h-full object-cover absolute inset-0 border-0 z-0 scale-110 transition-transform duration-700"
+    />
+  </Banner>
+
+  <!-- Hero Section avec vidéo mise en avant -->
+  <section
+    class="bg-gradient-to-br from-white via-gray-100 to-green-200 text-gray-800 py-20"
+  >
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="fade-in">
+          <h2 class="text-5xl font-bold mb-6 leading-tight">
+            Médiathèque<br />Citoyenne
+          </h2>
+          <p class="text-xl text-gray-600 leading-relaxed mb-8">
+            Les vidéos du CitizenLab Sénégal documentent nos activités, nos
+            campagnes et nos productions citoyennes. Elles permettent de
+            sensibiliser, former et engager les jeunes autour des Civic Tech,
+            des droits numériques et de la participation citoyenne.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <div class="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full">
+              <span class="font-semibold">{videos.length}</span> vidéos
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full">
+              <span class="font-semibold">{categories.length - 1}</span> catégories
+            </div>
+          </div>
+        </div>
+
+        <div class="fade-in" style="animation-delay: 0.2s">
+          <div
+            class="relative rounded-2xl overflow-hidden shadow-2xl group cursor-pointer"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=800"
+              alt="Vidéo principale"
+              class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div
+              class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition"
+            >
+              <div
+                class="bg-white/90 backdrop-blur-sm p-6 rounded-full group-hover:scale-110 transition-transform"
+              >
+                <svg
+                  class="w-12 h-12 text-green-800"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <div
+              class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6"
+            >
+              <h3 class="text-xl font-bold text-white mb-1">
+                Lancement Officiel CitizenLab
+              </h3>
+              <p class="text-sm text-gray-300">5:30 • À la une</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Catégories -->
+  <section class="py-12 bg-white shadow-sm sticky top-16 z-40">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap justify-center gap-3" id="categories">
+        {
+          categories.map((cat, index) => (
+            <button
+              class={`category-btn px-6 py-3 rounded-full font-semibold shadow-md hover:shadow-lg ${index === 0 ? "active" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+              data-category={cat.id}
+            >
+              <span class="mr-2">{cat.icon}</span>
+              {cat.label}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie de vidéos -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div
+        id="video-grid"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      >
+        {
+          videos.map((video) => (
+            <div
+              class="video-card bg-white rounded-xl overflow-hidden shadow-lg cursor-pointer"
+              data-category={video.categorie}
+            >
+              <div class="relative">
+                <img
+                  src={video.thumbnail}
+                  alt={video.titre}
+                  class="w-full h-56 object-cover"
+                />
+                <div class="absolute top-4 right-4 bg-black/80 backdrop-blur-sm px-3 py-1 rounded-full text-white text-sm font-semibold">
+                  {video.duree}
+                </div>
+                <div class="absolute inset-0 bg-black/0 hover:bg-black/30 flex items-center justify-center transition-all duration-300 group">
+                  <div class="bg-white/0 group-hover:bg-white/90 p-4 rounded-full transition-all duration-300">
+                    <svg
+                      class="w-10 h-10 text-white group-hover:text-green-800 transition-colors"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="text-xs font-semibold px-3 py-1 rounded-full bg-green-100 text-green-700 capitalize">
+                    {video.categorie}
+                  </span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
+                  {video.titre}
+                </h3>
+                <p class="text-sm text-gray-600 line-clamp-2">
+                  {video.description}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div id="no-results" class="hidden text-center py-16">
+        <svg
+          class="w-24 h-24 mx-auto text-gray-300 mb-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+          ></path>
+        </svg>
+        <p class="text-xl text-gray-500">
+          Aucune vidéo dans cette catégorie pour le moment
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
