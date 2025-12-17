@@ -2,7 +2,7 @@
 import Layout from "~/layouts/PageLayout.astro";
 import podcast_bg from "~/assets/images/podcast_bg.jpg";
 import Banner from "~/components/widgets/Banner.astro";
-import PodcastCard from "~/components/Podcasts/card.astro";
+import Podcastcard from "~/components/Podcasts/Podcastcard.astro";
 
 import { Image } from "astro:assets";
 
@@ -68,7 +68,7 @@ const podcasts : Podcast[] = posts.map((post) => ({
         ) : (
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             {podcasts.map((podcast) => (
-              <PodcastCard podcast={podcast} />
+              <Podcastcard podcast={podcast} />
             ))}
           </div>
         )
