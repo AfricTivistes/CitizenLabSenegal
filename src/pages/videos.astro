@@ -1,0 +1,235 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { Image } from 'astro:assets';
+
+const metadata = {
+  title: "Vidéos - AfricTivistes CitizenLab Sénégal",
+  description: "Découvrez nos vidéos sur la participation citoyenne, la transparence publique et les initiatives de CitizenLab au Sénégal.",
+  ignoreTitleTemplate: true,
+};
+
+// Données des vidéos
+// Vous pouvez ajouter autant de vidéos que nécessaire ici
+const videos = [
+  {
+    id: 1,
+    titre: "Introduction à CitizenLab Sénégal",
+    description: "Découvrez la mission et les objectifs de CitizenLab Sénégal pour renforcer la participation citoyenne.",
+    categorie: "Présentation",
+    date: "2024-01-15",
+    duree: "5:30",
+    thumbnail: "/src/assets/images/a.png",
+    videoUrl: "https://www.youtube.com/embed/VIDEO_ID_1",
+    imagePosition: "left",
+  },
+  {
+    id: 2,
+    titre: "Formation sur la Participation Citoyenne",
+    description: "Formation pratique sur les outils et méthodes de participation citoyenne dans les communautés locales.",
+    categorie: "Formation",
+    date: "2024-02-20",
+    duree: "12:45",
+    thumbnail: "/src/assets/images/b.png",
+    videoUrl: "https://www.youtube.com/embed/VIDEO_ID_2",
+    imagePosition: "right",
+  },
+  {
+    id: 3,
+    titre: "Témoignages des Communautés",
+    description: "Les citoyens partagent leur expérience avec les projets de CitizenLab et leur impact sur le terrain.",
+    categorie: "Témoignage",
+    date: "2024-03-10",
+    duree: "8:20",
+    thumbnail: "/src/assets/images/c.png",
+    videoUrl: "https://www.youtube.com/embed/VIDEO_ID_3",
+    imagePosition: "left",
+  },
+  // Ajoutez plus de vidéos ici si nécessaire
+];
+
+// Configuration de la pagination (optionnel)
+const videosParPage = 6;
+const pageActuelle = 1;
+
+// Alterner automatiquement la position des images si non spécifiée
+const videosAvecPosition = videos.map((video, index) => ({
+  ...video,
+  imagePosition: video.imagePosition || (index % 2 === 0 ? "left" : "right")
+}));
+
+const videosAffichees = videosAvecPosition;
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Banner avec image de fond -->
+  <section class="relative isolate overflow-hidden">
+    <div class="absolute inset-0">
+      <Image
+        src="/src/assets/images/videos.png"
+        alt="Bannière Vidéos"
+        width={1920}
+        height={800}
+        class="h-full w-full object-cover"
+      />
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/40"></div>
+    
+    <!-- Contenu de la bannière -->
+    <div class="relative z-30 mx-auto flex max-w-7xl flex-col gap-6 px-4 py-32 text-white sm:px-6 lg:px-8">
+      <p class="text-sm uppercase tracking-[0.3em] text-primary-light">Nos vidéos</p>
+      <h1 class="text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
+        Découvrez nos contenus vidéo sur la participation citoyenne
+      </h1>
+      <p class="max-w-5xl text-lg text-slate-100 sm:text-xl">
+        Explorez nos vidéos éducatives, nos formations, nos témoignages et nos reportages sur les initiatives 
+        de CitizenLab pour renforcer la démocratie participative au Sénégal.
+      </p>
+    </div>
+  </section>
+
+  <!-- Introduction Section -->
+  <section class="bg-white py-8 sm:py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="text-xl md:text-2xl leading-relaxed text-black">
+        CitizenLab Sénégal produit des contenus vidéo pour sensibiliser, former et informer les citoyens sur 
+        la participation citoyenne, la transparence publique et les outils de démocratie participative. 
+        Découvrez nos vidéos, formations et témoignages.
+      </p>
+    </div>
+  </section>
+
+  <!-- Vidéos Section -->
+  <section class="bg-gray-50 py-8 sm:py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-8">
+        <h2 class="text-4xl font-bold text-black mb-3">Nos vidéos</h2>
+        <div class="h-1 w-32 bg-primary mb-4"></div>
+        <p class="text-xl md:text-2xl text-black leading-relaxed">
+          Explorez notre collection de vidéos couvrant les formations, les témoignages, les présentations 
+          et les reportages sur nos projets et initiatives de participation citoyenne.
+        </p>
+      </div>
+
+      <!-- Grille des vidéos -->
+      <div class="space-y-10">
+        {videosAffichees.map((video, index) => (
+          <div class="relative overflow-hidden rounded-lg bg-white shadow-lg my-4" style="border-radius: 7px;" data-video-index={index}>
+            <div class="flex flex-col lg:flex-row">
+              <!-- Vidéo/Thumbnail avec borderRadius spécifique selon position -->
+              <div class={`relative h-64 lg:h-auto lg:w-1/2 overflow-hidden ${
+                video.imagePosition === "left" 
+                  ? "rounded-tl-[47px]" 
+                  : "rounded-tr-[47px] lg:order-2"
+              }`}>
+                <div class="relative w-full h-full bg-gray-900">
+                  <Image
+                    src={video.thumbnail}
+                    alt={video.titre}
+                    width={600}
+                    height={400}
+                    class="w-full h-full object-cover"
+                  />
+                  <!-- Bouton play centré -->
+                  <div class="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors cursor-pointer" onclick={`window.open('${video.videoUrl}', '_blank')`}>
+                    <div class="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors shadow-lg">
+                      <svg class="w-10 h-10 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Contenu de la vidéo -->
+              <div class={`flex-1 p-8 bg-white ${
+                video.imagePosition === "left" 
+                  ? "rounded-br-[47px] rounded-bl-[47px]" 
+                  : "rounded-bl-[47px] rounded-br-[47px] lg:order-1"
+              }`}>
+                <!-- Badge catégorie -->
+                <div class="mb-4">
+                  <span class={`inline-flex items-center rounded-full px-4 py-2 text-base md:text-lg font-semibold ${
+                    video.categorie === "Présentation" 
+                      ? "bg-primary text-white" 
+                      : video.categorie === "Formation"
+                      ? "bg-[#FF6B35] text-white"
+                      : "bg-[#4A90E2] text-white"
+                  }`}>
+                    {video.categorie}
+                  </span>
+                </div>
+
+                <!-- Titre -->
+                <h3 class="text-3xl md:text-4xl font-bold text-black mb-4">{video.titre}</h3>
+                
+                <!-- Description -->
+                <p class="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed">{video.description}</p>
+
+                <!-- Métadonnées -->
+                <div class="flex items-center gap-4 mb-6 text-base md:text-lg text-gray-600">
+                  <span>📅 {new Date(video.date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                  <span>⏱️ {video.duree}</span>
+                </div>
+                
+                <!-- Bouton Voir la vidéo -->
+                <div class="flex items-center gap-4 flex-wrap">
+                  <a
+                    href={video.videoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center rounded-lg bg-white border-2 border-primary px-6 py-2 text-lg md:text-xl font-semibold text-primary transition-all duration-200 hover:bg-primary hover:text-white"
+                    style="border-radius: 10px;"
+                  >
+                    Voir la vidéo
+                    <span class="ml-2">→</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Pagination (affichée seulement si plus de vidéos que la limite) -->
+      {videos.length > videosParPage && (
+        <div class="mt-12 flex justify-center items-center gap-4">
+          <button 
+            class="px-4 py-2 rounded-lg border-2 border-primary text-primary font-semibold hover:bg-primary hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            id="prevPage"
+            disabled={pageActuelle === 1}
+          >
+            Précédent
+          </button>
+          
+          <span class="text-gray-700 font-medium">
+            Page {pageActuelle} sur {Math.ceil(videos.length / videosParPage)}
+          </span>
+          
+          <button 
+            class="px-4 py-2 rounded-lg border-2 border-primary text-primary font-semibold hover:bg-primary hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            id="nextPage"
+            disabled={pageActuelle >= Math.ceil(videos.length / videosParPage)}
+          >
+            Suivant
+          </button>
+        </div>
+      )}
+
+      <!-- Message si aucune vidéo -->
+      {videos.length === 0 && (
+        <div class="text-center py-12">
+          <p class="text-lg text-gray-600">Aucune vidéo disponible pour le moment.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* Styles spécifiques pour les vidéos */
+  iframe {
+    border-radius: inherit;
+  }
+</style>
+
