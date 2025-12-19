@@ -388,3 +388,137 @@ export async function getAllMembers() {
     return [];
   }
 }
+
+export async function getActualitesPosts() {
+  const query = `
+    query GetActualitesPosts {
+      posts(
+        where: {
+          categoryName: "Actualites"
+        }
+        first: 20
+      ) {
+        nodes {
+          id
+          title
+          excerpt
+          date
+          slug
+          content
+          categories {
+            nodes {
+              name
+            }
+          }
+          featuredImage {
+            node {
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const res = await fetch(import.meta.env.PUBLIC_WP_GRAPHQL_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query }),
+  });
+
+  const json = await res.json();
+  return json.data.posts.nodes;
+}
+
+export async function getPodcastPosts() {
+  const query = `
+    query GetPodcastPosts {
+      posts(
+        where: {
+          categoryName: "Podcast"
+        }
+        first: 20
+      ) {
+        nodes {
+          id
+          title
+          excerpt
+          date
+          slug
+          content
+          categories {
+            nodes {
+              name
+            }
+          }
+          featuredImage {
+            node {
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const res = await fetch(import.meta.env.PUBLIC_WP_GRAPHQL_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query }),
+  });
+  const json = await res.json();
+  return json.data.posts.nodes;
+}
+
+export async function getLatestActualites(limit = 3) {
+  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
+
+  if (!apiUrl) return [];
+
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: `
+        query GetLatestActualites($limit: Int!) {
+          posts(
+            first: $limit
+            where: {
+              categoryName: "Actualites"
+              orderby: { field: DATE, order: DESC }
+            }
+          ) {
+            nodes {
+              title
+              excerpt
+              slug
+              uri
+              date
+              categories {
+                nodes {
+                  name
+                  slug
+                }
+              }
+              featuredImage {
+                node {
+                  mediaItemUrl
+                  altText
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables: { limit }
+    })
+  });
+
+  const { data } = await response.json();
+  return data?.posts?.nodes ?? [];
+}
+
