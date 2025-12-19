@@ -1,0 +1,202 @@
+---
+import { Image } from "astro:assets";
+import nifa from "~/assets/images/Nifa.jpg";
+
+import { FaCalendarCheck, FaUsers } from "react-icons/fa";
+import { GoGoal } from "react-icons/go";
+import { CiCircleInfo } from "react-icons/ci";
+import { FaCode, FaArrowRightLong } from "react-icons/fa6";
+import { IoIosStats } from "react-icons/io";
+import { IoBookOutline } from "react-icons/io5";
+
+const eventDetails = [
+  {
+    title: "Durée",
+    details: "6 semaines • Du 4 nov au 15 déc 2025",
+    icon: FaCalendarCheck,
+  },
+  {
+    title: "Format",
+    details: "Hybride • Présentiel + en ligne",
+    icon: CiCircleInfo,
+  },
+  {
+    title: "Objectif",
+    details: "Créer un prototype civic tech déployable",
+    icon: GoGoal,
+  },
+];
+
+const formations = [
+  {
+    title: "Initiation au code",
+    duration: "3 semaines",
+    format: "En ligne",
+    link: "#",
+    icon: FaCode,
+  },
+  {
+    title: "Data & Transparence",
+    duration: "4 semaines",
+    link: "#",
+    format: "Hybride",
+    icon: IoIosStats,
+  },
+  {
+    title: "Leadership Citoyen",
+    duration: "2 semaines",
+    link: "#",
+    format: "Presentiel",
+    icon: FaUsers,
+  },
+];
+---
+
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Titre de section -->
+    <div class="text-center mb-16">
+      <div class="inline-block animate-fade-in-down mb-6">
+        <span
+          class="px-5 py-2 border border-green-600 text-green-600 bg-white rounded-full text-xs font-semibold tracking-wide uppercase"
+        >
+          Évenements
+        </span>
+      </div>
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">
+        Formations & <span class="text-green-600">Bootcamps</span>
+      </h2>
+      <p class="text-lg text-center text-gray-600 max-w-2xl mx-auto">
+        Développez vos compétences en civic tech et devenez un acteur du
+        changement digital au Sénégal
+      </p>
+    </div>
+
+    <!-- Formation phare en vedette -->
+    <div class="max-w-5xl mx-auto mb-8">
+      <div
+        class="bg-gradient-to-br from-green-50 to-white rounded-2xl shadow-lg overflow-hidden"
+      >
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+          <!-- Image -->
+          <div class="relative h-56 lg:h-auto overflow-hidden">
+            <Image
+              src={nifa}
+              alt="Bootcamp Civic Tech Innovators"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute top-4 left-4">
+              <span
+                class="bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg"
+              >
+                🔥 Prochaine session
+              </span>
+            </div>
+            <div class="absolute bottom-4 right-4">
+              <span
+                class="bg-white text-gray-800 text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg"
+              >
+                Places limitées
+              </span>
+            </div>
+          </div>
+
+          <!-- Contenu -->
+          <div class="p-6 lg:p-8 flex flex-col justify-center">
+            <div class="mb-4">
+              <span
+                class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full mb-3"
+              >
+                Bootcamp intensif
+              </span>
+              <h3 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-3">
+                Civic Tech Innovators Program
+              </h3>
+              <p class="text-gray-600 text-base mb-4">
+                Apprenez à concevoir, développer et déployer des solutions
+                digitales pour résoudre des problèmes citoyens concrets. De
+                l'idée au prototype fonctionnel en 6 semaines.
+              </p>
+            </div>
+
+            <!-- Détails -->
+            <div class="space-y-3 mb-6 text-sm">
+              {
+                eventDetails.map((detail) => (
+                  <div class="flex items-start gap-2.5">
+                    <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                      <detail.icon className="w-4 h-4 text-green-600" />
+                    </div>
+                    <div>
+                      <div class="font-semibold text-gray-800">
+                        {detail.title}
+                      </div>
+                      <div class="text-gray-600">{detail.details}</div>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+
+            <!-- Boutons -->
+            <div class="flex flex-col sm:flex-row gap-3">
+              <a
+                href="/formations/civic-tech-innovators"
+                class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 shadow-md transition-all"
+              >
+                S'inscrire
+                <FaArrowRightLong className="w-3 h-3" />
+              </a>
+              <a
+                href="/formations/civic-tech-innovators"
+                class="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-green-600 text-green-600 font-semibold rounded-lg hover:bg-green-50 transition-all"
+              >
+                En savoir plus
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mini aperçu des autres formations -->
+    <div class="max-w-5xl mx-auto mb-12">
+      <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">
+        Autres formations disponibles
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {
+          formations.map((formation) => (
+            <div class="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-green-600 hover:shadow-lg transition-all">
+              <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                <formation.icon className="w-6 h-6 text-green-600" />
+              </div>
+              <h4 class="font-bold text-lg mb-2">{formation.title}</h4>
+              <p class="text-gray-600 text-sm mb-3">
+                {formation.duration} • {formation.format}
+              </p>
+              <a
+                href={formation.link}
+                class="inline-flex items-center gap-2 text-sm font-semibold text-green-600 hover:text-green-800"
+              >
+                En savoir plus
+                <FaArrowRightLong className="w-3 h-3" />
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Bouton Voir toutes les formations -->
+    <div class="text-center">
+      <a
+        href="/formations"
+        class="inline-flex items-center gap-3 px-8 py-4 text-lg font-semibold bg-gray-900 text-white hover:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all"
+      >
+        Voir toutes les formations
+        <IoBookOutline className="w-5 h-5" />
+      </a>
+    </div>
+  </div>
+</section>

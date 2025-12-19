@@ -1,0 +1,46 @@
+---
+import Layout from "~/layouts/PageLayout.astro";
+import AboutUsSection from "~/components/widgets/apropos/AboutUs.astro";
+import MissionsSection from "~/components/widgets/apropos/Missions.astro";
+import ValuesSection from "~/components/widgets/apropos/Values.astro";
+import AxesSection from "~/components/widgets/apropos/Axes.astro";
+import CallToAction from "~/components/widgets/apropos/CallToAction.astro";
+import Banner from "~/components/widgets/Banner.astro";
+import { Image } from "astro:assets";
+import AboutUs from "~/assets/images/about-us.jpeg";
+
+const metadata = {
+  title: "A propos",
+  description:
+    "En savoir plus sur CitizenLab Sénégal, notre mission, notre équipe et nos valeurs.",
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Banner -->
+  <Banner
+    title="À Propos de Nous"
+    subtitle="Découvrez notre mission, notre équipe et nos valeurs."
+  >
+    <Image
+      src={AboutUs}
+      alt="À Propos de Nous"
+      class="w-full h-full object-cover absolute inset-0 border-0 z-0 scale-110 transition-transform duration-700"
+    />
+  </Banner>
+
+  <!-- Qui sommes-nous - Section -->
+  <AboutUsSection />
+
+  <!-- Notre Mission - Section -->
+  <MissionsSection />
+
+  <!-- Nos Valeurs - Section -->
+  <ValuesSection />
+
+  <!-- Axes d'intervention - Section -->
+  <AxesSection />
+
+  <!-- CTA Final -->
+  <CallToAction />
+</Layout>

@@ -1,0 +1,134 @@
+---
+import Banner from "~/components/widgets/Banner.astro";
+import Layout from "~/layouts/PageLayout.astro";
+import { Image } from "astro:assets";
+import NewsImg from "~/assets/images/news.jpg";
+import { GoArrowUpRight } from "react-icons/go";
+import {getCollection} from "astro:content";
+
+const metadata = {
+  title: "Actualités et medias",
+};
+
+const articles = await getCollection("news");
+
+const categories = [
+  "Toutes",
+  ...new Set(articles.map((article) => article.data.category)),
+];
+
+---
+
+<Layout metadata={metadata}>
+  <Banner
+    title={metadata.title}
+    subtitle="Découvrez toutes nos dernières actualités"
+  >
+    <Image 
+      src={NewsImg} 
+      alt="News" 
+      class="w-full h-full object-cover absolute inset-0 border-0 z-0 scale-110 transition-transform duration-700"
+    />
+  </Banner>
+
+  <section class="py-20 px-10" id="news-section">
+    <div class="flex justify-between items-center flex-wrap gap-4">
+      <h2 class="text-xl font-semibold text-green-800">Nos dernières actualités</h2>
+
+      <!-- Boutons catégories -->
+      <div class="flex items-center gap-3 flex-wrap" id="category-buttons">
+        {categories.map((category) => (
+          <button
+            class={`category-btn ${
+              category === "Toutes"
+                ? "bg-green-600 text-white"
+                : "bg-green-50 text-green-900"
+            } px-4 py-2 rounded-full text-sm transition-all duration-300`}
+            data-category={category}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Grille de cards -->
+    <div class="py-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="cards-grid">
+        {articles.map((article) => (
+  <a
+    href={`/news/${article.slug}`}
+    class="block"
+  >
+    <article
+      class="news-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 group cursor-pointer"
+      data-category={article.data.category}
+    >
+      {/* Image */}
+      <div class="relative h-72 overflow-hidden px-4">
+        <img
+          src={article.data.image}
+          alt={article.data.title}
+          class="w-full rounded-xl h-full object-cover group-hover:scale-110 transition-transform duration-700"
+        />
+      </div>
+
+      {/* Contenu */}
+      <div class="p-8">
+        <span class="inline-block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-4">
+          {article.data.category} • {article.data.date}
+        </span>
+
+        <h3 class="text-xl font-semibold text-green-700 mb-6 leading-snug min-h-[120px]">
+          {article.data.title}
+        </h3>
+
+        <div class="flex justify-end">
+          <span
+            class="inline-flex items-center justify-center w-12 h-12 bg-green-50 group-hover:bg-green-700 rounded-full transition-all duration-300"
+          >
+            <GoArrowUpRight className="w-5 h-5 text-green-600 group-hover:text-white" />
+          </span>
+        </div>
+      </div>
+    </article>
+  </a>
+))}
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Script pour le filtrage -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('.category-btn');
+      const cards = document.querySelectorAll('.news-card');
+
+      buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const selected = btn.dataset.category;
+
+          // Styles actifs
+          buttons.forEach(b => b.classList.remove('bg-green-600', 'text-white'));
+          buttons.forEach(b => b.classList.add('bg-green-50', 'text-green-900'));
+          btn.classList.add('bg-green-600', 'text-white');
+          btn.classList.remove('bg-green-50', 'text-green-900');
+
+          // Filtrage
+          cards.forEach((card) => {
+            if (selected === 'Toutes' || card.dataset.category === selected) {
+              card.style.display = 'block';
+              card.style.opacity = 1;
+              card.style.transform = 'scale(1)';
+            } else {
+              card.style.opacity = 0;
+              card.style.transform = 'scale(0.95)';
+              setTimeout(() => (card.style.display = 'none'), 200);
+            }
+          });
+        });
+      });
+    });
+  </script>
+</Layout>
