@@ -1,0 +1,253 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import Stats from '~/components/widgets/Stats.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import { Image } from 'astro:assets';
+import RealisationsImg from '~/assets/images/realisations.jpg';
+import { projetsData } from './data';
+
+const metadata = {
+  title: 'Nos Réalisations | CitizenLab Sénégal',
+  description: 'Découvrez nos projets réalisés en matière de participation citoyenne et d\'innovation sociale au Sénégal.',
+};
+
+// Catégories pour le filtrage
+const categories = ['Tous', ...new Set(Object.values(projetsData).map(p => p.category).filter(cat => cat !== 'Sensibilisation' && cat !== 'Événement'))];
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Banner -->
+  <section class="relative h-[70vh] min-h-[500px] overflow-hidden">
+    <img
+      src={RealisationsImg.src}
+      alt="Nos Réalisations"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+
+    <div class="relative h-full flex items-center justify-center text-center px-4">
+      <div class="max-w-4xl mx-auto text-white">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+          Nos Réalisations
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-200 leading-relaxed">
+          Découvrez les projets qui transforment la participation citoyenne au Sénégal. De la conception à la mise en œuvre, chaque réalisation reflète notre engagement pour l'innovation sociale.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/projets"
+            class="px-8 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+          >
+            Voir nos projets
+          </a>
+          <a
+            href="/contact"
+            class="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors"
+          >
+            Nous contacter
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <Stats
+    title="Notre impact en chiffres"
+    stats={[
+      { title: 'Projets réalisés', amount: '25+' },
+      { title: 'Citoyens engagés', amount: '15K+' },
+      { title: 'Partenaires', amount: '30+' },
+      { title: 'Années d\'expérience', amount: '5+' },
+    ]}
+  />
+
+  <!-- Projects Grid -->
+  <section id="projets" class="px-4 py-16 sm:px-6 lg:px-8 lg:py-20 mx-auto max-w-7xl">
+    <div class="mb-12 text-center">
+      <h2 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter mb-4 font-heading">
+        Projets marquants
+      </h2>
+      <p class="text-xl text-muted dark:text-slate-400 max-w-3xl mx-auto">
+        Une sélection de nos réalisations les plus impactantes
+      </p>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="flex flex-wrap justify-center gap-3 mb-12">
+      {categories.map((category) => (
+        <button
+          class="filter-btn px-6 py-2 rounded-full border-2 border-primary transition-all hover:bg-primary hover:text-white"
+          data-category={category}
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {Object.entries(projetsData).map(([id, projet]) => (
+        <article
+          class="project-card group relative overflow-hidden rounded-lg bg-white dark:bg-slate-900 shadow-lg transition-all hover:shadow-2xl"
+          data-category={projet.category}
+        >
+          <div class="relative h-64 overflow-hidden">
+            <img
+              src={projet.heroImage}
+              alt={projet.title}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+            <span class="absolute top-4 left-4 px-3 py-1 bg-primary text-white text-sm font-semibold rounded-full">
+              {projet.category}
+            </span>
+          </div>
+
+          <div class="p-6">
+            <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
+              {projet.title}
+            </h3>
+
+            <p class="text-muted dark:text-slate-400 mb-4 line-clamp-2">
+              {projet.description}
+            </p>
+
+            <div class="space-y-2 mb-4 text-sm">
+              <div class="flex items-center text-gray-600 dark:text-gray-400">
+                <span class="font-semibold mr-2">Client:</span>
+                <span>{projet.client}</span>
+              </div>
+              <div class="flex items-center text-gray-600 dark:text-gray-400">
+                <span class="font-semibold mr-2">Date:</span>
+                <span>{projet.date}</span>
+              </div>
+              <div class="flex items-center text-gray-600 dark:text-gray-400">
+                <span class="font-semibold mr-2">Impact:</span>
+                <span>{projet.results[0]}</span>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              {projet.technologies.slice(0, 3).map((tech) => (
+                <span class="px-2 py-1 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 text-xs rounded">
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            <a
+              href={`/realisations/${id}`}
+              class="inline-flex items-center text-primary font-semibold hover:underline"
+            >
+              Voir le projet
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <Features3
+    title="Notre processus de réalisation"
+    subtitle="Une approche éprouvée pour des projets réussis"
+    columns={4}
+    items={[
+      {
+        title: 'Découverte',
+        description: 'Analyse des besoins et co-conception avec les parties prenantes',
+        icon: 'tabler:search',
+      },
+      {
+        title: 'Développement',
+        description: 'Création de solutions adaptées avec des technologies modernes',
+        icon: 'tabler:code',
+      },
+      {
+        title: 'Déploiement',
+        description: 'Mise en production et formation des utilisateurs',
+        icon: 'tabler:rocket',
+      },
+      {
+        title: 'Suivi',
+        description: 'Accompagnement et amélioration continue',
+        icon: 'tabler:chart-line',
+      },
+    ]}
+  />
+
+  <!-- Call to Action -->
+  <CallToAction
+    title="Découvrez nos réalisations en cours"
+    subtitle="Projets actuellement en développement et accompagnement pour une transformation continue"
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Voir nos projets en cours',
+        href: '#projets',
+      },
+      {
+        text: 'Nous contacter',
+        href: '/contact',
+      },
+    ]}
+  />
+</Layout>
+
+<script>
+  // Filter functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const category = btn.getAttribute('data-category');
+
+        // Update active button
+        filterBtns.forEach(b => b.classList.remove('bg-primary', 'text-white'));
+        btn.classList.add('bg-primary', 'text-white');
+
+        // Filter projects
+        projectCards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category');
+          if (category === 'Tous' || cardCategory === category) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeIn 0.5s ease-in';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Set "Tous" as active by default
+    filterBtns[0]?.classList.add('bg-primary', 'text-white');
+  });
+</script>
+
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

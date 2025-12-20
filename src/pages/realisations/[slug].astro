@@ -1,0 +1,211 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import { projetsData } from './data';
+
+export function getStaticPaths() {
+  return Object.keys(projetsData).map((slug) => ({
+    params: { slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const projet = projetsData[slug as keyof typeof projetsData];
+
+if (!projet) {
+  return Astro.redirect('/404');
+}
+
+const metadata = {
+  title: `${projet.title} | CitizenLab Sénégal`,
+  description: projet.description,
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Section -->
+  <section class="relative h-[60vh] min-h-[400px] overflow-hidden">
+    <img
+      src={projet.heroImage}
+      alt={projet.title}
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
+
+    <div class="relative h-full flex items-center justify-center text-center px-4">
+      <div class="max-w-4xl mx-auto text-white">
+        <span class="inline-block px-4 py-2 bg-primary rounded-full text-sm font-semibold mb-4">
+          {projet.category}
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+          {projet.title}
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-200">
+          {projet.description}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Info -->
+  <section class="py-12 bg-gray-50 dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-8 text-center">
+        <div>
+          <h3 class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">CLIENT</h3>
+          <p class="text-xl font-bold text-gray-900 dark:text-white">{projet.client}</p>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">PÉRIODE</h3>
+          <p class="text-xl font-bold text-gray-900 dark:text-white">{projet.date}</p>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">TECHNOLOGIES</h3>
+          <div class="flex flex-wrap justify-center gap-2">
+            {projet.technologies.map((tech) => (
+              <span class="px-3 py-1 bg-primary/10 text-primary text-sm font-semibold rounded-full">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Challenge & Solution -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+    <div class="space-y-12">
+      <!-- Challenge -->
+      <div>
+        <h2 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Le Défi</h2>
+        <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+          {projet.challenge}
+        </p>
+      </div>
+
+      <!-- Solution -->
+      <div>
+        <h2 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Notre Solution</h2>
+        <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+          {projet.solution}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <Features2
+    title="Fonctionnalités Clés"
+    subtitle="Une plateforme complète répondant aux besoins de tous les acteurs"
+    columns={3}
+    items={projet.features}
+  />
+
+  <!-- Results -->
+  <section class="py-16 bg-primary text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Résultats & Impact</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        {projet.results.map((result) => (
+          <div class="flex items-start gap-3">
+            <svg class="w-6 h-6 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <p class="text-lg">{result}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  {projet.testimonial && (
+    <section class="py-16 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-gray-50 dark:bg-slate-900 rounded-2xl p-8 md:p-12">
+          <svg class="w-12 h-12 text-primary mb-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+          </svg>
+          <blockquote class="text-xl md:text-2xl text-gray-900 dark:text-white mb-6">
+            "{projet.testimonial.quote}"
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <img
+              src={projet.testimonial.image}
+              alt={projet.testimonial.author}
+              class="w-16 h-16 rounded-full object-cover"
+            />
+            <div>
+              <p class="font-bold text-gray-900 dark:text-white">{projet.testimonial.author}</p>
+              <p class="text-gray-600 dark:text-gray-400">{projet.testimonial.role}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Gallery -->
+  {projet.gallery && projet.gallery.length > 0 && (
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-slate-900">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+          Galerie du Projet
+        </h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          {projet.gallery.map((image, index) => (
+            <div class="relative aspect-video overflow-hidden rounded-lg shadow-lg group">
+              <img
+                src={image}
+                alt={`${projet.title} - Image ${index + 1}`}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Navigation -->
+  <section class="py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto flex justify-between items-center">
+      <a
+        href="/realisations"
+        class="inline-flex items-center text-primary font-semibold hover:underline"
+      >
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Retour aux réalisations
+      </a>
+
+      <a
+        href="/contact"
+        class="px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+      >
+        Démarrer un projet similaire
+      </a>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <CallToAction
+    title="Intéressé par nos services ?"
+    subtitle="Discutons de votre prochain projet de participation citoyenne"
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Nous contacter',
+        href: '/contact',
+      },
+      {
+        text: 'En savoir plus',
+        href: '/a-propos',
+      },
+    ]}
+  />
+</Layout>
