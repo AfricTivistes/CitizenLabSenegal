@@ -1,0 +1,232 @@
+---
+
+import {Image} from "astro:assets";
+import testimony from "~/assets/images/testimonyBg.jpg"
+
+const testimonials = [
+  {
+    quote:
+      "Avec CitizenLab, l'accès aux missions d'impact est devenu simple et notre expertise mieux valorisée. Notre communauté grandit avec des projets concrets et mesurables.",
+    author: "Hamidou THIAW",
+    role: "Municipalité de Dakar",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
+    initial: "H"
+  },
+  {
+    quote:
+      "Une plateforme exceptionnelle qui facilite vraiment la participation citoyenne. Les résultats ont dépassé toutes nos espérances et l'engagement des citoyens a été remarquable.",
+    author: "Marie SECK",
+    role: "Directrice Innovation, Ville de Rufisque",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marie",
+    initial: "M"
+  },
+  {
+    quote:
+      "L'équipe CitizenLab nous a accompagné tout au long du projet. Les fonctionnalités sont exactement ce dont nous avions besoin pour impliquer nos citoyens dans les décisions locales.",
+    author: "Ahmed DIOP",
+    role: "Conseiller municipal, Thies",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ahmed",
+    initial: "A"
+  },
+];
+
+---
+
+<section class="relative py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+      
+      <!-- Colonne gauche - Image et carte témoignage -->
+      <div class="relative">
+        <!-- Image de fond -->
+        <div class="rounded-3xl overflow-hidden shadow-2xl">
+          <Image
+            src={testimony}
+            class="w-full h-[600px] object-cover"
+            alt="testimony"
+          />
+        </div>
+        
+        <!-- Carte témoignage flottante -->
+        <div class="absolute bottom-8 left-8 right-8 animate-slide-up">
+          <div
+            class="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-gray-100"
+          >
+            <!-- Quote Text -->
+            <div class="mb-6" id="testimonial-quote">
+              <blockquote
+                class="text-lg text-gray-700 leading-relaxed"
+              >
+                "{testimonials[0].quote}"
+              </blockquote>
+            </div>
+
+            <!-- Author Info -->
+            <div class="flex items-center gap-4">
+              <!-- Avatar with Initial -->
+              <div class="relative">
+                <div
+                  class="w-14 h-14 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center shadow-md"
+                  id="testimonial-initial"
+                >
+                  <span class="text-xl font-bold text-gray-700">{testimonials[0].initial}</span>
+                </div>
+              </div>
+
+              <div>
+                <p
+                  id="testimonial-author"
+                  class="text-lg font-bold text-gray-900"
+                >
+                  {testimonials[0].author}
+                </p>
+                <p id="testimonial-role" class="text-sm text-gray-600 uppercase tracking-wide">
+                  {testimonials[0].role}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colonne droite - Titre et navigation -->
+      <div class="bg-[#d4c9a8] rounded-3xl p-12 lg:p-16 shadow-xl min-h-[600px] flex flex-col justify-between">
+        <!-- En-tête -->
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <span class="text-sm font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 px-4 py-2 rounded-full">
+              Témoignages
+            </span>
+            <div class="w-14 h-14 bg-green-700 rounded-full flex items-center justify-center shadow-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-8 h-8 text-white"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
+                <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
+              </svg>
+            </div>
+          </div>
+
+          <h2 class="text-4xl lg:text-5xl font-bold text-green-800 leading-tight mb-6">
+            Un partenaire de confiance pour relever tous vos défis
+          </h2>
+        </div>
+
+        <!-- Navigation en bas -->
+        <div class="flex items-center justify-between">
+          <a
+            href="/temoignages"
+            class="inline-flex items-center gap-3 px-8 py-4 text-lg font-semibold bg-green-700 text-white hover:bg-green-800 rounded-full transition-all shadow-md hover:shadow-lg"
+          >
+            Lire les Témoignages
+        </a>
+
+          <!-- Navigation Buttons -->
+          <div class="flex items-center gap-3">
+            <button
+              id="prev-btn"
+              class="rounded-full bg-white hover:bg-green-700 hover:text-white h-12 w-12 inline-flex items-center justify-center shadow-md hover:shadow-lg transition-all"
+              aria-label="Previous testimonial"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m15 18-6-6 6-6"></path>
+              </svg>
+            </button>
+
+            <button
+              id="next-btn"
+              class="rounded-full bg-white hover:bg-green-700 hover:text-white h-12 w-12 inline-flex items-center justify-center shadow-md hover:shadow-lg transition-all"
+              aria-label="Next testimonial"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m9 18 6-6-6-6"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ testimonials }}>
+  let currentIndex = 0;
+
+  const updateTestimonial = () => {
+    const current = testimonials[currentIndex];
+    
+    // Update quote with fade effect
+    const quoteElement = document.getElementById("testimonial-quote").querySelector("blockquote");
+    quoteElement.style.opacity = "0";
+    
+    setTimeout(() => {
+      quoteElement.textContent = `"${current.quote}"`;
+      quoteElement.style.opacity = "1";
+    }, 200);
+
+    // Update author info
+    setTimeout(() => {
+      document.getElementById("testimonial-initial").querySelector("span").textContent = current.initial;
+      document.getElementById("testimonial-author").textContent = current.author;
+      document.getElementById("testimonial-role").textContent = current.role;
+    }, 200);
+  };
+
+  document.getElementById("next-btn").addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % testimonials.length;
+    updateTestimonial();
+  });
+
+  document.getElementById("prev-btn").addEventListener("click", () => {
+    currentIndex =
+      (currentIndex - 1 + testimonials.length) % testimonials.length;
+    updateTestimonial();
+  });
+
+  // Add smooth transition to quote
+  const quoteElement = document.getElementById("testimonial-quote").querySelector("blockquote");
+  quoteElement.style.transition = "opacity 0.3s ease-in-out";
+</script>
+
+<style>
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out;
+  }
+</style>

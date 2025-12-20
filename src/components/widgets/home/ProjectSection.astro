@@ -1,0 +1,129 @@
+---
+import { Image } from "astro:assets";
+import BudgetParticipatif from "~/assets/images/budget-participatif.jpg";
+import ObservatoireSante from "~/assets/images/Observatoire.png";
+import OpenData from "~/assets/images/opendata.jpeg";
+
+
+const projects = [
+  {
+    title: "Budget Participatif Digital",
+    description:
+      "Une plateforme permettant aux citoyens de proposer et voter pour des projets locaux financés par leur commune. Déjà adoptée par 3 municipalités.",
+    imageAlt: "Plateforme de budget participatif",
+    link: "/projets/budget-participatif",
+    imageSrc : BudgetParticipatif,
+  },
+  {
+    title: "Observatoire Santé Publique",
+    description:
+      "Application mobile de signalement et suivi de la qualité des services de santé. Plus de 500 signalements traités en 6 mois.",
+    imageAlt: "Observatoire citoyen de la santé",
+    link: "/projets/observatoire-sante",
+    imageSrc : ObservatoireSante,
+  },
+  {
+    title: "OpenData Sénégal",
+    description:
+      "Portail de données ouvertes facilitant l'accès à l'information publique. Regroupe plus de 200 jeux de données gouvernementales.",
+    imageAlt: "Hackathon gouvernance ouverte",
+    link: "/projets/opendata-senegal",
+    imageSrc : OpenData,
+  },
+];
+
+---
+
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Titre de section -->
+    <div class="text-center mb-16">
+      <div class="inline-block animate-fade-in-down mb-6">
+        <span
+          class="px-5 py-2 border border-green-600 text-green-600 bg-white rounded-full text-xs font-semibold tracking-wide uppercase"
+        >
+          Projets
+        </span>
+      </div>
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">
+        Nos <span class="text-green-600">projets phares</span>
+      </h2>
+      <p class="text-lg text-center text-gray-600 max-w-2xl mx-auto">
+        Découvrez comment nous utilisons la technologie pour renforcer la
+        participation citoyenne et résoudre des défis locaux
+      </p>
+    </div>
+
+    <!-- Grille de projets -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      <!-- Projet 1 -->
+      {projects.map((project) => ( 
+      <div
+        class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+      >
+        <div class="relative h-64 overflow-hidden">
+            
+          <Image
+            src={project.imageSrc}
+            alt="Plateforme de budget participatif"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+          >
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-2xl font-bold mb-3 text-gray-800">
+            {project.title}
+          </h3>
+          <p class="text-gray-600 mb-4 line-clamp-3">
+            {project.description}
+          </p>
+          <a
+            href="/projets/budget-participatif"
+            class="inline-flex items-center gap-2 text-green-600 font-semibold hover:text-green-700 transition-colors group/link"
+          >
+            Voir le projet
+            <svg
+              class="w-5 h-5 group-hover/link:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+      ))}
+
+    </div>
+
+    <!-- Bouton Tous les projets -->
+    <div class="text-center">
+      <a
+        href="/projets"
+        class="inline-flex items-center gap-3 px-8 py-4 text-lg font-semibold bg-gray-900 text-white hover:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all"
+      >
+        Tous les projets
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

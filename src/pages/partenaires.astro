@@ -1,0 +1,226 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import { Image } from 'astro:assets';
+import backgroundImage from '~/assets/images/Partenaire.jpg';
+
+const metadata = {
+  title: 'Nos Partenaires - AfricTivistes CitizenLab Sénégal',
+  description: 'Découvrez les organisations et institutions qui soutiennent notre mission pour promouvoir la démocratie participative et la citoyenneté active au Sénégal.',
+};
+
+const partners = [
+  {
+    name: 'AfricTivistes',
+    href: 'https://www.africtivistes.com/fr/',
+    logo: 'https://update.africtivistes.org/wp-content/uploads/2023/10/Logo-Africtivistes.png',
+    description: 'AfricTivistes est une organisation panafricaine qui œuvre pour la promotion de la démocratie, des droits humains et de la bonne gouvernance en Afrique à travers l\'utilisation des technologies civiques et l\'innovation citoyenne.',
+    details: 'Fondée en 2015, AfricTivistes s\'engage à renforcer la participation citoyenne et à promouvoir la transparence dans les processus démocratiques. Nous collaborons sur des projets de formation, de plaidoyer et d\'innovation technologique pour un impact durable.',
+    social: {
+      facebook: 'https://www.facebook.com/AfricTivistes',
+      instagram: 'https://www.instagram.com/africtivistes',
+      twitter: 'https://twitter.com/AfricTivistes',
+      tiktok: 'https://www.tiktok.com/@africtivistes'
+    }
+  },
+  {
+    name: 'Union Européenne - Partenariats Internationaux',
+    href: 'https://international-partnerships.ec.europa.eu/index_fr',
+    logo: 'https://citizenlab.africtivistes.org/cameroun/wp-content/uploads/sites/2/2025/04/logoue.png',
+    description: 'L\'Union Européenne apporte son soutien financier et technique aux initiatives de développement durable et de gouvernance démocratique à travers ses partenariats internationaux, contribuant ainsi à renforcer les capacités locales.',
+    details: 'L\'Union Européenne finance des programmes de développement en Afrique, en se concentrant sur la gouvernance, les droits humains et le développement durable. Notre partenariat vise à amplifier l\'impact des initiatives locales pour une transformation inclusive.',
+    social: {
+      facebook: 'https://www.facebook.com/EuropeanCommission',
+      instagram: 'https://www.instagram.com/europeancommission',
+      twitter: 'https://twitter.com/EU_Commission'
+    }
+  },
+  {
+    name: 'Youth Democracy Cohort',
+    href: 'https://youthdemocracycohort.com/',
+    logo: 'https://citizenlab.africtivistes.org/cameroun/wp-content/uploads/sites/2/2025/04/logoydc.png',
+    description: 'La Youth Democracy Cohort rassemble des jeunes leaders africains engagés dans la promotion de la démocratie participative et l\'innovation civique à travers le continent, créant un réseau dynamique de changement.',
+    details: 'Ce programme forme et connecte les jeunes leaders pour qu\'ils deviennent des acteurs clés dans la promotion de la démocratie. Ensemble, nous développons des compétences en leadership, en plaidoyer et en innovation pour un avenir plus juste.',
+    social: {
+      facebook: 'https://www.facebook.com/YouthDemocracyCohort',
+      instagram: 'https://www.instagram.com/youthdemocracycohort',
+      twitter: 'https://twitter.com/YDCohort',
+      tiktok: 'https://www.tiktok.com/@youthdemocracycohort'
+    }
+  }
+];
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Section -->
+  <div class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Background Image -->
+    <Image 
+      src={backgroundImage} 
+      alt="Nos Partenaires" 
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[400, 768, 1024, 2040]}
+      sizes="100vw"
+    />
+    
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black bg-opacity-75"></div>
+
+    <!-- Content -->
+    <div class="relative z-10 text-center text-white max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+        Nos Partenaires
+      </h1>
+      <p class="text-xl md:text-2xl mb-8 leading-relaxed max-w-3xl mx-auto">
+        Ensemble, nous construisons un Sénégal plus démocratique et participatif à travers des collaborations stratégiques et des initiatives citoyennes innovantes.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contact" class="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-lg transition-colors duration-300">
+          Devenir Partenaire
+        </a>
+        <a href="/a-propos" class="inline-block border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold px-8 py-3 rounded-lg transition-colors duration-300">
+          En Savoir Plus
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mission Section -->
+  <Features3
+    title="Notre Écosystème Partenaire"
+    subtitle="Un réseau d'organisations engagées pour l'innovation démocratique et la participation citoyenne"
+    columns={3}
+    isBeforeContent={true}
+    classes={{
+        items: {
+        panel: 'border border-gray-150 dark:border-gray-400 shadow-xl rounded-xl p-9',  // Bordure et ombre sur chaque item
+        },
+    }}
+    items={[
+      {
+        title: 'Organisations Internationales',
+        description: 'Institutions et organisations internationales qui apportent leur expertise et leur soutien à notre mission de transformation démocratique.',
+        icon: 'tabler:building-bank',
+      },
+      {
+        title: 'ONG et Société Civile',
+        description: 'Organisations non gouvernementales et acteurs de la société civile qui œuvrent pour la promotion des droits humains et de la bonne gouvernance.',
+        icon: 'tabler:users-group',
+      },
+      {
+        title: 'Institutions Académiques',
+        description: 'Universités et centres de recherche qui contribuent à la production de connaissances et à la formation des futurs leaders citoyens.',
+        icon: 'tabler:school',
+      },
+    ]}
+  />
+
+  <!-- Partners Grid Section -->
+  <div class="py-16 bg-gradient-to-b from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 text-center">
+          Nos Partenaires
+        </h2>
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          Découvrez les organisations exceptionnelles qui partagent notre vision d'une démocratie plus inclusive et participative
+        </p>
+      </div>
+
+      <!-- Partners Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {partners.map((partner, index) => (
+          <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-xl text-center hover:shadow-xl transition-shadow duration-400" style="border: 1px solid #b1f4a0ff;">
+            <a href={partner.href} target="_blank" class="block mb-4 transition-transform hover:scale-105">
+              <img src={partner.logo} alt={partner.name} class="max-h-16 mx-auto object-contain" />
+            </a>
+            <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-4">
+              {partner.description}
+            </p>
+            
+            <a href={partner.href} target="_blank" class="text-primary hover:text-primary-dark font-semibold">
+                Visiter le site web →
+            </a>
+
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Partnership Benefits -->
+  <Features3
+    title="Pourquoi devenir Partenaire avec CitizenLab Sénégal ?"
+    subtitle="Rejoignez un écosystème d'organisations engagées pour un impact collectif plus fort"
+    columns={2}
+    isAfterContent={true}
+    classes={{
+        items: {
+        panel: 'border border-green-300 dark:border-green-600 shadow-xl rounded-xl p-9',  // Bordure et ombre sur chaque item
+        },
+    }}
+    
+    items={[
+      {
+        title: 'Impact Amplifié',
+        description: 'Multipliez votre impact en collaborant avec un réseau d\'acteurs engagés pour la transformation démocratique du Sénégal.',
+        icon: 'tabler:trending-up',
+      },
+      {
+        title: 'Expertise Partagée',
+        description: 'Bénéficiez de l\'expertise collective de nos partenaires et contribuez à enrichir les connaissances du réseau.',
+        icon: 'tabler:brain',
+      },
+      {
+        title: 'Innovation Continue',
+        description: 'Participez à la co-création de solutions innovantes pour répondre aux défis démocratiques contemporains.',
+        icon: 'tabler:bulb',
+      },
+      {
+        title: 'Visibilité Renforcée',
+        description: 'Augmentez votre visibilité et votre influence en étant associé à une initiative citoyenne reconnue et impactante.',
+        icon: 'tabler:speakerphone',
+      },
+    ]}
+  />
+
+  
+
+  <!-- Call to Action -->
+  <CallToAction
+    title="Prêt à nous rejoindre ?"
+    subtitle="Que vous soyez une organisation, une institution ou un particulier, votre contribution compte dans notre mission commune."
+    actions={[
+      {
+        text: 'Nous Contacter',
+        href: '/contact',
+        variant: 'primary',
+      },
+      {
+        text: 'En Savoir Plus',
+        href: '/a-propos"',
+        variant: 'secondary',
+      },
+    ]}
+  />
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.en-savoir-plus-btn');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const partnerIndex = button.getAttribute('data-partner');
+        const collapseContent = button.nextElementSibling;
+        if (collapseContent.classList.contains('hidden')) {
+          collapseContent.classList.remove('hidden');
+          button.textContent = 'Masquer';
+        } else {
+          collapseContent.classList.add('hidden');
+          button.textContent = 'En savoir plus';
+        }
+      });
+    });
+  });
+</script>

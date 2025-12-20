@@ -1,0 +1,59 @@
+---
+import { HiOutlineOfficeBuilding } from 'react-icons/hi';
+import { Image } from 'astro:assets';
+import LogoSenegal from "~/assets/images/logo_lg.png";
+---
+
+<!-- Qui sommes-nous - Card moderne -->
+<div class="max-w-7xl mx-auto px-4 py-20">
+  <div class="relative bg-white rounded-3xl shadow-2xl overflow-hidden">
+    <div
+      class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/2"
+    >
+    </div>
+
+    <div class="relative grid md:grid-cols-2 gap-12 p-12 md:p-16">
+      <div class="space-y-6">
+        <div
+          class="inline-flex items-center gap-3 px-4 py-2 bg-green-100 rounded-full"
+        >
+          <HiOutlineOfficeBuilding className="w-5 h-5 text-green-800" />
+          <span class="text-green-800 font-semibold text-sm"
+            >QUI NOUS SOMMES</span
+          >
+        </div>
+
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+          CitizenLab Sénégal
+        </h2>
+
+        <div class="space-y-4 text-gray-600 leading-relaxed text-lg">
+          <p>
+            Une initiative portée par <span class="font-semibold text-green-600"
+              >AfricTivistes</span
+            >, dédiée à la promotion de la citoyenneté numérique, de la
+            transparence et de la participation citoyenne.
+          </p>
+          <p>
+            Né de la volonté d'accompagner la transformation digitale du
+            Sénégal, le programme vise à faire du numérique un levier de
+            gouvernance démocratique et d'inclusion sociale.
+          </p>
+          <p>
+            En collaborant avec les gouvernements locaux, les organisations de
+            la société civile et les citoyens, nous aspirons à créer un
+            environnement où chaque voix compte.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-start justify-center">
+        <Image
+          src={LogoSenegal}
+          alt="Logo CitizenLab Sénégal"
+          class="w-48 h-48 md:w-80 md:h-80 object-contain"
+        />
+      </div>
+    </div>
+  </div>
+</div>

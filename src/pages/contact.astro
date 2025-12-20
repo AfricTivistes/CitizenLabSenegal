@@ -1,64 +1,40 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
-import ContactUs from '~/components/widgets/Contact.astro';
-import Features2 from '~/components/widgets/Features2.astro';
+import Banner from "~/components/widgets/Banner.astro";
+import Layout from "~/layouts/PageLayout.astro";
+import InfoSection from "~/components/widgets/contact/InfoSection.astro";
+import ContactForm from "~/components/widgets/contact/ContactForm.jsx";
+import MainSection from "~/components/widgets/contact/MainSection.astro";
+import LocationSection from "~/components/widgets/contact/LocationSection.astro";
+import ContactImg from "~/assets/images/contact-img.jpg";
+import { Image } from "astro:assets";
 
 const metadata = {
-  title: 'Contact',
+  title: "Nous Contacter",
 };
 ---
 
 <Layout metadata={metadata}>
-  <!-- HeroText Widget ******************* -->
+  <!-- Banner Widget -->
+  <Banner
+    title={metadata.title}
+    subtitle="Nous sommes là pour vous aider. N'hésitez pas à nous envoyer un message !"
+  >
+    <Image 
+      src={ContactImg} 
+      alt="Contact Us" 
+      class="w-full h-full object-cover absolute inset-0 border-0 z-0 scale-110 transition-transform duration-700"
+    />
+  </Banner>
 
+  <!-- Section principale -->
+  <MainSection>
+    <!-- Formulaire section -->
+    <ContactForm />
 
-  <ContactUs
-    title="Contact"
-    subtitle="Vous avez une demande ou une suggestion pour nous? Remplissez le formulaire ci-dessous pour contacter notre équipe"
-    inputs={[
-      {
-        type: 'text',
-        name: 'name',
-        label: 'Nom et Prénom',
-        placeholder: 'John Doe'
-      },
-      {
-        type: 'email',
-        name: 'email',
-        label: 'Email',
-        placeholder: 'johndoe@email.com'
-      },
-    ]}
-    textarea={{
-      label: 'Message',
-      placeholder: 'Message'
-    }}
-    disclaimer={{
-      label:
-        'En soumettant ce formulaire de contact, vous reconnaissez et acceptez la collecte de vos informations personnelles.',
-    }}
-  />
+    <!-- Section d'information -->
+    <InfoSection />
+  </MainSection>
 
-  <!-- Features2 Widget ************** -->
-
-  <Features2
-    title="Nous contacter"
-    items={[
-      {
-        title: 'Phone',
-        description: '+221 77 777 77 77',
-        icon: 'tabler:headset',
-      },
-      {
-        title: 'Email',
-        description: 'citizenlabsenegal@africtivistes.org',
-        icon: 'tabler:mail',
-      },
-      {
-        title: 'Location',
-        description: ' Dakar, Sénégal',
-        icon: 'tabler:map-pin',
-      },
-    ]}
-  />
+  <!-- Section de localisation -->
+  <LocationSection />
 </Layout>

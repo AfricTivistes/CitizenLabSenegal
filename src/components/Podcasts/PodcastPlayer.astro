@@ -1,0 +1,102 @@
+---
+const { audioUrl, variant = 'compact' } = Astro.props;
+// variant: 'compact' (pour liste) ou 'full' (pour featured)
+---
+
+<div class={`podcast-player ${variant === 'full' ? 'full-player' : 'compact-player'}`}
+     data-audio={audioUrl}>
+  
+    <!-- Version compacte pour la liste -->
+    <div class="inline-flex items-center gap-2">
+      <!-- Bouton Reculer -->
+      <button class="rewind-btn text-gray-500 hover:text-green-700 transition-colors duration-200 p-2 hover:bg-green-50 rounded-lg" title="Reculer de 10s">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.5 8.5l-4 4 4 4"/>
+        </svg>
+      </button>
+
+      <!-- Bouton Play/Pause compact -->
+      <button class="play-pause-btn group relative w-10 h-10 bg-green-700 hover:bg-green-600 rounded-full transition-all duration-200 shadow-md hover:shadow-lg hover:scale-105 active:scale-95 flex-shrink-0">
+        <svg class="play-icon absolute inset-0 m-auto w-4 h-4 text-white transition-opacity duration-200" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg class="pause-icon absolute inset-0 m-auto w-4 h-4 text-white transition-opacity duration-200 opacity-0" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+        </svg>
+      </button>
+
+      <!-- Bouton Avancer -->
+      <button class="forward-btn text-gray-500 hover:text-green-700 transition-colors duration-200 p-2 hover:bg-green-50 rounded-lg" title="Avancer de 10s">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.5 8.5l4 4-4 4"/>
+        </svg>
+      </button>
+
+      <!-- Temps actuel (simple) -->
+      <span class="current-time text-sm font-medium text-gray-600 min-w-[40px]">
+        0:00
+      </span>
+
+      <audio src={audioUrl}></audio>
+    </div>
+</div>
+
+<script>
+  document.querySelectorAll(".podcast-player").forEach(player => {
+    const audio = player.querySelector("audio");
+    const playPauseBtn = player.querySelector(".play-pause-btn");
+    const playIcon = player.querySelector(".play-icon");
+    const pauseIcon = player.querySelector(".pause-icon");
+    const currentTimeDisplay = player.querySelector(".current-time");
+
+    const rewindBtn = player.querySelector(".rewind-btn");
+    const forwardBtn = player.querySelector(".forward-btn");
+
+    let isPlaying = false;
+
+    // Format temps
+    const formatTime = (seconds:any) => {
+      if (isNaN(seconds)) return "0:00";
+      const mins = Math.floor(seconds / 60);
+      const secs = String(Math.floor(seconds % 60)).padStart(2, "0");
+      return `${mins}:${secs}`;
+    };
+
+    // Play/Pause
+    playPauseBtn?.addEventListener("click", () => {
+      if (isPlaying) {
+        audio?.pause();
+        playIcon.style.opacity = "1";
+        pauseIcon.style.opacity = "0";
+      } else {
+        audio?.play();
+        playIcon.style.opacity = "0";
+        pauseIcon.style.opacity = "1";
+      }
+      isPlaying = !isPlaying;
+    });
+
+    // Mise à jour du temps
+    audio.addEventListener("timeupdate", () => {
+      currentTimeDisplay.textContent = formatTime(audio.currentTime);
+    });
+
+    // Reculer 10s
+    rewindBtn.addEventListener("click", () => {
+      audio.currentTime = Math.max(0, audio.currentTime - 10);
+    });
+
+    // Avancer 10s
+    forwardBtn?.addEventListener("click", () => {
+      audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
+    });
+
+    // Reset à la fin
+    audio?.addEventListener("ended", () => {
+      isPlaying = false;
+      playIcon.style.opacity = "1";
+      pauseIcon.style.opacity = "0";
+      audio.currentTime = 0;
+    });
+  });
+</script>

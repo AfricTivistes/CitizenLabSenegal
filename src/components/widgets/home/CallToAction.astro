@@ -1,0 +1,17 @@
+---
+const {
+  title,
+  link,
+  textColor = "text-white",
+  bgColor = "bg-green-black",
+  hoverBgColor = "hover:bg-gray-700",
+} = Astro.props;
+---
+
+<a
+  href={link}
+  class={`inline-flex items-center gap-2 px-6 py-3 text-lg font-semibold ${textColor} ${bgColor} ${hoverBgColor} rounded-lg shadow-lg hover:shadow-xl transition-all`}
+>
+  {title}
+  <slot name="icon" />
+</a>

@@ -88,3 +88,40 @@
 .dd *:first-child {
   margin-top: 0;
 }
+/* --- NOUVEAU STYLE DE L'ÉTAT ACTIF (aw-link-active-text) var(--aw-color-primary) --- */
+.aw-link-active {
+  background-color: transparent !important;
+}
+
+.aw-link-active-text {
+  position: relative !important;
+  display: inline-flex !important;
+  font-weight: bold !important;
+  background-color: transparent !important;
+  border-bottom: none !important;
+}
+.aw-link-active-text::after {
+  content: "";
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--aw-color-primary);
+  width: 70%;
+  margin: 0 auto;
+}
+
+.dark .aw-link-active {
+  background-color: transparent !important;
+}
+
+.dark .aw-link-active-text {
+  font-weight: bold !important;
+  background-color: transparent !important;
+  border-bottom: none !important;
+}
+
+.dark .aw-link-active-text::after {
+  background-color: var(--aw-color-primary);
+}

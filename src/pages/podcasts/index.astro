@@ -1,0 +1,78 @@
+---
+import Layout from "~/layouts/PageLayout.astro";
+import podcast_bg from "~/assets/images/podcast_bg.jpg";
+import Banner from "~/components/widgets/Banner.astro";
+import Podcastcard from "~/components/Podcasts/Podcastcard.astro";
+
+import { Image } from "astro:assets";
+
+
+import type { Podcast } from "~/types/podcasts";
+import { getPodcastPosts, extractAudioUrl } from "~/utils/api";
+
+const metadata = {
+  title: "Podcast - CitizenLab Sénégal",
+  description:
+    "Découvrez nos podcasts inspirants sur l'engagement citoyen et le changement social",
+};
+
+// Récupérer les données des podcasts
+const posts = await getPodcastPosts();
+
+
+const podcasts : Podcast[] = posts.map((post) => ({
+  id: post.id,
+  slug : post.slug,
+  title: post.title,
+  episode: post.categories?.nodes?.[0]?.name ?? "Episode inconnu",
+  date: new Date(post.date).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }),
+  category: post.categories?.nodes?.[0]?.name ?? "Podcast",
+  description: post.excerpt?.replace(/<[^>]+>/g, ""),
+  audioHtml: extractAudioUrl(post.content) ?? "", // contenu HTML complet avec <audio>
+  coverImage: post.featuredImage?.node?.mediaItemUrl ?? "",
+}));
+
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Section -->
+  <Banner
+    title={metadata.title}
+    subtitle="Découvrez nos podcasts et contenus audio"
+  >
+    <Image
+      src={podcast_bg}
+      alt="Podcasts"
+      class="w-full h-full object-cover absolute inset-0 border-0 z-0 scale-110 transition-transform duration-700"
+    />
+  </Banner>
+
+  <!-- Tous les épisodes -->
+  <section class="py-20 bg-gradient-to-b from-gray-50 via-white to-green-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-center justify-between mb-12">
+        <div>
+          <h2 class="text-4xl font-bold text-green-900 mb-2">
+            Tous les épisodes
+          </h2>
+          <p class="text-gray-600">Plongez dans l’univers de nos podcasts</p>
+        </div>
+      </div>
+      {
+        podcasts.length === 0 ? (
+          <p class="text-gray-600">Aucun podcast disponible pour le moment.</p>
+        ) : (
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {podcasts.map((podcast) => (
+              <Podcastcard podcast={podcast} />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+</Layout>

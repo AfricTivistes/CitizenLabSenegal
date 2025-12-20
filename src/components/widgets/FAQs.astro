@@ -1,6 +1,5 @@
 ---
 import Headline from '~/components/ui/Headline.astro';
-import ItemGrid from '~/components/ui/ItemGrid.astro';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
 import type { Faqs } from '~/types';
 
@@ -9,7 +8,7 @@ const {
   subtitle = '',
   tagline = '',
   items = [],
-  columns = 2,
+  columns = 1,
 
   id,
   isDark = false,
@@ -18,16 +17,113 @@ const {
 } = Astro.props as Faqs;
 ---
 
-<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-7xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-4xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
   <Headline title={title} subtitle={subtitle} tagline={tagline} />
-  <ItemGrid
-    items={items}
-    columns={columns}
-    defaultIcon="tabler:chevron-right"
-    classes={{
-      container: `${columns === 1 ? 'max-w-4xl' : ''} gap-y-8 md:gap-y-12`,
-      panel: 'max-w-none',
-      icon: 'flex-shrink-0 mt-1 w-6 h-6 text-primary',
-    }}
-  />
+  
+  <div class="space-y-4">
+    {items.map((item, index) => (
+      <div class="group">
+        <div 
+          class="faq-item bg-white dark:bg-slate-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 dark:border-slate-700 overflow-hidden"
+          data-faq-index={index}
+        >
+          <button 
+            class="faq-question w-full px-6 py-5 text-left flex items-center justify-between group-hover:bg-gray-50 dark:group-hover:bg-slate-700 transition-colors duration-200"
+            data-faq-toggle={index}
+            aria-expanded="false"
+            aria-controls={`faq-answer-${index}`}
+          >
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white pr-4 leading-tight">
+              {item.title}
+            </h3>
+            <div class="faq-icon flex-shrink-0 w-6 h-6 text-primary dark:text-primary-light transition-transform duration-300">
+              <svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </button>
+          
+          <div 
+            class="faq-answer overflow-hidden transition-all duration-300 ease-in-out"
+            id={`faq-answer-${index}`}
+            style="max-height: 0;"
+          >
+            <div class="px-6 pb-5 pt-0">
+              <div class="text-gray-600 dark:text-gray-300 leading-relaxed prose prose-sm max-w-none">
+                <p set:html={item.description}></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
 </WidgetWrapper>
+
+<script>
+  // FAQ Accordion Functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const faqItems = document.querySelectorAll('[data-faq-toggle]');
+    
+    faqItems.forEach(button => {
+      button.addEventListener('click', function() {
+        const index = this.getAttribute('data-faq-toggle');
+        const answer = document.getElementById(`faq-answer-${index}`);
+        const icon = this.querySelector('.faq-icon');
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        
+        // Close all other FAQ items
+        faqItems.forEach(otherButton => {
+          if (otherButton !== this) {
+            const otherIndex = otherButton.getAttribute('data-faq-toggle');
+            const otherAnswer = document.getElementById(`faq-answer-${otherIndex}`);
+            const otherIcon = otherButton.querySelector('.faq-icon');
+            
+            otherButton.setAttribute('aria-expanded', 'false');
+            otherAnswer.style.maxHeight = '0';
+            otherIcon.style.transform = 'rotate(0deg)';
+            otherButton.parentElement.parentElement.classList.remove('active');
+          }
+        });
+        
+        // Toggle current FAQ item
+        if (isExpanded) {
+          this.setAttribute('aria-expanded', 'false');
+          answer.style.maxHeight = '0';
+          icon.style.transform = 'rotate(0deg)';
+          this.parentElement.parentElement.classList.remove('active');
+        } else {
+          this.setAttribute('aria-expanded', 'true');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+          icon.style.transform = 'rotate(180deg)';
+          this.parentElement.parentElement.classList.add('active');
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .faq-item.active {
+    @apply ring-2 ring-primary shadow-lg;
+    --tw-ring-opacity: 0.2;
+  }
+  
+  .faq-question:hover .faq-icon {
+    @apply text-primary;
+    opacity: 0.8;
+  }
+  
+  .faq-answer {
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .faq-icon {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Smooth scrolling for better UX */
+  .faq-item {
+    scroll-margin-top: 2rem;
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+import type { Podcast } from "~/types/podcasts";
+import microphone from "~/assets/images/microphone.jpg"
+
+interface Props {
+  podcast: Podcast;
+}
+
+const { podcast } = Astro.props;
+
+const maxWords : number = 5; 
+const truncate = (text: string, numWords: number) => {
+  if (!text) return "";
+  const words = text.split(/\s+/); 
+  if (words.length <= numWords) return text;
+  return words.slice(0, numWords).join(" ") + "[...]";
+};
+---
+
+<article
+  class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 group"
+>
+  <div class="md:flex">
+    <!-- Image -->
+    <div class="relative md:w-48 h-48 md:h-auto overflow-hidden flex-shrink-0">
+      <img
+        src={podcast.coverImage || microphone.src}
+        alt={podcast.title}
+        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+      />
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+      >
+      </div>
+    </div>
+
+    <!-- Contenu -->
+    <div class="p-6 flex-1">
+      <div class="flex items-center gap-2 mb-3">
+        <span
+          class="px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full"
+        >
+          {podcast.category}
+        </span>
+        <span class="text-gray-400 text-sm">•</span>
+        <span class="text-gray-600 text-sm">{podcast.date}</span>
+      </div>
+      <a href={`/podcasts/${podcast.slug}`}>
+        <h3
+          class="text-2xl font-bold text-green-900 mb-2 group-hover:text-green-700 transition-colors"
+        >
+          {podcast.title}
+        </h3>
+      </a>
+
+      <p class="text-green-800 font-semibold text-sm mb-3">
+        {podcast.episode}
+      </p>
+
+      <p class="text-gray-600 mb-4 line-clamp-2">
+        {truncate(podcast.description, maxWords)}
+      </p>
+
+      <div set:html={podcast.audioHtml} />
+    </div>
+  </div>
+</article>

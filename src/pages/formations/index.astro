@@ -1,0 +1,103 @@
+---
+// Données des bootcamps et ateliers
+const bootcamps = [
+  {
+    id: 1,
+    title: "Bootcamp Civic Tech",
+    category: "Formation intensive",
+    duration: "5 jours",
+    level: "Débutant à Intermédiaire",
+    participants: "25 places",
+    date: "15-19 Janvier 2025",
+    image: "/src/assets/images/news1.jpg",
+    description: "Apprenez à créer des solutions numériques pour résoudre des problèmes citoyens. Formation pratique avec projets réels.",
+    highlights: [
+      "Développement d'applications citoyennes",
+      "Design thinking & idéation",
+      "Pitch et présentation de projet",
+      "Mentorat par des experts"
+    ],
+    status: "Inscriptions ouvertes",
+    price: "Gratuit"
+  },
+  {
+    id: 2,
+    title: "Atelier Data & Transparence",
+    category: "Atelier pratique",
+    duration: "2 jours",
+    level: "Intermédiaire",
+    participants: "15 places",
+    date: "8-9 Février 2025",
+    image: "/src/assets/images/news1.jpg",
+    description: "Maîtrisez la visualisation de données publiques et créez des dashboards interactifs pour plus de transparence.",
+    highlights: [
+      "Collecte et nettoyage de données",
+      "Création de visualisations",
+      "Outils open source",
+      "Projet de groupe"
+    ],
+    status: "Places limitées",
+    price: "5000 FCFA"
+  },
+  {
+    id: 3,
+    title: "Bootcamp Innovation Sociale",
+    category: "Formation intensive",
+    duration: "7 jours",
+    level: "Tous niveaux",
+    participants: "30 places",
+    date: "1-7 Mars 2025",
+    image: "/src/assets/images/news1.jpg",
+    description: "Transformez vos idées en projets d'impact social. Accompagnement complet de l'idée au prototype fonctionnel.",
+    highlights: [
+      "Méthodologie agile",
+      "Modèle économique viable",
+      "Prototypage rapide",
+      "Networking avec partenaires"
+    ],
+    status: "Bientôt disponible",
+    price: "Gratuit"
+  },
+  {
+    id: 4,
+    title: "Atelier Communication Digitale",
+    category: "Atelier pratique",
+    duration: "1 jour",
+    level: "Débutant",
+    participants: "20 places",
+    date: "22 Février 2025",
+    image: "/src/assets/images/news2.jpg",
+    description: "Apprenez à communiquer efficacement sur vos initiatives citoyennes via les réseaux sociaux et plateformes numériques.",
+    highlights: [
+      "Stratégie de contenu",
+      "Réseaux sociaux",
+      "Storytelling d'impact",
+      "Outils gratuits"
+    ],
+    status: "Inscriptions ouvertes",
+    price: "3000 FCFA"
+  }
+];
+
+// Fonction pour déterminer la couleur du badge selon le statut
+function getStatusColor(status: string) {
+  switch(status) {
+    case "Inscriptions ouvertes":
+      return "bg-green-100 text-green-800 border-green-300";
+    case "Places limitées":
+      return "bg-orange-100 text-orange-800 border-orange-300";
+    case "Bientôt disponible":
+      return "bg-blue-100 text-blue-800 border-blue-300";
+    default:
+      return "bg-gray-100 text-gray-800 border-gray-300";
+  }
+}
+---
+
+<section class="py-20 bg-gradient-to-b from-white to-green-50">
+  <div class="text-red-500">
+    xwucqbcqcniqniciqnci
+    
+
+  </div>
+</section>

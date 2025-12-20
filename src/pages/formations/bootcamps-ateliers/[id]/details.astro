@@ -1,0 +1,295 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import bootcamp1 from '~/assets/images/bootcamp1.jpg';
+import bootcamp2 from '~/assets/images/bootcamp2.jpg';
+
+// Données
+const bootcamps = [
+  {
+    id: 1,
+    title: "Bootcamp Civic Tech Intensif",
+    type: "Bootcamp",
+    category: "Formation intensive",
+    duration: "5 jours",
+    level: "Débutant à Intermédiaire",
+    participants: "25 places",
+    date: "15-19 Janvier 2025",
+    location: "Dakar, Impact Hub",
+    image: bootcamp1.src,
+    description: "Apprenez à créer des solutions numériques pour résoudre des problèmes citoyens. Formation pratique avec projets réels et mentorat personnalisé.",
+    highlights: [
+      "Développement d'applications citoyennes",
+      "Design thinking & idéation collaborative",
+      "Pitch et présentation de projet",
+      "Mentorat par des experts du secteur",
+      "Certification de participation"
+    ],
+    program: [
+      { day: "Jour 1", topic: "Introduction à la Civic Tech", description: "Comprendre les enjeux et opportunités" },
+      { day: "Jour 2-3", topic: "Idéation & Prototypage", description: "Créer votre solution citoyenne" },
+      { day: "Jour 4", topic: "Développement", description: "Construire un MVP fonctionnel" },
+      { day: "Jour 5", topic: "Pitch Final", description: "Présenter votre projet devant un jury" }
+    ],
+    status: "Inscriptions ouvertes",
+    price: "Gratuit",
+    spotsLeft: 12,
+    instructors: [
+      { name: "Moussa Sarr", role: "Expert Civic Tech", bio: "10 ans d'expérience en Civic Tech au Sénégal et en Afrique de l'Ouest." }
+    ],
+    requirements: [
+      "Ordinateur portable obligatoire",
+      "Motivation et engagement total",
+      "Aucune compétence technique requise"
+    ]
+  },
+  {
+    id: 2,
+    title: "Atelier Data & Transparence",
+    type: "Atelier",
+    category: "Atelier pratique",
+    duration: "2 jours",
+    level: "Intermédiaire",
+    participants: "15 places",
+    date: "8-9 Février 2025",
+    location: "Thiès, Sencampus",
+    image:bootcamp2.src,
+    description: "Maîtrisez la visualisation de données publiques et créez des dashboards interactifs pour plus de transparence.",
+    highlights: [
+      "Collecte et nettoyage de données",
+      "Création de visualisations impactantes",
+      "Outils open source (Python, Tableau)",
+      "Projet de groupe concret"
+    ],
+    program: [
+      { day: "Jour 1", topic: "Data Collection & Cleaning", description: "Techniques de traitement de données" },
+      { day: "Jour 2", topic: "Visualization & Storytelling", description: "Créer des dashboards percutants" }
+    ],
+    status: "Inscriptions ouvertes",
+    price: "Gratuit",
+    spotsLeft: 5,
+    instructors: [
+      { name: "Cheikh Ba", role: "Data Scientist", bio: "Spécialiste open data et transparence budgétaire." }
+    ],
+    requirements: [
+      "Notions de base en Excel/Google Sheets",
+      "Ordinateur portable",
+      "Intérêt pour l'open data"
+    ]
+  }
+];
+
+// Pages statiques
+export function getStaticPaths() {
+  return [
+    { params: { id: "1" } },
+    { params: { id: "2" } }
+  ];
+}
+
+const { id } = Astro.params;
+// const bootcamp = bootcamps[id];
+const bootcamp = bootcamps[0];
+
+// if (!bootcamp) {
+//   return Astro.redirect('/formations/bootcamps-ateliers');
+// }
+
+function getStatusColor(status : any) {
+  switch (status) {
+    case "Inscriptions ouvertes":
+      return "bg-green-100 text-green-800 border-green-300";
+    case "Places limitées":
+      return "bg-orange-100 text-orange-800 border-orange-300";
+    case "Complet":
+      return "bg-red-100 text-red-800 border-red-300";
+    default:
+      return "bg-gray-100 text-gray-800 border-gray-300";
+  }
+}
+---
+
+
+<Layout metadata={{
+  title: `${bootcamp.title} - CitizenLab Sénégal`,
+  description: bootcamp.description
+}}>
+
+  <!-- Hero -->
+  <section class="relative h-96 md:h-screen max-h-screen overflow-hidden">
+    <img 
+      src={bootcamp.image} 
+      alt={bootcamp.title}
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+
+    <div class="absolute bottom-0 left-0 right-0 p-8 md:p-16 text-white">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex flex-wrap gap-3 mb-6">
+          <span class={`px-4 py-2 rounded-full text-sm font-bold border backdrop-blur-md ${getStatusColor(bootcamp.status)}`}>
+            {bootcamp.status}
+          </span>
+          {bootcamp.spotsLeft <= 10 && (
+            <span class="px-4 py-2 bg-red-600/90 backdrop-blur-md rounded-full text-sm font-bold">
+              ⚡ {bootcamp.spotsLeft} places restantes
+            </span>
+          )}
+          <span class="px-5 py-2 bg-green-700/90 backdrop-blur-md rounded-full text-lg font-bold">
+            {bootcamp.price}
+          </span>
+        </div>
+
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+          {bootcamp.title}
+        </h1>
+        <p class="text-xl md:text-2xl text-white/90 max-w-3xl">
+          {bootcamp.description}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenu principal -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+
+      <!-- Colonne principale -->
+      <div class="md:col-span-2 space-y-12">
+
+        <!-- Programme détaillé -->
+        <div>
+          <h2 class="text-3xl font-bold text-green-900 mb-8">Programme détaillé</h2>
+          <div class="space-y-6">
+            {bootcamp.program.map((day : any) => (
+              <div class="bg-white rounded-xl p-6 shadow-md">
+                <div class="flex items-center gap-4 mb-2">
+                  <div class="w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center font-bold">
+                    {day.day.split(' ')[1] || day.day[0]}
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-900">{day.day} – {day.topic}</h3>
+                </div>
+                <p class="text-gray-600 ml-16">{day.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Points forts -->
+        <div>
+          <h2 class="text-3xl font-bold text-green-900 mb-8">Ce que vous allez apprendre</h2>
+          <ul class="grid gap-4">
+            {bootcamp.highlights.map((highlight : any) => (
+              <li class="flex items-start gap-4 bg-white rounded-lg p-4 shadow">
+                <svg class="w-8 h-8 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700">{highlight}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Formateurs -->
+        {bootcamp.instructors && bootcamp.instructors.length > 0 && (
+          <div>
+            <h2 class="text-3xl font-bold text-green-900 mb-8">Vos formateurs</h2>
+            <div class="grid gap-8 md:grid-cols-2">
+              {bootcamp.instructors.map((instructor : any) => (
+                <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+                  <div class="w-24 h-24 mx-auto mb-4 bg-gray-200 rounded-full border-4 border-green-100 flex items-center justify-center">
+                    <svg class="w-12 h-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    </svg>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-900">{instructor.name}</h3>
+                  <p class="text-green-700 font-medium mb-2">{instructor.role}</p>
+                  {instructor.bio && <p class="text-gray-600 text-sm">{instructor.bio}</p>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <!-- Sidebar infos pratiques + CTA -->
+      <div class="space-y-8">
+        <div class="bg-white rounded-2xl p-8 shadow-xl sticky top-8">
+          <h3 class="text-2xl font-bold text-green-900 mb-6">Informations pratiques</h3>
+          <dl class="space-y-6">
+            <div class="flex items-start gap-4">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <div>
+                <dt class="font-semibold text-gray-900">Dates</dt>
+                <dd class="text-gray-600">{bootcamp.date}</dd>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <div>
+                <dt class="font-semibold text-gray-900">Durée</dt>
+                <dd class="text-gray-600">{bootcamp.duration}</dd>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <div>
+                <dt class="font-semibold text-gray-900">Lieu</dt>
+                <dd class="text-gray-600">{bootcamp.location}</dd>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+              <div>
+                <dt class="font-semibold text-gray-900">Niveau</dt>
+                <dd class="text-gray-600">{bootcamp.level}</dd>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+              <div>
+                <dt class="font-semibold text-gray-900">Places</dt>
+                <dd class="text-gray-600">{bootcamp.participants}</dd>
+              </div>
+            </div>
+          </dl>
+
+          <!-- Prérequis -->
+          <div class="mt-8 pt-8 border-t">
+            <h4 class="font-bold text-gray-900 mb-4">Prérequis</h4>
+            <ul class="space-y-2">
+              {bootcamp.requirements.map((req : any) => (
+                <li class="flex items-start gap-2 text-gray-600">
+                  <span class="text-green-600">•</span>
+                  {req}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- CTA Inscription -->
+          <a 
+            href={`/formations/bootcamps-ateliers/${bootcamp.id}/inscription`}
+            class="block mt-10 text-center px-8 py-3 bg-green-700 hover:bg-green-800 text-white text-base font-bold rounded-xl shadow-lg hover:shadow-xl transition-all"
+          >
+            S'inscrire maintenant
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>

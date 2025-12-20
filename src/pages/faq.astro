@@ -1,0 +1,274 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { Image } from 'astro:assets';
+import baniereImage from '../assets/images/baniere.png';
+
+const metadata = {
+  title: "Questions Fréquentes - AfricTivistes CitizenLab Sénégal",
+  description: "Vous trouverez ici les réponses aux questions les plus posées sur CitizenLab Sénégal, nos formations et nos activités.",
+  ignoreTitleTemplate: true,
+};
+
+// Questions par catégorie
+const questionsGenerales = [
+  {
+    question: "Qu'est-ce que CitizenLab Sénégal ?",
+    reponse: "AfricTivistes CitizenLab Sénégal est une fabrique citoyenne qui a pour objectif d'appuyer, d'accompagner et d'outiller les acteurs de la société civile du Sénégal par la formation, le développement d'outils innovants et la promotion de la participation citoyenne."
+  },
+  {
+    question: "Quels sont les objectifs du projet ?",
+    reponse: "Le projet vise à promouvoir la participation citoyenne et l'engagement civique des jeunes, essentiels pour une démocratie robuste. Nous visons à former plus de 150 jeunes, produire plus de 130 contenus de qualité, et sensibiliser plus de 10 millions de personnes aux enjeux de la participation citoyenne au Sénégal."
+  },
+  {
+    question: "Qui peut rejoindre la communauté ?",
+    reponse: "Le projet s'adresse principalement aux jeunes sénégalais âgés de 18 à 35 ans, aux organisations de la société civile, aux activistes, aux journalistes citoyens et à toute personne souhaitant s'engager pour la démocratie participative au Sénégal."
+  }
+];
+
+const questionsFormations = [
+  {
+    question: "Comment s'inscrire à une formation en ligne ?",
+    reponse: "Pour vous inscrire à nos formations en ligne, rendez-vous sur la section Formations de notre site web. Sélectionnez la formation qui vous intéresse et remplissez le formulaire d'inscription. Vous recevrez ensuite un email de confirmation avec les détails de connexion."
+  },
+  {
+    question: "Les formations sont-elles gratuites ?",
+    reponse: "Oui, toutes nos formations sont gratuites grâce au financement de l'Union Européenne à travers son programme International Partnerships et au soutien de la Youth Democracy Cohort."
+  },
+  {
+    question: "Puis-je obtenir une attestation ?",
+    reponse: "Oui, une attestation de participation est délivrée à tous les participants ayant suivi au moins 80% des sessions de formation. Cette attestation est reconnue par nos partenaires et peut être valorisée dans votre parcours professionnel."
+  }
+];
+
+const questionsProjets = [
+  {
+    question: "Quelles sont les prochaines activités ?",
+    reponse: "Nos prochaines activités incluent des ateliers de formation sur les outils de plaidoyer digital, des webinaires sur la participation citoyenne, et des campagnes de sensibilisation sur les réseaux sociaux. Consultez notre calendrier sur la page Actualités pour plus de détails."
+  },
+  {
+    question: "Comment devenir ambassadeur CitizenLab ?",
+    reponse: "Pour devenir ambassadeur CitizenLab, vous devez avoir suivi au moins une de nos formations, être actif dans votre communauté et partager nos valeurs. Envoyez-nous votre candidature via le formulaire de contact en précisant votre motivation et vos compétences."
+  },
+  {
+    question: "Où trouver les rapports publiés ?",
+    reponse: "Tous nos rapports publics sont disponibles dans la section Ressources de notre site web. Vous y trouverez nos rapports d'activités, nos études et nos publications sur la participation citoyenne au Sénégal."
+  }
+];
+
+const questionsPartenariats = [
+  {
+    question: "Comment devenir partenaire ?",
+    reponse: "Pour devenir partenaire de CitizenLab Sénégal, envoyez-nous une proposition de partenariat détaillant votre organisation, vos objectifs et les synergies possibles avec notre projet. Nous étudierons votre proposition et vous contacterons pour discuter des modalités de collaboration."
+  },
+  {
+    question: "Quels types de partenariats proposez-vous ?",
+    reponse: "Nous proposons plusieurs types de partenariats : partenariats techniques (échange d'expertise), partenariats financiers (soutien à nos activités), partenariats médiatiques (diffusion de nos contenus) et partenariats académiques (recherche et formation)."
+  },
+  {
+    question: "Comment contacter l'équipe de coordination ?",
+    reponse: "Vous pouvez contacter notre équipe de coordination par email à contact@citizenlab-senegal.org, par téléphone au +221 XX XXX XX XX ou via le formulaire de contact ci-dessous. Nous vous répondrons dans les plus brefs délais."
+  }
+];
+---
+
+<Layout metadata={metadata}>
+  <!-- Bannière FAQ avec image de fond -->
+  <div class="relative">
+    <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60 z-10"></div>
+    <div class="absolute inset-0">
+      <Image 
+        src={baniereImage}
+        alt="CitizenLab Sénégal FAQ" 
+        width={1920} 
+        height={800} 
+        class="w-full h-full object-cover"
+      />
+    </div>
+    <div class="relative z-20 py-32 md:py-40 lg:py-48 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center text-white">
+      <div class="text-center">
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-4">Questions Fréquentes</h1>
+        <div class="h-1 w-[500px] max-w-full bg-white mx-auto mb-8"></div>
+      </div>
+      <p class="text-xl md:text-2xl lg:text-3xl max-w-4xl mx-auto">
+        Vous trouverez ici les réponses aux questions les plus posées sur CitizenLab Sénégal, nos formations et nos activités.
+      </p>
+    </div>
+  </div>
+
+  <!-- Section FAQ -->
+  <div class="bg-white py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <!-- Titre FAQ -->
+    <h2 class="text-5xl font-bold text-center mb-10 text-gray-900">FAQ</h2>
+    
+
+    <!-- Grille de catégories FAQ -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <!-- Catégorie Général -->
+      <div>
+        <div class="bg-green-600 py-4 px-6 text-center">
+          <h3 class="text-2xl font-bold text-white">Général</h3>
+        </div>
+        <div class="bg-gray-100">
+          {questionsGenerales.map((item, index) => (
+            <div class="faq-item" data-category="general" data-index={index}>
+              <div class="faq-question border-b border-gray-200 py-4 px-6 hover:bg-gray-50">
+                <h4 class="text-lg font-semibold text-gray-900 flex items-center">
+                  <span class="faq-arrow text-green-600 mr-3 text-2xl">➔</span> 
+                  {item.question}
+                </h4>
+                <div class="faq-answer bg-white mt-3 pl-8 pr-2">
+                  <p class="text-gray-600">{item.reponse}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Catégorie Formations -->
+      <div>
+        <div class="bg-red-600 py-4 px-6 text-center">
+          <h3 class="text-2xl font-bold text-white">Formations</h3>
+        </div>
+        <div class="bg-gray-100">
+          {questionsFormations.map((item, index) => (
+            <div class="faq-item" data-category="formations" data-index={index}>
+              <div class="faq-question border-b border-gray-200 py-4 px-6 hover:bg-gray-50">
+                <h4 class="text-lg font-semibold text-gray-900 flex items-center">
+                  <span class="faq-arrow text-red-600 mr-3 text-2xl">➔</span> 
+                  {item.question}
+                </h4>
+                <div class="faq-answer bg-white mt-3 pl-8 pr-2">
+                  <p class="text-gray-600">{item.reponse}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Catégorie Projets & Activités -->
+      <div>
+        <div class="bg-yellow-500 py-4 px-6 text-center">
+          <h3 class="text-2xl font-bold text-white">Projets & Activités</h3>
+        </div>
+        <div class="bg-gray-100">
+          {questionsProjets.map((item, index) => (
+            <div class="faq-item" data-category="projets" data-index={index}>
+              <div class="faq-question border-b border-gray-200 py-4 px-6 hover:bg-gray-50">
+                <h4 class="text-lg font-semibold text-gray-900 flex items-center">
+                  <span class="faq-arrow text-yellow-500 mr-3 text-2xl">➔</span> 
+                  {item.question}
+                </h4>
+                <div class="faq-answer bg-white mt-3 pl-8 pr-2">
+                  <p class="text-gray-600">{item.reponse}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Catégorie Partenariats -->
+      <div>
+        <div class="bg-black py-4 px-6 text-center">
+          <h3 class="text-2xl font-bold text-white">Partenariats</h3>
+        </div>
+        <div class="bg-gray-100">
+          {questionsPartenariats.map((item, index) => (
+            <div class="faq-item" data-category="partenariats" data-index={index}>
+              <div class="faq-question border-b border-gray-200 py-4 px-6 hover:bg-gray-50">
+                <h4 class="text-lg font-semibold text-gray-900 flex items-center">
+                  <span class="faq-arrow text-black mr-3 text-2xl">➔</span> 
+                  {item.question}
+                </h4>
+                <div class="faq-answer bg-white mt-3 pl-8 pr-2">
+                  <p class="text-gray-600">{item.reponse}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialiser toutes les réponses comme cachées
+    const faqAnswers = document.querySelectorAll('.faq-answer');
+    faqAnswers.forEach(answer => {
+      answer.style.display = 'none';
+    });
+    
+    // Gestion du survol pour afficher/masquer les réponses
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+      // Afficher la réponse au survol
+      question.addEventListener('mouseenter', function() {
+        const answer = this.querySelector('.faq-answer');
+        answer.style.display = 'block';
+        
+        // Rotation de la flèche
+        const arrow = this.querySelector('.faq-arrow');
+        arrow.style.transform = 'rotate(90deg)';
+      });
+      
+      // Masquer la réponse quand la souris quitte
+      question.addEventListener('mouseleave', function() {
+        const answer = this.querySelector('.faq-answer');
+        answer.style.display = 'none';
+        
+        // Rotation de la flèche
+        const arrow = this.querySelector('.faq-arrow');
+        arrow.style.transform = 'rotate(0deg)';
+      });
+      
+      // Pour les appareils mobiles (tactiles), ajouter un événement de clic
+      question.addEventListener('click', function() {
+        // Vérifier si nous sommes sur un appareil tactile
+        if (window.matchMedia('(max-width: 768px)').matches) {
+          const answer = this.querySelector('.faq-answer');
+          const arrow = this.querySelector('.faq-arrow');
+          
+          if (answer.style.display === 'none') {
+            answer.style.display = 'block';
+            arrow.style.transform = 'rotate(90deg)';
+          } else {
+            answer.style.display = 'none';
+            arrow.style.transform = 'rotate(0deg)';
+          }
+        }
+      });
+    });
+    
+  });
+</script>
+
+<style>
+  .faq-arrow {
+    transition: transform 0.3s ease;
+  }
+  
+  .faq-answer {
+    transition: opacity 0.3s ease;
+  }
+  
+  .faq-item {
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+  
+  /* Styles pour les appareils mobiles */
+  @media (max-width: 768px) {
+    .faq-question {
+      cursor: pointer;
+    }
+  }
+</style>
