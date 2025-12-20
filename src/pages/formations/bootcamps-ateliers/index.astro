@@ -7,8 +7,8 @@ import bootcamp1 from '~/assets/images/bootcamp1.jpg';
 import bootcamp2 from '~/assets/images/bootcamp2.jpg';
 
 const metadata = {
-    title: 'Bootcamps & Ateliers - CitizenLab Sénégal',
-    description: 'Développez vos compétences en Civic Tech, innovation sociale et engagement citoyen'
+    title: "Bootcamps & Ateliers - CitizenLab Sénégal",
+    description: "Développez vos compétences en Civic Tech, innovation sociale et engagement citoyen"
 };
 
 // Bootcamps à venir
@@ -157,14 +157,14 @@ function getThemeColor(color: string) {
 <Layout metadata={metadata}>
 
   <!-- Banner Section -->
-  <Banner 
-      title={metadata.title}
-      subtitle={metadata.description}
+<Banner
+    title={metadata.title}
+    subtitle={metadata.description}
   >
-    <Image 
-      src={bootcamp_hero} 
-      alt="Bootcamps et Ateliers CitizenLab Sénégal" 
-      class="w-full h-full object-cover"
+    <Image
+      src={bootcamp_hero}
+      alt="Bootcamps et Ateliers CitizenLab Sénégal"
+      class="w-full h-full object-cover absolute inset-0 border-0 z-0 scale-110 transition-transform duration-700"
     />
   </Banner>
 
