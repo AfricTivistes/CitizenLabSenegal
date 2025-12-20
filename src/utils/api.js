@@ -719,3 +719,42 @@ export function extractAudioUrl(postContent) {
 
   return "";
 }
+export async function getAllActualites() {
+  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: `
+        query GetAllActualites {
+          posts(
+            where: { categoryName: "Actualites" }
+            first: 100
+          ) {
+            nodes {
+              title
+              excerpt
+              slug
+              uri
+              date
+              categories {
+                nodes {
+                  name
+                  slug
+                }
+              }
+              featuredImage {
+                node {
+                  mediaItemUrl
+                  altText
+                }
+              }
+            }
+          }
+        }
+      `
+    })
+  });
+  const { data } = await response.json();
+  return data?.posts?.nodes ?? [];
+}

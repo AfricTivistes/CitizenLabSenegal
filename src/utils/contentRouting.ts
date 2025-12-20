@@ -10,7 +10,7 @@ export function getContentUrl({ slug, type }: RoutableContent): string {
     case "podcast":
       return `/podcasts/${slug}`;
     case "actualite":
-      return `/actualites/${slug}`;
+      return `/news/${slug}`;
     case "video":
       return `/videos/${slug}`;
     default:
