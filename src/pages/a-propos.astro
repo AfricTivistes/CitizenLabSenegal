@@ -5,9 +5,8 @@ import MissionsSection from "~/components/widgets/apropos/Missions.astro";
 import ValuesSection from "~/components/widgets/apropos/Values.astro";
 import AxesSection from "~/components/widgets/apropos/Axes.astro";
 import CallToAction from "~/components/widgets/apropos/CallToAction.astro";
-import Banner from "~/components/widgets/Banner.astro";
 import { Image } from "astro:assets";
-import AboutUs from "~/assets/images/about-us.jpeg";
+import AboutUs from "~/assets/images/Apropos.jpg";
 
 const metadata = {
   title: "A propos",
@@ -17,17 +16,30 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <!-- Banner -->
-  <Banner
-    title="À Propos de Nous"
-    subtitle="Découvrez notre mission, notre équipe et nos valeurs."
-  >
-    <Image
-      src={AboutUs}
-      alt="À Propos de Nous"
-      class="w-full h-full object-cover absolute inset-0 border-0 z-0 scale-110 transition-transform duration-700"
-    />
-  </Banner>
+  <!-- Hero Banner -->
+  <section class="relative isolate overflow-hidden min-h-[1000px] md:min-h-[1100px] lg:min-h-[1200px]">
+    <div class="absolute inset-0">
+      <Image
+        src={AboutUs}
+        alt="À Propos de Nous"
+        class="h-full w-full object-cover"
+        width={1920}
+        height={960}
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black/20 via-black/10 to-black/30"></div>
+    <div class="relative z-10 mx-auto flex max-w-6xl flex-col gap-6 px-4 py-32 text-white sm:px-6 lg:px-8">
+      <p class="text-sm uppercase tracking-[0.3em] text-primary-light">À propos</p>
+      <h1 class="text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
+        Renforcer la Participation Citoyenne au Sénégal
+      </h1>
+      <p class="max-w-3xl text-lg text-slate-100 sm:text-xl mt-4">
+        Découvrez notre mission, notre équipe et nos valeurs pour une démocratie participative plus inclusive.
+      </p>
+    </div>
+  </section>
 
   <!-- Qui sommes-nous - Section -->
   <AboutUsSection />

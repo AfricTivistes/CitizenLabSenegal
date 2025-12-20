@@ -3,7 +3,7 @@ import Layout from "~/layouts/PageLayout.astro";
 import { getAllMembers } from "~/utils/api";
 import Membres from "~/components/blog/Membres.astro";
 import { Image } from "astro:assets";
-import teamBanner from "~/assets/images/equipe.png";
+import teamBanner from "~/assets/images/Equipe.jpeg";
 
 const metadata = {
   title: 'Equipe - AfricTivistes CitizenLab Sénégal',
@@ -15,7 +15,7 @@ const members = await getAllMembers();
 
 <Layout metadata={metadata}>
   <!-- Hero Banner -->
-  <section class="relative isolate overflow-hidden">
+  <section class="relative isolate overflow-hidden min-h-[800px] md:min-h-[900px] lg:min-h-[1000px]">
     <div class="absolute inset-0">
       <Image
         src={teamBanner}
